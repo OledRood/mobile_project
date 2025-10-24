@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_study/core/navigation/app_routes.dart';
+import 'package:mobile_study/core/navigation/navigation_params.dart';
 import 'package:mobile_study/core/navigation/navigator_di.dart';
 
 /// Основной класс для управления навигацией в приложении
@@ -43,15 +44,43 @@ class AppNavigation {
   }
 
   void signUpFinal() {
-    _router.push(AppRoutes.signUpFinal.path);
+    _router.go(AppRoutes.signUpFinal.path);
   }
 
   void signIn() {
     _router.push(AppRoutes.signIn.path);
   }
 
+  void goSignIn() {
+    _router.go(AppRoutes.signIn.path);
+  }
+
   void registration() {
     _router.go(AppRoutes.registration.path);
+  }
+
+  void createNewPassword(CreateNewPasswordParams params) {
+    _router.push(AppRoutes.createNewPassword.path, extra: params);
+  }
+
+  void goCreateNewPassword(CreateNewPasswordParams params) {
+    _router.push(AppRoutes.createNewPassword.path, extra: params);
+  }
+
+  void profile() {
+    _router.push(AppRoutes.profile.path);
+  }
+
+  void searchResults() {
+    _router.pushReplacement(AppRoutes.searchResults.path);
+  }
+
+  void loader() {
+    _router.push(AppRoutes.loader.path);
+  }
+
+  void history() {
+    _router.push(AppRoutes.history.path);
   }
 
   void goBack() {

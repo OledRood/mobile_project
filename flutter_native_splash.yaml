@@ -1,0 +1,19 @@
+flutter_native_splash:
+  # Используем ваше изображение для splash screen
+  # image: assets/images/splashImage.jpg
+  # Цвет фона (можете изменить на нужный)
+  color: "#FFFFFF"
+  
+  # Настройки для Android
+  android: true
+  
+  # Настройки для iOS
+  ios: true
+  
+  # Fullscreen mode
+  fullscreen: true
+  
+  # Настройки для Android 12+
+  android_12:
+    image: assets/images/splashImage.jpg
+    color: "#FFFFFF"

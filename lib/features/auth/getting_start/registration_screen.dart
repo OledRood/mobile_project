@@ -30,7 +30,7 @@ class RegistrationScreen extends ConsumerWidget {
                       SizedBox(height: 8),
                       Text(
                         "Поможем найти вою следующую поездку",
-                        style: Theme.of(context).textTheme.displayMedium,
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
                       Spacer(flex: 2),
                       Align(
@@ -59,7 +59,6 @@ class RegistrationScreen extends ConsumerWidget {
                         ),
                       ),
                       Spacer(flex: 2),
-
                     ],
                   ),
                 ),

@@ -86,6 +86,22 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
+  // Сброс пароля
+  Future<bool> resetPassword({
+    required String email,
+    required String newPassword,
+  }) async {
+    try {
+      return await _authRepository.resetPassword(
+        email: email,
+        newPassword: newPassword,
+      );
+    } catch (e) {
+      debugPrint('Error in resetPassword: $e');
+      return false;
+    }
+  }
+
   // Обновление данных пользователя
   Future<void> updateUser() async {
     state.maybeWhen(

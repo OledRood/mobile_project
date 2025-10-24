@@ -46,6 +46,7 @@ class SignInViewModel extends StateNotifier<SignInState> {
       state = state.copyWith(isLoading: true);
       //Api проверка
       await Future.delayed(const Duration(seconds: 2));
+      //Если ошибка вывести сообщение и в passwordError
       appNavigation.home();
       state = state.copyWith(isLoading: false);
     }
@@ -101,9 +102,9 @@ class SignInViewModel extends StateNotifier<SignInState> {
   }
 
   void checkPassword() {
-    final errorMessage = Validators.validatePassword(passwordController.text);
-    debugPrint("Password error: $errorMessage");
-    state = state.copyWith(passwordError: errorMessage);
+    // final errorMessage = Validators.validatePassword(passwordController.text);
+    // debugPrint("Password error: $errorMessage");
+    // state = state.copyWith(passwordError: errorMessage);
   }
 
   dispose() {

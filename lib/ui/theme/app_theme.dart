@@ -2,163 +2,204 @@ import 'package:flutter/material.dart';
 import 'package:mobile_study/ui/theme/models/app_colors.dart';
 
 class AppTheme {
-  static const Color accentColor = Color(0xFFFFC107);
-  static const Color surfaceColor = Colors.white;
-  static const Color errorColor = Color(0xFFE53E3E);
+  static final _lightColorScheme = ColorScheme.light(
+    primary: AppColorsLight.primary,
+    onPrimary: AppColorsLight.onPrimary,
+    surfaceContainer: AppColorsLight.surfaceContainer,
+    onSecondary: AppColorsLight.onSecondary,
+    surface: AppColorsLight.surface,
+    onSurface: AppColorsLight.onSurface,
+    onSurfaceVariant: AppColorsLight.onSurfaceVariant,
+    primaryContainer: AppColorsLight.primaryContainer,
+    outline: AppColorsLight.outline,
+    outlineVariant: AppColorsLight.outlineVariant,
+    error: AppColorsLight.error,
+  );
 
-  //MARK: - Light Theme
-  static ThemeData get lightTheme {
+  static final _darkColorScheme = ColorScheme.dark(
+    surfaceContainer: AppColorsDark.surfaceContainer,
+  );
+  static ThemeData _createTheme(ColorScheme colorScheme) {
+    final isLight = colorScheme.brightness == Brightness.light;
+
     return ThemeData(
       fontFamily: 'Montserrat',
-      primarySwatch: Colors.blue,
-      primaryColor: AppColors.primaryLight,
-      scaffoldBackgroundColor: AppColors.backgroundLight,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: colorScheme.surface,
 
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.backgroundLight,
-        foregroundColor: AppColors.largeText,
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorScheme.surface,
+        foregroundColor: colorScheme.onSurface,
         elevation: 0,
         centerTitle: true,
       ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: colorScheme.surface,
+        selectedItemColor: colorScheme.primary,
+        unselectedItemColor: colorScheme.onSurface,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryLight,
-          foregroundColor: Colors.white,
+          backgroundColor: colorScheme
+              .primary, // ElevatedButton использует FilledButtonTheme в новых версиях
+          foregroundColor: AppColorsLight.onPrimary,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
       ),
 
       inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: colorScheme.outlineVariant,
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+        ),
         border: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.stroke),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: colorScheme.outline, width: 1),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: colorScheme.outline, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: colorScheme.primary, width: 1),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: colorScheme.error, width: 1),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: colorScheme.error, width: 1),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 12,
         ),
       ),
       checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith<Color?>((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return colorScheme.outlineVariant; // disabled
+          }
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.primary; // checked
+          }
+          if (states.contains(WidgetState.hovered)) {
+            return colorScheme.surface; // hover
+          }
+          return colorScheme.surface; // enabled but not checked — "waiting"
+        }),
+
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: AppColors.stroke, width: 1),
+          side: BorderSide(color: colorScheme.outline, width: 1),
         ),
-        side: const BorderSide(color: AppColors.stroke, width: 1),
+
+        side: BorderSide(color: colorScheme.outline, width: 1),
       ),
       textTheme: TextTheme(
         // Splash,
         displayLarge: TextStyle(
-          color: AppColors.onSurfaceLight,
+          color: colorScheme.onSurface,
           fontWeight: FontWeight.w600,
-          // fontFamily: 'Montserrat',
           fontSize: 24,
         ),
-        displayMedium: TextStyle(
-          color: AppColors.onSurfaceLight,
-          fontWeight: FontWeight.w400,
-          fontSize: 14,
-        ),
+
         displaySmall: TextStyle(
-          color: AppColors.onSurfaceLight,
+          color: colorScheme.onSurface,
           fontWeight: FontWeight.w400,
           fontSize: 14,
         ),
         bodyLarge: TextStyle(
-          color: AppColors.largeText,
-          fontWeight: FontWeight.w400,
-          fontSize: 14,
-        ),
-        //TextField
-        bodySmall: TextStyle(
-          color: AppColors.textFieldText,
+          color: colorScheme.onSurface,
           fontWeight: FontWeight.w400,
           fontSize: 14,
         ),
         // Над textfield
         bodyMedium: TextStyle(
-          color: AppColors.textOnTextField,
+          color: colorScheme.onSurface,
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
 
         headlineLarge: TextStyle(
-          color: AppColors.largeText,
+          color: colorScheme.onSurface,
           fontWeight: FontWeight.w600,
           fontSize: 24,
         ),
         headlineMedium: TextStyle(
-          color: AppColors.grey,
+          color: isLight
+              ? AppColors.grey
+              : colorScheme.onSurface.withOpacity(0.7),
           fontWeight: FontWeight.w400,
           fontSize: 14,
         ),
 
         titleLarge: TextStyle(
-          color: AppColors.colorForFinalSignUp,
+          color: colorScheme.onSurface,
           fontWeight: FontWeight.w600,
           fontSize: 20,
         ),
         titleSmall: TextStyle(
-          color: AppColors.largeText,
+          color: colorScheme.onSurface,
           fontWeight: FontWeight.w500,
           fontSize: 12,
         ),
 
         labelLarge: TextStyle(
-          color: AppColors.white,
+          color: colorScheme.onPrimary,
           fontWeight: FontWeight.w500,
           fontSize: 14,
-          height: 22 / 14,
           // line-height 22px для fontSize 14px
           letterSpacing: 0,
         ),
         labelMedium: TextStyle(
+          color: colorScheme.primary,
           fontWeight: FontWeight.w600,
           fontSize: 14,
-          color: AppColors.primaryLight,
         ),
         labelSmall: TextStyle(
-          color: AppColors.textFieldError,
+          color: colorScheme.error,
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
+        headlineSmall: TextStyle(
+          color: colorScheme.onSurface,
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+        titleMedium: TextStyle(
+          color: colorScheme.onSurface,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+        displayMedium: TextStyle(),
       ),
 
       // MARK: - Widgets Themes
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           foregroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
-            if (states.contains(WidgetState.disabled)) {
-              return AppColors.outlineButtonForegroundDisabled;
-            }
             if (states.contains(WidgetState.pressed)) {
-              return AppColors.outlineButtonForegroundClick;
+              return colorScheme.onInverseSurface;
             }
-            return AppColors.outlineButtonForegroundDefault;
+            return colorScheme.onSurface;
           }),
 
           side: WidgetStateProperty.resolveWith<BorderSide?>((states) {
-            if (states.contains(WidgetState.disabled)) {
-              return const BorderSide(
-                color: AppColors.outlineButtonSideDisabled,
-                width: 1,
-              );
-            }
             if (states.contains(WidgetState.pressed)) {
-              return BorderSide(
-                color: AppColors.outlineButtonSideClick,
-                width: 1,
-              );
+              return BorderSide(color: colorScheme.primary, width: 1);
             }
-            return BorderSide(
-              color: AppColors.outlineButtonSideDefault,
-              width: 1,
-            );
+            return BorderSide(color: colorScheme.onSurface, width: 1);
           }),
           backgroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
             if (states.contains(WidgetState.pressed)) {
-              return AppColors.outlineButtonBackgroundClick;
+              return colorScheme.primary;
             }
-
-            if (states.contains(WidgetState.disabled)) {
-              return AppColors.outlineButtonBackgroundDisabled;
-            }
-            return AppColors.outlineButtonBackgroundDefault;
+            return colorScheme.surface;
           }),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -173,30 +214,28 @@ class AppTheme {
         style: ButtonStyle(
           foregroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
             if (states.contains(WidgetState.disabled)) {
-              return AppColors.filledButtonForegroundDisabled;
+              return colorScheme.onSurfaceVariant;
             }
             if (states.contains(WidgetState.pressed)) {
-              return AppColors.filledButtonForegroundClick;
+              return colorScheme.surface;
             }
-            return AppColors.filledButtonForegroundDefault;
+            return Colors.white;
           }),
 
           backgroundColor: WidgetStateProperty.resolveWith<Color?>((states) {
             if (states.contains(WidgetState.pressed)) {
-              return AppColors.filledButtonBackgroundClick;
+              return colorScheme.onSurface;
             }
 
             if (states.contains(WidgetState.disabled)) {
-              return AppColors.filledButtonBackgroundDisabled;
+              return colorScheme.onSurfaceVariant.withAlpha(30);
             }
-            return AppColors.filledButtonBackgroundDefault;
+            return colorScheme.primary;
           }),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
-          overlayColor: WidgetStatePropertyAll(
-            AppColors.filledButtonBackgroundOverlay,
-          ),
+          overlayColor: WidgetStatePropertyAll(colorScheme.onSurface),
           padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
             const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
           ),
@@ -210,20 +249,32 @@ class AppTheme {
           backgroundColor: WidgetStatePropertyAll(Colors.transparent),
           foregroundColor: WidgetStateProperty.resolveWith<Color?>((state) {
             if (state.contains(WidgetState.pressed)) {
-              return AppColors.textButtonForegroundClick;
+              return colorScheme.onSurface;
             }
             if (state.contains(WidgetState.disabled)) {
-              return AppColors.textButtonForegroundDisabled;
+              return colorScheme.onSurfaceVariant;
             }
-            return AppColors.textButtonForegroundDefault;
+            return colorScheme.primary;
           }),
-          overlayColor: WidgetStatePropertyAll(AppColors.textButtonOverlay),
+          overlayColor: WidgetStatePropertyAll(colorScheme.primary),
+        ),
+      ),
+
+      listTileTheme: ListTileThemeData(
+        titleTextStyle: TextStyle(
+          color: colorScheme.onSurface,
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+        ),
+        subtitleTextStyle: TextStyle(
+          color: colorScheme.onSurface,
+          fontWeight: FontWeight.w400,
+          fontSize: 12,
         ),
       ),
     );
   }
 
-  static ThemeData get darkTheme {
-    return lightTheme;
-  }
+  static ThemeData get lightTheme => _createTheme(_lightColorScheme);
+  static ThemeData get darkTheme => _createTheme(_darkColorScheme);
 }

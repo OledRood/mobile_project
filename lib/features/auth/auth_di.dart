@@ -1,11 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/navigation/navigator_di.dart';
 import 'package:mobile_study/core/auth/auth_repository.dart';
+import 'package:mobile_study/core/message/message_di.dart';
+import 'package:mobile_study/features/auth/forgot_password.dart/domain/create_new_password_viewmodel.dart';
+import 'package:mobile_study/features/auth/forgot_password.dart/domain/forgot_password_viewmodel.dart';
+import 'package:mobile_study/features/auth/forgot_password.dart/model/create_new_password_model.dart';
+import 'package:mobile_study/features/auth/forgot_password.dart/model/forgot_password_model.dart';
+import 'package:mobile_study/features/auth/sign_up/domain/sign_up_view_model_final.dart';
 import 'package:mobile_study/features/auth/sign_up/domain/sign_up_view_model_step1.dart';
 import 'package:mobile_study/features/auth/sign_up/domain/sign_up_view_model_step2.dart';
 import 'package:mobile_study/features/auth/sign_up/domain/sign_up_view_model_step3.dart';
 import 'package:mobile_study/features/auth/sign_up/models/sign_up_model.dart';
-import 'package:mobile_study/features/onboarding/domain/onboarding_view_model.dart';
 import 'package:mobile_study/features/auth/getting_start/registration_viewmodel.dart';
 import 'package:mobile_study/features/auth/sign_in/models/sign_in_model.dart';
 import 'package:mobile_study/features/auth/sign_in/domain/sign_in_viewmodel.dart';
@@ -48,6 +53,43 @@ class AuthDi {
           appNavigation: ref.read(NavigatorDi.appNavigationProvider),
           authDataNotifier: ref.read(authDataProvider.notifier),
           authNotifier: ref.read(authProvider.notifier),
+          scaffoldMessengerManager: ref.read(
+            MessageDi.scaffoldMessengerManager,
+          ),
+        );
+      });
+
+  static final signUpViewModelFinal =
+      StateNotifierProvider<SignUpViewModelFinal, void>((ref) {
+        return SignUpViewModelFinal(
+          appNavigation: ref.read(NavigatorDi.appNavigationProvider),
+        );
+      });
+  static final forgotPasswordViewModel =
+      StateNotifierProvider.autoDispose<
+        ForgotPasswordViewModel,
+        ForgotPasswordState
+      >((ref) {
+        return ForgotPasswordViewModel(
+          appNavigation: ref.read(NavigatorDi.appNavigationProvider),
+          authNotifier: ref.read(authProvider.notifier),
+          scaffoldMessengerManager: ref.read(
+            MessageDi.scaffoldMessengerManager,
+          ),
+        );
+      });
+
+  static final createNewPasswordViewModel =
+      StateNotifierProvider.autoDispose<
+        CreateNewPasswordViewModel,
+        CreateNewPasswordState
+      >((ref) {
+        return CreateNewPasswordViewModel(
+          appNavigation: ref.read(NavigatorDi.appNavigationProvider),
+          authNotifier: ref.read(authProvider.notifier),
+          scaffoldMessengerManager: ref.read(
+            MessageDi.scaffoldMessengerManager,
+          ),
         );
       });
 }

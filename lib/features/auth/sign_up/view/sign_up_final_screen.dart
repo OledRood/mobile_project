@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile_study/features/auth/auth_di.dart';
+import 'package:mobile_study/ui/theme/models/app_icons.dart';
 import 'package:mobile_study/ui/theme/models/app_images.dart';
 
 class SignUpFinalScreen extends ConsumerWidget {
@@ -9,7 +10,7 @@ class SignUpFinalScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final viewModel = ref.read(AuthDi.sl.notifier);
+    final viewModel = ref.read(AuthDi.signUpViewModelFinal.notifier);
     return Scaffold(
       body: SafeArea(
         child: Row(
@@ -25,7 +26,7 @@ class SignUpFinalScreen extends ConsumerWidget {
                 ),
                 Spacer(flex: 2),
 
-                SvgPicture.asset(AppImages.checkCircle, width: 96, height: 96),
+                SvgPicture.asset(AppIcons.checkCircle, width: 96, height: 96),
 
                 Spacer(flex: 1),
                 Text(
@@ -42,7 +43,12 @@ class SignUpFinalScreen extends ConsumerWidget {
                 SizedBox(
                   height: 50,
                   width: 342,
-                  child: FilledButton(onPressed: () {}, child: Text("Далее")),
+                  child: FilledButton(
+                    onPressed: () {
+                      viewModel.goToHome();
+                    },
+                    child: Text("Далее"),
+                  ),
                 ),
                 Spacer(flex: 1),
               ],

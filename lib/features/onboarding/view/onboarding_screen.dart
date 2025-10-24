@@ -59,7 +59,7 @@ class OnboardingScreen extends ConsumerWidget {
                         decoration: BoxDecoration(
                           color: isActive
                               ? Theme.of(context).colorScheme.primary
-                              : AppColors.unEnable,
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
                           borderRadius: BorderRadius.circular(4),
                         ),
                       );

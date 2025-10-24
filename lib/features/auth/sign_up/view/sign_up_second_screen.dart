@@ -6,6 +6,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobile_study/core/utils/validators.dart';
 import 'package:mobile_study/features/auth/auth_di.dart';
 import 'package:mobile_study/ui/theme/models/app_colors.dart';
+import 'package:mobile_study/ui/theme/models/app_icons.dart';
 import 'package:mobile_study/ui/widgets/custom_text_field.dart';
 
 import '../../../../ui/theme/models/app_images.dart';
@@ -29,7 +30,7 @@ class SignUpSecondScreen extends ConsumerWidget {
               viewModel.goBack();
             },
             child: SvgPicture.asset(
-              AppImages.leftChevron,
+              AppIcons.leftChevron,
               width: 24,
               height: 24,
             ),
@@ -104,7 +105,7 @@ class SignUpSecondScreen extends ConsumerWidget {
                     CustomTextField(
                       label: 'Дата рождения',
                       hint: 'DD/MM/YYYY',
-                      prefIcon: AppImages.calendar,
+                      prefIcon: AppIcons.calendar,
                       controller: viewModel.dateOfBirthController,
                       keyboardType: TextInputType.number,
                       onSubmitted: (_) => viewModel.onDateOfBirthSubmit(),
@@ -190,7 +191,7 @@ class CustomCheckboxWidget extends StatelessWidget {
           border: Border.all(
             color: isActive
                 ? Theme.of(context).primaryColor
-                : AppColors.textFieldBorder,
+                : Theme.of(context).colorScheme.outline,
             width: 1,
           ),
         ),

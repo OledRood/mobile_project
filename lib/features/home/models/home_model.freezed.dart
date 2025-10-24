@@ -12,40 +12,40 @@ part of 'home_model.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$HomeModel {
+mixin _$HomeState {
 
- String? get priceCardPath; String get selectedStore; List<String>? get personalButtons; bool get isLoading; String? get errorMessage; ServerRequestState get serverRequestState; bool get isDiscountCardOpen;
-/// Create a copy of HomeModel
+ bool get isLoading; List<SearchResultModel>? get searchResults; String? get errorMessage; HomeViewState get viewState;
+/// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$HomeModelCopyWith<HomeModel> get copyWith => _$HomeModelCopyWithImpl<HomeModel>(this as HomeModel, _$identity);
+$HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>(this as HomeState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeModel&&(identical(other.priceCardPath, priceCardPath) || other.priceCardPath == priceCardPath)&&(identical(other.selectedStore, selectedStore) || other.selectedStore == selectedStore)&&const DeepCollectionEquality().equals(other.personalButtons, personalButtons)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.serverRequestState, serverRequestState) || other.serverRequestState == serverRequestState)&&(identical(other.isDiscountCardOpen, isDiscountCardOpen) || other.isDiscountCardOpen == isDiscountCardOpen));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other.searchResults, searchResults)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.viewState, viewState) || other.viewState == viewState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,priceCardPath,selectedStore,const DeepCollectionEquality().hash(personalButtons),isLoading,errorMessage,serverRequestState,isDiscountCardOpen);
+int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(searchResults),errorMessage,viewState);
 
 @override
 String toString() {
-  return 'HomeModel(priceCardPath: $priceCardPath, selectedStore: $selectedStore, personalButtons: $personalButtons, isLoading: $isLoading, errorMessage: $errorMessage, serverRequestState: $serverRequestState, isDiscountCardOpen: $isDiscountCardOpen)';
+  return 'HomeState(isLoading: $isLoading, searchResults: $searchResults, errorMessage: $errorMessage, viewState: $viewState)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $HomeModelCopyWith<$Res>  {
-  factory $HomeModelCopyWith(HomeModel value, $Res Function(HomeModel) _then) = _$HomeModelCopyWithImpl;
+abstract mixin class $HomeStateCopyWith<$Res>  {
+  factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- String? priceCardPath, String selectedStore, List<String>? personalButtons, bool isLoading, String? errorMessage, ServerRequestState serverRequestState, bool isDiscountCardOpen
+ bool isLoading, List<SearchResultModel>? searchResults, String? errorMessage, HomeViewState viewState
 });
 
 
@@ -53,33 +53,30 @@ $Res call({
 
 }
 /// @nodoc
-class _$HomeModelCopyWithImpl<$Res>
-    implements $HomeModelCopyWith<$Res> {
-  _$HomeModelCopyWithImpl(this._self, this._then);
+class _$HomeStateCopyWithImpl<$Res>
+    implements $HomeStateCopyWith<$Res> {
+  _$HomeStateCopyWithImpl(this._self, this._then);
 
-  final HomeModel _self;
-  final $Res Function(HomeModel) _then;
+  final HomeState _self;
+  final $Res Function(HomeState) _then;
 
-/// Create a copy of HomeModel
+/// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? priceCardPath = freezed,Object? selectedStore = null,Object? personalButtons = freezed,Object? isLoading = null,Object? errorMessage = freezed,Object? serverRequestState = null,Object? isDiscountCardOpen = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? searchResults = freezed,Object? errorMessage = freezed,Object? viewState = null,}) {
   return _then(_self.copyWith(
-priceCardPath: freezed == priceCardPath ? _self.priceCardPath : priceCardPath // ignore: cast_nullable_to_non_nullable
-as String?,selectedStore: null == selectedStore ? _self.selectedStore : selectedStore // ignore: cast_nullable_to_non_nullable
-as String,personalButtons: freezed == personalButtons ? _self.personalButtons : personalButtons // ignore: cast_nullable_to_non_nullable
-as List<String>?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
-as String?,serverRequestState: null == serverRequestState ? _self.serverRequestState : serverRequestState // ignore: cast_nullable_to_non_nullable
-as ServerRequestState,isDiscountCardOpen: null == isDiscountCardOpen ? _self.isDiscountCardOpen : isDiscountCardOpen // ignore: cast_nullable_to_non_nullable
-as bool,
+isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,searchResults: freezed == searchResults ? _self.searchResults : searchResults // ignore: cast_nullable_to_non_nullable
+as List<SearchResultModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,viewState: null == viewState ? _self.viewState : viewState // ignore: cast_nullable_to_non_nullable
+as HomeViewState,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [HomeModel].
-extension HomeModelPatterns on HomeModel {
+/// Adds pattern-matching-related methods to [HomeState].
+extension HomeStatePatterns on HomeState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -92,10 +89,10 @@ extension HomeModelPatterns on HomeModel {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _HomeModel value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _HomeState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _HomeModel() when $default != null:
+case _HomeState() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -114,10 +111,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _HomeModel value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _HomeState value)  $default,){
 final _that = this;
 switch (_that) {
-case _HomeModel():
+case _HomeState():
 return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -132,10 +129,10 @@ return $default(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _HomeModel value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _HomeState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _HomeModel() when $default != null:
+case _HomeState() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -153,10 +150,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? priceCardPath,  String selectedStore,  List<String>? personalButtons,  bool isLoading,  String? errorMessage,  ServerRequestState serverRequestState,  bool isDiscountCardOpen)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  List<SearchResultModel>? searchResults,  String? errorMessage,  HomeViewState viewState)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _HomeModel() when $default != null:
-return $default(_that.priceCardPath,_that.selectedStore,_that.personalButtons,_that.isLoading,_that.errorMessage,_that.serverRequestState,_that.isDiscountCardOpen);case _:
+case _HomeState() when $default != null:
+return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.viewState);case _:
   return orElse();
 
 }
@@ -174,10 +171,10 @@ return $default(_that.priceCardPath,_that.selectedStore,_that.personalButtons,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? priceCardPath,  String selectedStore,  List<String>? personalButtons,  bool isLoading,  String? errorMessage,  ServerRequestState serverRequestState,  bool isDiscountCardOpen)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  List<SearchResultModel>? searchResults,  String? errorMessage,  HomeViewState viewState)  $default,) {final _that = this;
 switch (_that) {
-case _HomeModel():
-return $default(_that.priceCardPath,_that.selectedStore,_that.personalButtons,_that.isLoading,_that.errorMessage,_that.serverRequestState,_that.isDiscountCardOpen);}
+case _HomeState():
+return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.viewState);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -191,10 +188,10 @@ return $default(_that.priceCardPath,_that.selectedStore,_that.personalButtons,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? priceCardPath,  String selectedStore,  List<String>? personalButtons,  bool isLoading,  String? errorMessage,  ServerRequestState serverRequestState,  bool isDiscountCardOpen)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  List<SearchResultModel>? searchResults,  String? errorMessage,  HomeViewState viewState)?  $default,) {final _that = this;
 switch (_that) {
-case _HomeModel() when $default != null:
-return $default(_that.priceCardPath,_that.selectedStore,_that.personalButtons,_that.isLoading,_that.errorMessage,_that.serverRequestState,_that.isDiscountCardOpen);case _:
+case _HomeState() when $default != null:
+return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.viewState);case _:
   return null;
 
 }
@@ -205,57 +202,54 @@ return $default(_that.priceCardPath,_that.selectedStore,_that.personalButtons,_t
 /// @nodoc
 
 
-class _HomeModel implements HomeModel {
-  const _HomeModel({this.priceCardPath, this.selectedStore = 'Выбрать', final  List<String>? personalButtons, this.isLoading = false, this.errorMessage, this.serverRequestState = ServerRequestState.loading, this.isDiscountCardOpen = true}): _personalButtons = personalButtons;
+class _HomeState implements HomeState {
+  const _HomeState({this.isLoading = false, final  List<SearchResultModel>? searchResults, this.errorMessage, this.viewState = HomeViewState.initial}): _searchResults = searchResults;
   
 
-@override final  String? priceCardPath;
-@override@JsonKey() final  String selectedStore;
- final  List<String>? _personalButtons;
-@override List<String>? get personalButtons {
-  final value = _personalButtons;
+@override@JsonKey() final  bool isLoading;
+ final  List<SearchResultModel>? _searchResults;
+@override List<SearchResultModel>? get searchResults {
+  final value = _searchResults;
   if (value == null) return null;
-  if (_personalButtons is EqualUnmodifiableListView) return _personalButtons;
+  if (_searchResults is EqualUnmodifiableListView) return _searchResults;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(value);
 }
 
-@override@JsonKey() final  bool isLoading;
 @override final  String? errorMessage;
-@override@JsonKey() final  ServerRequestState serverRequestState;
-@override@JsonKey() final  bool isDiscountCardOpen;
+@override@JsonKey() final  HomeViewState viewState;
 
-/// Create a copy of HomeModel
+/// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$HomeModelCopyWith<_HomeModel> get copyWith => __$HomeModelCopyWithImpl<_HomeModel>(this, _$identity);
+_$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeModel&&(identical(other.priceCardPath, priceCardPath) || other.priceCardPath == priceCardPath)&&(identical(other.selectedStore, selectedStore) || other.selectedStore == selectedStore)&&const DeepCollectionEquality().equals(other._personalButtons, _personalButtons)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.serverRequestState, serverRequestState) || other.serverRequestState == serverRequestState)&&(identical(other.isDiscountCardOpen, isDiscountCardOpen) || other.isDiscountCardOpen == isDiscountCardOpen));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other._searchResults, _searchResults)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.viewState, viewState) || other.viewState == viewState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,priceCardPath,selectedStore,const DeepCollectionEquality().hash(_personalButtons),isLoading,errorMessage,serverRequestState,isDiscountCardOpen);
+int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(_searchResults),errorMessage,viewState);
 
 @override
 String toString() {
-  return 'HomeModel(priceCardPath: $priceCardPath, selectedStore: $selectedStore, personalButtons: $personalButtons, isLoading: $isLoading, errorMessage: $errorMessage, serverRequestState: $serverRequestState, isDiscountCardOpen: $isDiscountCardOpen)';
+  return 'HomeState(isLoading: $isLoading, searchResults: $searchResults, errorMessage: $errorMessage, viewState: $viewState)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$HomeModelCopyWith<$Res> implements $HomeModelCopyWith<$Res> {
-  factory _$HomeModelCopyWith(_HomeModel value, $Res Function(_HomeModel) _then) = __$HomeModelCopyWithImpl;
+abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+  factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- String? priceCardPath, String selectedStore, List<String>? personalButtons, bool isLoading, String? errorMessage, ServerRequestState serverRequestState, bool isDiscountCardOpen
+ bool isLoading, List<SearchResultModel>? searchResults, String? errorMessage, HomeViewState viewState
 });
 
 
@@ -263,25 +257,22 @@ $Res call({
 
 }
 /// @nodoc
-class __$HomeModelCopyWithImpl<$Res>
-    implements _$HomeModelCopyWith<$Res> {
-  __$HomeModelCopyWithImpl(this._self, this._then);
+class __$HomeStateCopyWithImpl<$Res>
+    implements _$HomeStateCopyWith<$Res> {
+  __$HomeStateCopyWithImpl(this._self, this._then);
 
-  final _HomeModel _self;
-  final $Res Function(_HomeModel) _then;
+  final _HomeState _self;
+  final $Res Function(_HomeState) _then;
 
-/// Create a copy of HomeModel
+/// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? priceCardPath = freezed,Object? selectedStore = null,Object? personalButtons = freezed,Object? isLoading = null,Object? errorMessage = freezed,Object? serverRequestState = null,Object? isDiscountCardOpen = null,}) {
-  return _then(_HomeModel(
-priceCardPath: freezed == priceCardPath ? _self.priceCardPath : priceCardPath // ignore: cast_nullable_to_non_nullable
-as String?,selectedStore: null == selectedStore ? _self.selectedStore : selectedStore // ignore: cast_nullable_to_non_nullable
-as String,personalButtons: freezed == personalButtons ? _self._personalButtons : personalButtons // ignore: cast_nullable_to_non_nullable
-as List<String>?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
-as String?,serverRequestState: null == serverRequestState ? _self.serverRequestState : serverRequestState // ignore: cast_nullable_to_non_nullable
-as ServerRequestState,isDiscountCardOpen: null == isDiscountCardOpen ? _self.isDiscountCardOpen : isDiscountCardOpen // ignore: cast_nullable_to_non_nullable
-as bool,
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? searchResults = freezed,Object? errorMessage = freezed,Object? viewState = null,}) {
+  return _then(_HomeState(
+isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,searchResults: freezed == searchResults ? _self._searchResults : searchResults // ignore: cast_nullable_to_non_nullable
+as List<SearchResultModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,viewState: null == viewState ? _self.viewState : viewState // ignore: cast_nullable_to_non_nullable
+as HomeViewState,
   ));
 }
 

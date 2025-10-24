@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobile_study/features/auth/auth_di.dart';
 import 'package:mobile_study/ui/theme/models/app_colors.dart';
-import 'package:mobile_study/ui/theme/models/app_images.dart';
+import 'package:mobile_study/ui/theme/models/app_icons.dart';
 import 'package:mobile_study/ui/widgets/custom_text_field.dart';
 
 final _maskFormatter = MaskTextInputFormatter(mask: '##/##/####');
@@ -30,7 +30,7 @@ class SignUpThirdScreen extends ConsumerWidget {
               viewModel.goBack();
             },
             child: SvgPicture.asset(
-              AppImages.leftChevron,
+              AppIcons.leftChevron,
               width: 24,
               height: 24,
             ),
@@ -86,7 +86,7 @@ class SignUpThirdScreen extends ConsumerWidget {
                         label: 'Дата выдачи',
                         hint: "DD/MM/YYYY",
                         // prefIcon: Icons.calendar_month_outlined,
-                        prefIcon: AppImages.calendar,
+                        prefIcon: AppIcons.calendar,
                         controller: viewModel.dateOfIssueController,
                         keyboardType: TextInputType.number,
                         onSubmitted: (_) => viewModel.onDateOfIssueSubmit(),
@@ -103,7 +103,7 @@ class SignUpThirdScreen extends ConsumerWidget {
                       _AddPhotoRow(
                         imagePicked: viewModel.addDriverLicensePhoto,
                         isPicked: state.driverLicenseFile != null,
-                        isError: state.driverLicenseFileeEror != null,
+                        isError: state.driverLicenseFileError != null,
                       ),
                       SizedBox(height: 16),
                       Text('Загрузите фото паспорта'),
@@ -124,7 +124,13 @@ class SignUpThirdScreen extends ConsumerWidget {
                               onPressed: () {
                                 viewModel.goFromStep3();
                               },
-                              child: const Text("Далее"),
+                              child: state.isLoading
+                                  ? SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Text("Далее"),
                             ),
                           ),
                         ),
@@ -170,19 +176,19 @@ class _AddPhotoRow extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: isError
-                      ? AppColors.textFieldError
+                      ? Theme.of(context).colorScheme.error
                       : Theme.of(context).primaryColor,
                 ),
               ),
               child: isPicked
                   ? SvgPicture.asset(
-                      AppImages.doneAll,
+                      AppIcons.doneAll,
                       width: 18,
                       height: 18,
                       color: Theme.of(context).primaryColor,
                     )
                   : SvgPicture.asset(
-                      AppImages.upload,
+                      AppIcons.upload,
                       width: 18,
                       height: 18,
                       color: Theme.of(context).primaryColor,
@@ -237,7 +243,7 @@ class _AddPhotoWidgetState extends ConsumerState<_AddPhotoWidget> {
             children: <Widget>[
               ListTile(
                 leading: SvgPicture.asset(
-                  AppImages.gallery,
+                  AppIcons.gallery,
                   width: 24,
                   height: 24,
                   color: Theme.of(context).primaryColor,
@@ -250,7 +256,7 @@ class _AddPhotoWidgetState extends ConsumerState<_AddPhotoWidget> {
               ),
               ListTile(
                 leading: SvgPicture.asset(
-                  AppImages.camera,
+                  AppIcons.camera,
                   width: 24,
                   height: 24,
                   color: Theme.of(context).primaryColor,
@@ -270,10 +276,12 @@ class _AddPhotoWidgetState extends ConsumerState<_AddPhotoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(AuthDi.signUpViewModelStep3);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
 
       onTap: () {
+        if (state.isLoading) return;
         _showPicker(context);
       },
       child: widget.child,
@@ -300,12 +308,12 @@ class _AddAccountPhotoIcons extends ConsumerWidget {
                   child: Image.file(state.accountPhotoFile!, fit: BoxFit.cover),
                 ),
               )
-            : SvgPicture.asset(AppImages.accountAdd, width: 128, height: 128),
+            : SvgPicture.asset(AppIcons.accountAdd, width: 128, height: 128),
         Positioned(
           bottom: 7,
           right: 7,
           child: SvgPicture.asset(
-            AppImages.addCircle,
+            AppIcons.addCircle,
             width: 20,
             height: 20,
             colorFilter: ColorFilter.mode(

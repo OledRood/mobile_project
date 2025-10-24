@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SignUpStateStep1 {
 
- String get email; String get password; bool get isPasswordVisible; String? get emailError; String? get passwordError; String? get confirmPasswordError; String? get checkPoliticsError; String get confirmPassword; bool get isConfirmPasswordVisible; bool get checkPolitics; bool get isLoading;
+ bool get checkPolitics; String? get emailError; String? get passwordError; String? get checkPoliticsError; String? get confirmPasswordError; bool get isPasswordVisible; bool get isConfirmPasswordVisible; bool get isLoading;
 /// Create a copy of SignUpStateStep1
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SignUpStateStep1CopyWith<SignUpStateStep1> get copyWith => _$SignUpStateStep1Co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpStateStep1&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.emailError, emailError) || other.emailError == emailError)&&(identical(other.passwordError, passwordError) || other.passwordError == passwordError)&&(identical(other.confirmPasswordError, confirmPasswordError) || other.confirmPasswordError == confirmPasswordError)&&(identical(other.checkPoliticsError, checkPoliticsError) || other.checkPoliticsError == checkPoliticsError)&&(identical(other.confirmPassword, confirmPassword) || other.confirmPassword == confirmPassword)&&(identical(other.isConfirmPasswordVisible, isConfirmPasswordVisible) || other.isConfirmPasswordVisible == isConfirmPasswordVisible)&&(identical(other.checkPolitics, checkPolitics) || other.checkPolitics == checkPolitics)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpStateStep1&&(identical(other.checkPolitics, checkPolitics) || other.checkPolitics == checkPolitics)&&(identical(other.emailError, emailError) || other.emailError == emailError)&&(identical(other.passwordError, passwordError) || other.passwordError == passwordError)&&(identical(other.checkPoliticsError, checkPoliticsError) || other.checkPoliticsError == checkPoliticsError)&&(identical(other.confirmPasswordError, confirmPasswordError) || other.confirmPasswordError == confirmPasswordError)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.isConfirmPasswordVisible, isConfirmPasswordVisible) || other.isConfirmPasswordVisible == isConfirmPasswordVisible)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,isPasswordVisible,emailError,passwordError,confirmPasswordError,checkPoliticsError,confirmPassword,isConfirmPasswordVisible,checkPolitics,isLoading);
+int get hashCode => Object.hash(runtimeType,checkPolitics,emailError,passwordError,checkPoliticsError,confirmPasswordError,isPasswordVisible,isConfirmPasswordVisible,isLoading);
 
 @override
 String toString() {
-  return 'SignUpStateStep1(email: $email, password: $password, isPasswordVisible: $isPasswordVisible, emailError: $emailError, passwordError: $passwordError, confirmPasswordError: $confirmPasswordError, checkPoliticsError: $checkPoliticsError, confirmPassword: $confirmPassword, isConfirmPasswordVisible: $isConfirmPasswordVisible, checkPolitics: $checkPolitics, isLoading: $isLoading)';
+  return 'SignUpStateStep1(checkPolitics: $checkPolitics, emailError: $emailError, passwordError: $passwordError, checkPoliticsError: $checkPoliticsError, confirmPasswordError: $confirmPasswordError, isPasswordVisible: $isPasswordVisible, isConfirmPasswordVisible: $isConfirmPasswordVisible, isLoading: $isLoading)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SignUpStateStep1CopyWith<$Res>  {
   factory $SignUpStateStep1CopyWith(SignUpStateStep1 value, $Res Function(SignUpStateStep1) _then) = _$SignUpStateStep1CopyWithImpl;
 @useResult
 $Res call({
- String email, String password, bool isPasswordVisible, String? emailError, String? passwordError, String? confirmPasswordError, String? checkPoliticsError, String confirmPassword, bool isConfirmPasswordVisible, bool checkPolitics, bool isLoading
+ bool checkPolitics, String? emailError, String? passwordError, String? checkPoliticsError, String? confirmPasswordError, bool isPasswordVisible, bool isConfirmPasswordVisible, bool isLoading
 });
 
 
@@ -62,18 +62,15 @@ class _$SignUpStateStep1CopyWithImpl<$Res>
 
 /// Create a copy of SignUpStateStep1
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,Object? isPasswordVisible = null,Object? emailError = freezed,Object? passwordError = freezed,Object? confirmPasswordError = freezed,Object? checkPoliticsError = freezed,Object? confirmPassword = null,Object? isConfirmPasswordVisible = null,Object? checkPolitics = null,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? checkPolitics = null,Object? emailError = freezed,Object? passwordError = freezed,Object? checkPoliticsError = freezed,Object? confirmPasswordError = freezed,Object? isPasswordVisible = null,Object? isConfirmPasswordVisible = null,Object? isLoading = null,}) {
   return _then(_self.copyWith(
-email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
+checkPolitics: null == checkPolitics ? _self.checkPolitics : checkPolitics // ignore: cast_nullable_to_non_nullable
 as bool,emailError: freezed == emailError ? _self.emailError : emailError // ignore: cast_nullable_to_non_nullable
 as String?,passwordError: freezed == passwordError ? _self.passwordError : passwordError // ignore: cast_nullable_to_non_nullable
-as String?,confirmPasswordError: freezed == confirmPasswordError ? _self.confirmPasswordError : confirmPasswordError // ignore: cast_nullable_to_non_nullable
 as String?,checkPoliticsError: freezed == checkPoliticsError ? _self.checkPoliticsError : checkPoliticsError // ignore: cast_nullable_to_non_nullable
-as String?,confirmPassword: null == confirmPassword ? _self.confirmPassword : confirmPassword // ignore: cast_nullable_to_non_nullable
-as String,isConfirmPasswordVisible: null == isConfirmPasswordVisible ? _self.isConfirmPasswordVisible : isConfirmPasswordVisible // ignore: cast_nullable_to_non_nullable
-as bool,checkPolitics: null == checkPolitics ? _self.checkPolitics : checkPolitics // ignore: cast_nullable_to_non_nullable
+as String?,confirmPasswordError: freezed == confirmPasswordError ? _self.confirmPasswordError : confirmPasswordError // ignore: cast_nullable_to_non_nullable
+as String?,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
+as bool,isConfirmPasswordVisible: null == isConfirmPasswordVisible ? _self.isConfirmPasswordVisible : isConfirmPasswordVisible // ignore: cast_nullable_to_non_nullable
 as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -157,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  bool isPasswordVisible,  String? emailError,  String? passwordError,  String? confirmPasswordError,  String? checkPoliticsError,  String confirmPassword,  bool isConfirmPasswordVisible,  bool checkPolitics,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool checkPolitics,  String? emailError,  String? passwordError,  String? checkPoliticsError,  String? confirmPasswordError,  bool isPasswordVisible,  bool isConfirmPasswordVisible,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignUpStateStep1() when $default != null:
-return $default(_that.email,_that.password,_that.isPasswordVisible,_that.emailError,_that.passwordError,_that.confirmPasswordError,_that.checkPoliticsError,_that.confirmPassword,_that.isConfirmPasswordVisible,_that.checkPolitics,_that.isLoading);case _:
+return $default(_that.checkPolitics,_that.emailError,_that.passwordError,_that.checkPoliticsError,_that.confirmPasswordError,_that.isPasswordVisible,_that.isConfirmPasswordVisible,_that.isLoading);case _:
   return orElse();
 
 }
@@ -178,10 +175,10 @@ return $default(_that.email,_that.password,_that.isPasswordVisible,_that.emailEr
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  bool isPasswordVisible,  String? emailError,  String? passwordError,  String? confirmPasswordError,  String? checkPoliticsError,  String confirmPassword,  bool isConfirmPasswordVisible,  bool checkPolitics,  bool isLoading)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool checkPolitics,  String? emailError,  String? passwordError,  String? checkPoliticsError,  String? confirmPasswordError,  bool isPasswordVisible,  bool isConfirmPasswordVisible,  bool isLoading)  $default,) {final _that = this;
 switch (_that) {
 case _SignUpStateStep1():
-return $default(_that.email,_that.password,_that.isPasswordVisible,_that.emailError,_that.passwordError,_that.confirmPasswordError,_that.checkPoliticsError,_that.confirmPassword,_that.isConfirmPasswordVisible,_that.checkPolitics,_that.isLoading);}
+return $default(_that.checkPolitics,_that.emailError,_that.passwordError,_that.checkPoliticsError,_that.confirmPasswordError,_that.isPasswordVisible,_that.isConfirmPasswordVisible,_that.isLoading);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -195,10 +192,10 @@ return $default(_that.email,_that.password,_that.isPasswordVisible,_that.emailEr
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  bool isPasswordVisible,  String? emailError,  String? passwordError,  String? confirmPasswordError,  String? checkPoliticsError,  String confirmPassword,  bool isConfirmPasswordVisible,  bool checkPolitics,  bool isLoading)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool checkPolitics,  String? emailError,  String? passwordError,  String? checkPoliticsError,  String? confirmPasswordError,  bool isPasswordVisible,  bool isConfirmPasswordVisible,  bool isLoading)?  $default,) {final _that = this;
 switch (_that) {
 case _SignUpStateStep1() when $default != null:
-return $default(_that.email,_that.password,_that.isPasswordVisible,_that.emailError,_that.passwordError,_that.confirmPasswordError,_that.checkPoliticsError,_that.confirmPassword,_that.isConfirmPasswordVisible,_that.checkPolitics,_that.isLoading);case _:
+return $default(_that.checkPolitics,_that.emailError,_that.passwordError,_that.checkPoliticsError,_that.confirmPasswordError,_that.isPasswordVisible,_that.isConfirmPasswordVisible,_that.isLoading);case _:
   return null;
 
 }
@@ -210,19 +207,16 @@ return $default(_that.email,_that.password,_that.isPasswordVisible,_that.emailEr
 
 
 class _SignUpStateStep1 extends SignUpStateStep1 {
-  const _SignUpStateStep1({this.email = '', this.password = '', this.isPasswordVisible = false, this.emailError, this.passwordError, this.confirmPasswordError, this.checkPoliticsError, this.confirmPassword = '', this.isConfirmPasswordVisible = false, this.checkPolitics = false, this.isLoading = false}): super._();
+  const _SignUpStateStep1({this.checkPolitics = false, this.emailError, this.passwordError, this.checkPoliticsError, this.confirmPasswordError, this.isPasswordVisible = false, this.isConfirmPasswordVisible = false, this.isLoading = false}): super._();
   
 
-@override@JsonKey() final  String email;
-@override@JsonKey() final  String password;
-@override@JsonKey() final  bool isPasswordVisible;
+@override@JsonKey() final  bool checkPolitics;
 @override final  String? emailError;
 @override final  String? passwordError;
-@override final  String? confirmPasswordError;
 @override final  String? checkPoliticsError;
-@override@JsonKey() final  String confirmPassword;
+@override final  String? confirmPasswordError;
+@override@JsonKey() final  bool isPasswordVisible;
 @override@JsonKey() final  bool isConfirmPasswordVisible;
-@override@JsonKey() final  bool checkPolitics;
 @override@JsonKey() final  bool isLoading;
 
 /// Create a copy of SignUpStateStep1
@@ -235,16 +229,16 @@ _$SignUpStateStep1CopyWith<_SignUpStateStep1> get copyWith => __$SignUpStateStep
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpStateStep1&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.emailError, emailError) || other.emailError == emailError)&&(identical(other.passwordError, passwordError) || other.passwordError == passwordError)&&(identical(other.confirmPasswordError, confirmPasswordError) || other.confirmPasswordError == confirmPasswordError)&&(identical(other.checkPoliticsError, checkPoliticsError) || other.checkPoliticsError == checkPoliticsError)&&(identical(other.confirmPassword, confirmPassword) || other.confirmPassword == confirmPassword)&&(identical(other.isConfirmPasswordVisible, isConfirmPasswordVisible) || other.isConfirmPasswordVisible == isConfirmPasswordVisible)&&(identical(other.checkPolitics, checkPolitics) || other.checkPolitics == checkPolitics)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpStateStep1&&(identical(other.checkPolitics, checkPolitics) || other.checkPolitics == checkPolitics)&&(identical(other.emailError, emailError) || other.emailError == emailError)&&(identical(other.passwordError, passwordError) || other.passwordError == passwordError)&&(identical(other.checkPoliticsError, checkPoliticsError) || other.checkPoliticsError == checkPoliticsError)&&(identical(other.confirmPasswordError, confirmPasswordError) || other.confirmPasswordError == confirmPasswordError)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.isConfirmPasswordVisible, isConfirmPasswordVisible) || other.isConfirmPasswordVisible == isConfirmPasswordVisible)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,isPasswordVisible,emailError,passwordError,confirmPasswordError,checkPoliticsError,confirmPassword,isConfirmPasswordVisible,checkPolitics,isLoading);
+int get hashCode => Object.hash(runtimeType,checkPolitics,emailError,passwordError,checkPoliticsError,confirmPasswordError,isPasswordVisible,isConfirmPasswordVisible,isLoading);
 
 @override
 String toString() {
-  return 'SignUpStateStep1(email: $email, password: $password, isPasswordVisible: $isPasswordVisible, emailError: $emailError, passwordError: $passwordError, confirmPasswordError: $confirmPasswordError, checkPoliticsError: $checkPoliticsError, confirmPassword: $confirmPassword, isConfirmPasswordVisible: $isConfirmPasswordVisible, checkPolitics: $checkPolitics, isLoading: $isLoading)';
+  return 'SignUpStateStep1(checkPolitics: $checkPolitics, emailError: $emailError, passwordError: $passwordError, checkPoliticsError: $checkPoliticsError, confirmPasswordError: $confirmPasswordError, isPasswordVisible: $isPasswordVisible, isConfirmPasswordVisible: $isConfirmPasswordVisible, isLoading: $isLoading)';
 }
 
 
@@ -255,7 +249,7 @@ abstract mixin class _$SignUpStateStep1CopyWith<$Res> implements $SignUpStateSte
   factory _$SignUpStateStep1CopyWith(_SignUpStateStep1 value, $Res Function(_SignUpStateStep1) _then) = __$SignUpStateStep1CopyWithImpl;
 @override @useResult
 $Res call({
- String email, String password, bool isPasswordVisible, String? emailError, String? passwordError, String? confirmPasswordError, String? checkPoliticsError, String confirmPassword, bool isConfirmPasswordVisible, bool checkPolitics, bool isLoading
+ bool checkPolitics, String? emailError, String? passwordError, String? checkPoliticsError, String? confirmPasswordError, bool isPasswordVisible, bool isConfirmPasswordVisible, bool isLoading
 });
 
 
@@ -272,18 +266,15 @@ class __$SignUpStateStep1CopyWithImpl<$Res>
 
 /// Create a copy of SignUpStateStep1
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? isPasswordVisible = null,Object? emailError = freezed,Object? passwordError = freezed,Object? confirmPasswordError = freezed,Object? checkPoliticsError = freezed,Object? confirmPassword = null,Object? isConfirmPasswordVisible = null,Object? checkPolitics = null,Object? isLoading = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? checkPolitics = null,Object? emailError = freezed,Object? passwordError = freezed,Object? checkPoliticsError = freezed,Object? confirmPasswordError = freezed,Object? isPasswordVisible = null,Object? isConfirmPasswordVisible = null,Object? isLoading = null,}) {
   return _then(_SignUpStateStep1(
-email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
+checkPolitics: null == checkPolitics ? _self.checkPolitics : checkPolitics // ignore: cast_nullable_to_non_nullable
 as bool,emailError: freezed == emailError ? _self.emailError : emailError // ignore: cast_nullable_to_non_nullable
 as String?,passwordError: freezed == passwordError ? _self.passwordError : passwordError // ignore: cast_nullable_to_non_nullable
-as String?,confirmPasswordError: freezed == confirmPasswordError ? _self.confirmPasswordError : confirmPasswordError // ignore: cast_nullable_to_non_nullable
 as String?,checkPoliticsError: freezed == checkPoliticsError ? _self.checkPoliticsError : checkPoliticsError // ignore: cast_nullable_to_non_nullable
-as String?,confirmPassword: null == confirmPassword ? _self.confirmPassword : confirmPassword // ignore: cast_nullable_to_non_nullable
-as String,isConfirmPasswordVisible: null == isConfirmPasswordVisible ? _self.isConfirmPasswordVisible : isConfirmPasswordVisible // ignore: cast_nullable_to_non_nullable
-as bool,checkPolitics: null == checkPolitics ? _self.checkPolitics : checkPolitics // ignore: cast_nullable_to_non_nullable
+as String?,confirmPasswordError: freezed == confirmPasswordError ? _self.confirmPasswordError : confirmPasswordError // ignore: cast_nullable_to_non_nullable
+as String?,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
+as bool,isConfirmPasswordVisible: null == isConfirmPasswordVisible ? _self.isConfirmPasswordVisible : isConfirmPasswordVisible // ignore: cast_nullable_to_non_nullable
 as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -295,7 +286,7 @@ as bool,
 /// @nodoc
 mixin _$SignUpStateStep2 {
 
- String get lastName; String? get lastNameError; String get firstName; String? get firstNameError; String get middleName; String get dateOfBirth; String? get dateOfBirthError; bool get isMen; bool get isLoading;
+ String? get lastNameError; String? get firstNameError; String? get dateOfBirthError; bool get isMen; bool get isLoading;
 /// Create a copy of SignUpStateStep2
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -306,16 +297,16 @@ $SignUpStateStep2CopyWith<SignUpStateStep2> get copyWith => _$SignUpStateStep2Co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpStateStep2&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.lastNameError, lastNameError) || other.lastNameError == lastNameError)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.firstNameError, firstNameError) || other.firstNameError == firstNameError)&&(identical(other.middleName, middleName) || other.middleName == middleName)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.dateOfBirthError, dateOfBirthError) || other.dateOfBirthError == dateOfBirthError)&&(identical(other.isMen, isMen) || other.isMen == isMen)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpStateStep2&&(identical(other.lastNameError, lastNameError) || other.lastNameError == lastNameError)&&(identical(other.firstNameError, firstNameError) || other.firstNameError == firstNameError)&&(identical(other.dateOfBirthError, dateOfBirthError) || other.dateOfBirthError == dateOfBirthError)&&(identical(other.isMen, isMen) || other.isMen == isMen)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,lastName,lastNameError,firstName,firstNameError,middleName,dateOfBirth,dateOfBirthError,isMen,isLoading);
+int get hashCode => Object.hash(runtimeType,lastNameError,firstNameError,dateOfBirthError,isMen,isLoading);
 
 @override
 String toString() {
-  return 'SignUpStateStep2(lastName: $lastName, lastNameError: $lastNameError, firstName: $firstName, firstNameError: $firstNameError, middleName: $middleName, dateOfBirth: $dateOfBirth, dateOfBirthError: $dateOfBirthError, isMen: $isMen, isLoading: $isLoading)';
+  return 'SignUpStateStep2(lastNameError: $lastNameError, firstNameError: $firstNameError, dateOfBirthError: $dateOfBirthError, isMen: $isMen, isLoading: $isLoading)';
 }
 
 
@@ -326,7 +317,7 @@ abstract mixin class $SignUpStateStep2CopyWith<$Res>  {
   factory $SignUpStateStep2CopyWith(SignUpStateStep2 value, $Res Function(SignUpStateStep2) _then) = _$SignUpStateStep2CopyWithImpl;
 @useResult
 $Res call({
- String lastName, String? lastNameError, String firstName, String? firstNameError, String middleName, String dateOfBirth, String? dateOfBirthError, bool isMen, bool isLoading
+ String? lastNameError, String? firstNameError, String? dateOfBirthError, bool isMen, bool isLoading
 });
 
 
@@ -343,15 +334,11 @@ class _$SignUpStateStep2CopyWithImpl<$Res>
 
 /// Create a copy of SignUpStateStep2
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? lastName = null,Object? lastNameError = freezed,Object? firstName = null,Object? firstNameError = freezed,Object? middleName = null,Object? dateOfBirth = null,Object? dateOfBirthError = freezed,Object? isMen = null,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? lastNameError = freezed,Object? firstNameError = freezed,Object? dateOfBirthError = freezed,Object? isMen = null,Object? isLoading = null,}) {
   return _then(_self.copyWith(
-lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
-as String,lastNameError: freezed == lastNameError ? _self.lastNameError : lastNameError // ignore: cast_nullable_to_non_nullable
-as String?,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
-as String,firstNameError: freezed == firstNameError ? _self.firstNameError : firstNameError // ignore: cast_nullable_to_non_nullable
-as String?,middleName: null == middleName ? _self.middleName : middleName // ignore: cast_nullable_to_non_nullable
-as String,dateOfBirth: null == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
-as String,dateOfBirthError: freezed == dateOfBirthError ? _self.dateOfBirthError : dateOfBirthError // ignore: cast_nullable_to_non_nullable
+lastNameError: freezed == lastNameError ? _self.lastNameError : lastNameError // ignore: cast_nullable_to_non_nullable
+as String?,firstNameError: freezed == firstNameError ? _self.firstNameError : firstNameError // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirthError: freezed == dateOfBirthError ? _self.dateOfBirthError : dateOfBirthError // ignore: cast_nullable_to_non_nullable
 as String?,isMen: null == isMen ? _self.isMen : isMen // ignore: cast_nullable_to_non_nullable
 as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -436,10 +423,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String lastName,  String? lastNameError,  String firstName,  String? firstNameError,  String middleName,  String dateOfBirth,  String? dateOfBirthError,  bool isMen,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? lastNameError,  String? firstNameError,  String? dateOfBirthError,  bool isMen,  bool isLoading)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignUpStateStep2() when $default != null:
-return $default(_that.lastName,_that.lastNameError,_that.firstName,_that.firstNameError,_that.middleName,_that.dateOfBirth,_that.dateOfBirthError,_that.isMen,_that.isLoading);case _:
+return $default(_that.lastNameError,_that.firstNameError,_that.dateOfBirthError,_that.isMen,_that.isLoading);case _:
   return orElse();
 
 }
@@ -457,10 +444,10 @@ return $default(_that.lastName,_that.lastNameError,_that.firstName,_that.firstNa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String lastName,  String? lastNameError,  String firstName,  String? firstNameError,  String middleName,  String dateOfBirth,  String? dateOfBirthError,  bool isMen,  bool isLoading)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? lastNameError,  String? firstNameError,  String? dateOfBirthError,  bool isMen,  bool isLoading)  $default,) {final _that = this;
 switch (_that) {
 case _SignUpStateStep2():
-return $default(_that.lastName,_that.lastNameError,_that.firstName,_that.firstNameError,_that.middleName,_that.dateOfBirth,_that.dateOfBirthError,_that.isMen,_that.isLoading);}
+return $default(_that.lastNameError,_that.firstNameError,_that.dateOfBirthError,_that.isMen,_that.isLoading);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -474,10 +461,10 @@ return $default(_that.lastName,_that.lastNameError,_that.firstName,_that.firstNa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String lastName,  String? lastNameError,  String firstName,  String? firstNameError,  String middleName,  String dateOfBirth,  String? dateOfBirthError,  bool isMen,  bool isLoading)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? lastNameError,  String? firstNameError,  String? dateOfBirthError,  bool isMen,  bool isLoading)?  $default,) {final _that = this;
 switch (_that) {
 case _SignUpStateStep2() when $default != null:
-return $default(_that.lastName,_that.lastNameError,_that.firstName,_that.firstNameError,_that.middleName,_that.dateOfBirth,_that.dateOfBirthError,_that.isMen,_that.isLoading);case _:
+return $default(_that.lastNameError,_that.firstNameError,_that.dateOfBirthError,_that.isMen,_that.isLoading);case _:
   return null;
 
 }
@@ -489,15 +476,11 @@ return $default(_that.lastName,_that.lastNameError,_that.firstName,_that.firstNa
 
 
 class _SignUpStateStep2 extends SignUpStateStep2 {
-  const _SignUpStateStep2({this.lastName = '', this.lastNameError, this.firstName = '', this.firstNameError, this.middleName = '', this.dateOfBirth = "", this.dateOfBirthError, this.isMen = false, this.isLoading = false}): super._();
+  const _SignUpStateStep2({this.lastNameError, this.firstNameError, this.dateOfBirthError, this.isMen = false, this.isLoading = false}): super._();
   
 
-@override@JsonKey() final  String lastName;
 @override final  String? lastNameError;
-@override@JsonKey() final  String firstName;
 @override final  String? firstNameError;
-@override@JsonKey() final  String middleName;
-@override@JsonKey() final  String dateOfBirth;
 @override final  String? dateOfBirthError;
 @override@JsonKey() final  bool isMen;
 @override@JsonKey() final  bool isLoading;
@@ -512,16 +495,16 @@ _$SignUpStateStep2CopyWith<_SignUpStateStep2> get copyWith => __$SignUpStateStep
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpStateStep2&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.lastNameError, lastNameError) || other.lastNameError == lastNameError)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.firstNameError, firstNameError) || other.firstNameError == firstNameError)&&(identical(other.middleName, middleName) || other.middleName == middleName)&&(identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth)&&(identical(other.dateOfBirthError, dateOfBirthError) || other.dateOfBirthError == dateOfBirthError)&&(identical(other.isMen, isMen) || other.isMen == isMen)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpStateStep2&&(identical(other.lastNameError, lastNameError) || other.lastNameError == lastNameError)&&(identical(other.firstNameError, firstNameError) || other.firstNameError == firstNameError)&&(identical(other.dateOfBirthError, dateOfBirthError) || other.dateOfBirthError == dateOfBirthError)&&(identical(other.isMen, isMen) || other.isMen == isMen)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,lastName,lastNameError,firstName,firstNameError,middleName,dateOfBirth,dateOfBirthError,isMen,isLoading);
+int get hashCode => Object.hash(runtimeType,lastNameError,firstNameError,dateOfBirthError,isMen,isLoading);
 
 @override
 String toString() {
-  return 'SignUpStateStep2(lastName: $lastName, lastNameError: $lastNameError, firstName: $firstName, firstNameError: $firstNameError, middleName: $middleName, dateOfBirth: $dateOfBirth, dateOfBirthError: $dateOfBirthError, isMen: $isMen, isLoading: $isLoading)';
+  return 'SignUpStateStep2(lastNameError: $lastNameError, firstNameError: $firstNameError, dateOfBirthError: $dateOfBirthError, isMen: $isMen, isLoading: $isLoading)';
 }
 
 
@@ -532,7 +515,7 @@ abstract mixin class _$SignUpStateStep2CopyWith<$Res> implements $SignUpStateSte
   factory _$SignUpStateStep2CopyWith(_SignUpStateStep2 value, $Res Function(_SignUpStateStep2) _then) = __$SignUpStateStep2CopyWithImpl;
 @override @useResult
 $Res call({
- String lastName, String? lastNameError, String firstName, String? firstNameError, String middleName, String dateOfBirth, String? dateOfBirthError, bool isMen, bool isLoading
+ String? lastNameError, String? firstNameError, String? dateOfBirthError, bool isMen, bool isLoading
 });
 
 
@@ -549,15 +532,11 @@ class __$SignUpStateStep2CopyWithImpl<$Res>
 
 /// Create a copy of SignUpStateStep2
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? lastName = null,Object? lastNameError = freezed,Object? firstName = null,Object? firstNameError = freezed,Object? middleName = null,Object? dateOfBirth = null,Object? dateOfBirthError = freezed,Object? isMen = null,Object? isLoading = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? lastNameError = freezed,Object? firstNameError = freezed,Object? dateOfBirthError = freezed,Object? isMen = null,Object? isLoading = null,}) {
   return _then(_SignUpStateStep2(
-lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
-as String,lastNameError: freezed == lastNameError ? _self.lastNameError : lastNameError // ignore: cast_nullable_to_non_nullable
-as String?,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
-as String,firstNameError: freezed == firstNameError ? _self.firstNameError : firstNameError // ignore: cast_nullable_to_non_nullable
-as String?,middleName: null == middleName ? _self.middleName : middleName // ignore: cast_nullable_to_non_nullable
-as String,dateOfBirth: null == dateOfBirth ? _self.dateOfBirth : dateOfBirth // ignore: cast_nullable_to_non_nullable
-as String,dateOfBirthError: freezed == dateOfBirthError ? _self.dateOfBirthError : dateOfBirthError // ignore: cast_nullable_to_non_nullable
+lastNameError: freezed == lastNameError ? _self.lastNameError : lastNameError // ignore: cast_nullable_to_non_nullable
+as String?,firstNameError: freezed == firstNameError ? _self.firstNameError : firstNameError // ignore: cast_nullable_to_non_nullable
+as String?,dateOfBirthError: freezed == dateOfBirthError ? _self.dateOfBirthError : dateOfBirthError // ignore: cast_nullable_to_non_nullable
 as String?,isMen: null == isMen ? _self.isMen : isMen // ignore: cast_nullable_to_non_nullable
 as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -570,7 +549,7 @@ as bool,
 /// @nodoc
 mixin _$SignUpStateStep3 {
 
- String? get userPhotoPath; String get driverLicense; String get dateOfIssue; bool get isUploadDriverLicense; bool get isUploadPassport; bool get isLoading; File? get driverLicenseFile; File? get accountPhotoFile; File? get passportFile; String? get driverLicenseError; String? get driverLicenseFileeEror; String? get dateOfIssueError; String? get passportFileError;
+ bool get isLoading; File? get driverLicenseFile; File? get accountPhotoFile; File? get passportFile; String? get driverLicenseError; String? get dateOfIssueError; String? get driverLicenseFileError; String? get passportFileError;
 /// Create a copy of SignUpStateStep3
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -581,16 +560,16 @@ $SignUpStateStep3CopyWith<SignUpStateStep3> get copyWith => _$SignUpStateStep3Co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpStateStep3&&(identical(other.userPhotoPath, userPhotoPath) || other.userPhotoPath == userPhotoPath)&&(identical(other.driverLicense, driverLicense) || other.driverLicense == driverLicense)&&(identical(other.dateOfIssue, dateOfIssue) || other.dateOfIssue == dateOfIssue)&&(identical(other.isUploadDriverLicense, isUploadDriverLicense) || other.isUploadDriverLicense == isUploadDriverLicense)&&(identical(other.isUploadPassport, isUploadPassport) || other.isUploadPassport == isUploadPassport)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.driverLicenseError, driverLicenseError) || other.driverLicenseError == driverLicenseError)&&(identical(other.driverLicenseFileeEror, driverLicenseFileeEror) || other.driverLicenseFileeEror == driverLicenseFileeEror)&&(identical(other.dateOfIssueError, dateOfIssueError) || other.dateOfIssueError == dateOfIssueError)&&(identical(other.passportFileError, passportFileError) || other.passportFileError == passportFileError));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignUpStateStep3&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.driverLicenseError, driverLicenseError) || other.driverLicenseError == driverLicenseError)&&(identical(other.dateOfIssueError, dateOfIssueError) || other.dateOfIssueError == dateOfIssueError)&&(identical(other.driverLicenseFileError, driverLicenseFileError) || other.driverLicenseFileError == driverLicenseFileError)&&(identical(other.passportFileError, passportFileError) || other.passportFileError == passportFileError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userPhotoPath,driverLicense,dateOfIssue,isUploadDriverLicense,isUploadPassport,isLoading,driverLicenseFile,accountPhotoFile,passportFile,driverLicenseError,driverLicenseFileeEror,dateOfIssueError,passportFileError);
+int get hashCode => Object.hash(runtimeType,isLoading,driverLicenseFile,accountPhotoFile,passportFile,driverLicenseError,dateOfIssueError,driverLicenseFileError,passportFileError);
 
 @override
 String toString() {
-  return 'SignUpStateStep3(userPhotoPath: $userPhotoPath, driverLicense: $driverLicense, dateOfIssue: $dateOfIssue, isUploadDriverLicense: $isUploadDriverLicense, isUploadPassport: $isUploadPassport, isLoading: $isLoading, driverLicenseFile: $driverLicenseFile, accountPhotoFile: $accountPhotoFile, passportFile: $passportFile, driverLicenseError: $driverLicenseError, driverLicenseFileeEror: $driverLicenseFileeEror, dateOfIssueError: $dateOfIssueError, passportFileError: $passportFileError)';
+  return 'SignUpStateStep3(isLoading: $isLoading, driverLicenseFile: $driverLicenseFile, accountPhotoFile: $accountPhotoFile, passportFile: $passportFile, driverLicenseError: $driverLicenseError, dateOfIssueError: $dateOfIssueError, driverLicenseFileError: $driverLicenseFileError, passportFileError: $passportFileError)';
 }
 
 
@@ -601,7 +580,7 @@ abstract mixin class $SignUpStateStep3CopyWith<$Res>  {
   factory $SignUpStateStep3CopyWith(SignUpStateStep3 value, $Res Function(SignUpStateStep3) _then) = _$SignUpStateStep3CopyWithImpl;
 @useResult
 $Res call({
- String? userPhotoPath, String driverLicense, String dateOfIssue, bool isUploadDriverLicense, bool isUploadPassport, bool isLoading, File? driverLicenseFile, File? accountPhotoFile, File? passportFile, String? driverLicenseError, String? driverLicenseFileeEror, String? dateOfIssueError, String? passportFileError
+ bool isLoading, File? driverLicenseFile, File? accountPhotoFile, File? passportFile, String? driverLicenseError, String? dateOfIssueError, String? driverLicenseFileError, String? passportFileError
 });
 
 
@@ -618,20 +597,15 @@ class _$SignUpStateStep3CopyWithImpl<$Res>
 
 /// Create a copy of SignUpStateStep3
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? userPhotoPath = freezed,Object? driverLicense = null,Object? dateOfIssue = null,Object? isUploadDriverLicense = null,Object? isUploadPassport = null,Object? isLoading = null,Object? driverLicenseFile = freezed,Object? accountPhotoFile = freezed,Object? passportFile = freezed,Object? driverLicenseError = freezed,Object? driverLicenseFileeEror = freezed,Object? dateOfIssueError = freezed,Object? passportFileError = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? driverLicenseFile = freezed,Object? accountPhotoFile = freezed,Object? passportFile = freezed,Object? driverLicenseError = freezed,Object? dateOfIssueError = freezed,Object? driverLicenseFileError = freezed,Object? passportFileError = freezed,}) {
   return _then(_self.copyWith(
-userPhotoPath: freezed == userPhotoPath ? _self.userPhotoPath : userPhotoPath // ignore: cast_nullable_to_non_nullable
-as String?,driverLicense: null == driverLicense ? _self.driverLicense : driverLicense // ignore: cast_nullable_to_non_nullable
-as String,dateOfIssue: null == dateOfIssue ? _self.dateOfIssue : dateOfIssue // ignore: cast_nullable_to_non_nullable
-as String,isUploadDriverLicense: null == isUploadDriverLicense ? _self.isUploadDriverLicense : isUploadDriverLicense // ignore: cast_nullable_to_non_nullable
-as bool,isUploadPassport: null == isUploadPassport ? _self.isUploadPassport : isUploadPassport // ignore: cast_nullable_to_non_nullable
-as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,driverLicenseFile: freezed == driverLicenseFile ? _self.driverLicenseFile : driverLicenseFile // ignore: cast_nullable_to_non_nullable
 as File?,accountPhotoFile: freezed == accountPhotoFile ? _self.accountPhotoFile : accountPhotoFile // ignore: cast_nullable_to_non_nullable
 as File?,passportFile: freezed == passportFile ? _self.passportFile : passportFile // ignore: cast_nullable_to_non_nullable
 as File?,driverLicenseError: freezed == driverLicenseError ? _self.driverLicenseError : driverLicenseError // ignore: cast_nullable_to_non_nullable
-as String?,driverLicenseFileeEror: freezed == driverLicenseFileeEror ? _self.driverLicenseFileeEror : driverLicenseFileeEror // ignore: cast_nullable_to_non_nullable
 as String?,dateOfIssueError: freezed == dateOfIssueError ? _self.dateOfIssueError : dateOfIssueError // ignore: cast_nullable_to_non_nullable
+as String?,driverLicenseFileError: freezed == driverLicenseFileError ? _self.driverLicenseFileError : driverLicenseFileError // ignore: cast_nullable_to_non_nullable
 as String?,passportFileError: freezed == passportFileError ? _self.passportFileError : passportFileError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -715,10 +689,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? userPhotoPath,  String driverLicense,  String dateOfIssue,  bool isUploadDriverLicense,  bool isUploadPassport,  bool isLoading,  File? driverLicenseFile,  File? accountPhotoFile,  File? passportFile,  String? driverLicenseError,  String? driverLicenseFileeEror,  String? dateOfIssueError,  String? passportFileError)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  File? driverLicenseFile,  File? accountPhotoFile,  File? passportFile,  String? driverLicenseError,  String? dateOfIssueError,  String? driverLicenseFileError,  String? passportFileError)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignUpStateStep3() when $default != null:
-return $default(_that.userPhotoPath,_that.driverLicense,_that.dateOfIssue,_that.isUploadDriverLicense,_that.isUploadPassport,_that.isLoading,_that.driverLicenseFile,_that.accountPhotoFile,_that.passportFile,_that.driverLicenseError,_that.driverLicenseFileeEror,_that.dateOfIssueError,_that.passportFileError);case _:
+return $default(_that.isLoading,_that.driverLicenseFile,_that.accountPhotoFile,_that.passportFile,_that.driverLicenseError,_that.dateOfIssueError,_that.driverLicenseFileError,_that.passportFileError);case _:
   return orElse();
 
 }
@@ -736,10 +710,10 @@ return $default(_that.userPhotoPath,_that.driverLicense,_that.dateOfIssue,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? userPhotoPath,  String driverLicense,  String dateOfIssue,  bool isUploadDriverLicense,  bool isUploadPassport,  bool isLoading,  File? driverLicenseFile,  File? accountPhotoFile,  File? passportFile,  String? driverLicenseError,  String? driverLicenseFileeEror,  String? dateOfIssueError,  String? passportFileError)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  File? driverLicenseFile,  File? accountPhotoFile,  File? passportFile,  String? driverLicenseError,  String? dateOfIssueError,  String? driverLicenseFileError,  String? passportFileError)  $default,) {final _that = this;
 switch (_that) {
 case _SignUpStateStep3():
-return $default(_that.userPhotoPath,_that.driverLicense,_that.dateOfIssue,_that.isUploadDriverLicense,_that.isUploadPassport,_that.isLoading,_that.driverLicenseFile,_that.accountPhotoFile,_that.passportFile,_that.driverLicenseError,_that.driverLicenseFileeEror,_that.dateOfIssueError,_that.passportFileError);}
+return $default(_that.isLoading,_that.driverLicenseFile,_that.accountPhotoFile,_that.passportFile,_that.driverLicenseError,_that.dateOfIssueError,_that.driverLicenseFileError,_that.passportFileError);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -753,10 +727,10 @@ return $default(_that.userPhotoPath,_that.driverLicense,_that.dateOfIssue,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? userPhotoPath,  String driverLicense,  String dateOfIssue,  bool isUploadDriverLicense,  bool isUploadPassport,  bool isLoading,  File? driverLicenseFile,  File? accountPhotoFile,  File? passportFile,  String? driverLicenseError,  String? driverLicenseFileeEror,  String? dateOfIssueError,  String? passportFileError)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  File? driverLicenseFile,  File? accountPhotoFile,  File? passportFile,  String? driverLicenseError,  String? dateOfIssueError,  String? driverLicenseFileError,  String? passportFileError)?  $default,) {final _that = this;
 switch (_that) {
 case _SignUpStateStep3() when $default != null:
-return $default(_that.userPhotoPath,_that.driverLicense,_that.dateOfIssue,_that.isUploadDriverLicense,_that.isUploadPassport,_that.isLoading,_that.driverLicenseFile,_that.accountPhotoFile,_that.passportFile,_that.driverLicenseError,_that.driverLicenseFileeEror,_that.dateOfIssueError,_that.passportFileError);case _:
+return $default(_that.isLoading,_that.driverLicenseFile,_that.accountPhotoFile,_that.passportFile,_that.driverLicenseError,_that.dateOfIssueError,_that.driverLicenseFileError,_that.passportFileError);case _:
   return null;
 
 }
@@ -768,21 +742,16 @@ return $default(_that.userPhotoPath,_that.driverLicense,_that.dateOfIssue,_that.
 
 
 class _SignUpStateStep3 extends SignUpStateStep3 {
-  const _SignUpStateStep3({this.userPhotoPath, this.driverLicense = '', this.dateOfIssue = '', this.isUploadDriverLicense = false, this.isUploadPassport = false, this.isLoading = false, this.driverLicenseFile, this.accountPhotoFile, this.passportFile, this.driverLicenseError, this.driverLicenseFileeEror, this.dateOfIssueError, this.passportFileError}): super._();
+  const _SignUpStateStep3({this.isLoading = false, this.driverLicenseFile, this.accountPhotoFile, this.passportFile, this.driverLicenseError, this.dateOfIssueError, this.driverLicenseFileError, this.passportFileError}): super._();
   
 
-@override final  String? userPhotoPath;
-@override@JsonKey() final  String driverLicense;
-@override@JsonKey() final  String dateOfIssue;
-@override@JsonKey() final  bool isUploadDriverLicense;
-@override@JsonKey() final  bool isUploadPassport;
 @override@JsonKey() final  bool isLoading;
 @override final  File? driverLicenseFile;
 @override final  File? accountPhotoFile;
 @override final  File? passportFile;
 @override final  String? driverLicenseError;
-@override final  String? driverLicenseFileeEror;
 @override final  String? dateOfIssueError;
+@override final  String? driverLicenseFileError;
 @override final  String? passportFileError;
 
 /// Create a copy of SignUpStateStep3
@@ -795,16 +764,16 @@ _$SignUpStateStep3CopyWith<_SignUpStateStep3> get copyWith => __$SignUpStateStep
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpStateStep3&&(identical(other.userPhotoPath, userPhotoPath) || other.userPhotoPath == userPhotoPath)&&(identical(other.driverLicense, driverLicense) || other.driverLicense == driverLicense)&&(identical(other.dateOfIssue, dateOfIssue) || other.dateOfIssue == dateOfIssue)&&(identical(other.isUploadDriverLicense, isUploadDriverLicense) || other.isUploadDriverLicense == isUploadDriverLicense)&&(identical(other.isUploadPassport, isUploadPassport) || other.isUploadPassport == isUploadPassport)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.driverLicenseError, driverLicenseError) || other.driverLicenseError == driverLicenseError)&&(identical(other.driverLicenseFileeEror, driverLicenseFileeEror) || other.driverLicenseFileeEror == driverLicenseFileeEror)&&(identical(other.dateOfIssueError, dateOfIssueError) || other.dateOfIssueError == dateOfIssueError)&&(identical(other.passportFileError, passportFileError) || other.passportFileError == passportFileError));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignUpStateStep3&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.driverLicenseError, driverLicenseError) || other.driverLicenseError == driverLicenseError)&&(identical(other.dateOfIssueError, dateOfIssueError) || other.dateOfIssueError == dateOfIssueError)&&(identical(other.driverLicenseFileError, driverLicenseFileError) || other.driverLicenseFileError == driverLicenseFileError)&&(identical(other.passportFileError, passportFileError) || other.passportFileError == passportFileError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,userPhotoPath,driverLicense,dateOfIssue,isUploadDriverLicense,isUploadPassport,isLoading,driverLicenseFile,accountPhotoFile,passportFile,driverLicenseError,driverLicenseFileeEror,dateOfIssueError,passportFileError);
+int get hashCode => Object.hash(runtimeType,isLoading,driverLicenseFile,accountPhotoFile,passportFile,driverLicenseError,dateOfIssueError,driverLicenseFileError,passportFileError);
 
 @override
 String toString() {
-  return 'SignUpStateStep3(userPhotoPath: $userPhotoPath, driverLicense: $driverLicense, dateOfIssue: $dateOfIssue, isUploadDriverLicense: $isUploadDriverLicense, isUploadPassport: $isUploadPassport, isLoading: $isLoading, driverLicenseFile: $driverLicenseFile, accountPhotoFile: $accountPhotoFile, passportFile: $passportFile, driverLicenseError: $driverLicenseError, driverLicenseFileeEror: $driverLicenseFileeEror, dateOfIssueError: $dateOfIssueError, passportFileError: $passportFileError)';
+  return 'SignUpStateStep3(isLoading: $isLoading, driverLicenseFile: $driverLicenseFile, accountPhotoFile: $accountPhotoFile, passportFile: $passportFile, driverLicenseError: $driverLicenseError, dateOfIssueError: $dateOfIssueError, driverLicenseFileError: $driverLicenseFileError, passportFileError: $passportFileError)';
 }
 
 
@@ -815,7 +784,7 @@ abstract mixin class _$SignUpStateStep3CopyWith<$Res> implements $SignUpStateSte
   factory _$SignUpStateStep3CopyWith(_SignUpStateStep3 value, $Res Function(_SignUpStateStep3) _then) = __$SignUpStateStep3CopyWithImpl;
 @override @useResult
 $Res call({
- String? userPhotoPath, String driverLicense, String dateOfIssue, bool isUploadDriverLicense, bool isUploadPassport, bool isLoading, File? driverLicenseFile, File? accountPhotoFile, File? passportFile, String? driverLicenseError, String? driverLicenseFileeEror, String? dateOfIssueError, String? passportFileError
+ bool isLoading, File? driverLicenseFile, File? accountPhotoFile, File? passportFile, String? driverLicenseError, String? dateOfIssueError, String? driverLicenseFileError, String? passportFileError
 });
 
 
@@ -832,20 +801,15 @@ class __$SignUpStateStep3CopyWithImpl<$Res>
 
 /// Create a copy of SignUpStateStep3
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? userPhotoPath = freezed,Object? driverLicense = null,Object? dateOfIssue = null,Object? isUploadDriverLicense = null,Object? isUploadPassport = null,Object? isLoading = null,Object? driverLicenseFile = freezed,Object? accountPhotoFile = freezed,Object? passportFile = freezed,Object? driverLicenseError = freezed,Object? driverLicenseFileeEror = freezed,Object? dateOfIssueError = freezed,Object? passportFileError = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? driverLicenseFile = freezed,Object? accountPhotoFile = freezed,Object? passportFile = freezed,Object? driverLicenseError = freezed,Object? dateOfIssueError = freezed,Object? driverLicenseFileError = freezed,Object? passportFileError = freezed,}) {
   return _then(_SignUpStateStep3(
-userPhotoPath: freezed == userPhotoPath ? _self.userPhotoPath : userPhotoPath // ignore: cast_nullable_to_non_nullable
-as String?,driverLicense: null == driverLicense ? _self.driverLicense : driverLicense // ignore: cast_nullable_to_non_nullable
-as String,dateOfIssue: null == dateOfIssue ? _self.dateOfIssue : dateOfIssue // ignore: cast_nullable_to_non_nullable
-as String,isUploadDriverLicense: null == isUploadDriverLicense ? _self.isUploadDriverLicense : isUploadDriverLicense // ignore: cast_nullable_to_non_nullable
-as bool,isUploadPassport: null == isUploadPassport ? _self.isUploadPassport : isUploadPassport // ignore: cast_nullable_to_non_nullable
-as bool,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,driverLicenseFile: freezed == driverLicenseFile ? _self.driverLicenseFile : driverLicenseFile // ignore: cast_nullable_to_non_nullable
 as File?,accountPhotoFile: freezed == accountPhotoFile ? _self.accountPhotoFile : accountPhotoFile // ignore: cast_nullable_to_non_nullable
 as File?,passportFile: freezed == passportFile ? _self.passportFile : passportFile // ignore: cast_nullable_to_non_nullable
 as File?,driverLicenseError: freezed == driverLicenseError ? _self.driverLicenseError : driverLicenseError // ignore: cast_nullable_to_non_nullable
-as String?,driverLicenseFileeEror: freezed == driverLicenseFileeEror ? _self.driverLicenseFileeEror : driverLicenseFileeEror // ignore: cast_nullable_to_non_nullable
 as String?,dateOfIssueError: freezed == dateOfIssueError ? _self.dateOfIssueError : dateOfIssueError // ignore: cast_nullable_to_non_nullable
+as String?,driverLicenseFileError: freezed == driverLicenseFileError ? _self.driverLicenseFileError : driverLicenseFileError // ignore: cast_nullable_to_non_nullable
 as String?,passportFileError: freezed == passportFileError ? _self.passportFileError : passportFileError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));

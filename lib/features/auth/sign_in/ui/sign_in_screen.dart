@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mobile_study/core/utils/validators.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mobile_study/core/navigation/app_routes.dart';
 import 'package:mobile_study/features/auth/auth_di.dart';
+import 'package:mobile_study/ui/theme/models/app_icons.dart';
 import 'package:mobile_study/ui/widgets/custom_text_field.dart';
-
-import '../../../../ui/theme/models/app_images.dart';
 
 class SignInScreen extends ConsumerWidget {
   const SignInScreen({super.key});
@@ -50,6 +50,7 @@ class SignInScreen extends ConsumerWidget {
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(r'[a-zA-Zа-яА-ЯёЁ0-9@._+-]'),
+                    // RegExp(r'[a-zA-Z0-9@._+-]'),
                   ),
                 ],
               ),
@@ -65,8 +66,8 @@ class SignInScreen extends ConsumerWidget {
                 controller: viewModel.passwordController,
                 onSubmitted: (_) => viewModel.onPasswordSubmit(),
                 svgIcon: state.isPasswordVisible
-                    ? AppImages.visible_off
-                    : AppImages.visible_on,
+                    ? AppIcons.visible_off
+                    : AppIcons.visible_on,
                 onIconPressed: () => viewModel.changePasswordVisibility(),
                 obscureText: !state.isPasswordVisible,
                 isLoading: state.isLoading,
@@ -76,16 +77,22 @@ class SignInScreen extends ConsumerWidget {
               ),
 
               Spacer(flex: 1),
-              TextButton(onPressed: () {}, child: const Text("Забыли пароль?")),
+              TextButton(
+                onPressed: () {
+                  context.pushNamed(AppRoutes.forgotPassword.name);
+                },
+                child: const Text("Забыли пароль?"),
+              ),
               Spacer(flex: 1),
               SizedBox(
-                width: double.infinity,
+                height: 52,
+                width: 342,
                 child: FilledButton(
                   onPressed: () {
                     viewModel.tryGoHome();
                   },
                   child: state.isLoading
-                      ? const CircularProgressIndicator()
+                      ? SizedBox(height: 20, width: 20, child: const CircularProgressIndicator())
                       : const Text("Войти"),
                 ),
               ),
@@ -93,7 +100,9 @@ class SignInScreen extends ConsumerWidget {
               GoogleSignInButton(
                 isLoading: state.isLoading,
                 isKeyboardOpen: isKeyboardOpen,
-                onPressed: () {viewModel.googleSignIn(); },
+                onPressed: () {
+                  viewModel.googleSignIn();
+                },
               ),
 
               Spacer(flex: 1),
@@ -160,7 +169,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(
-                      AppImages.googleIcon,
+                      AppIcons.googleIcon,
                       width: 20,
                       height: 20,
                     ),

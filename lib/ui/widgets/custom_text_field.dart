@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile_study/ui/theme/models/app_colors.dart';
+import 'package:mobile_study/ui/widgets/custom_icon.dart';
 
 import '../theme/models/app_images.dart';
 
@@ -45,10 +46,6 @@ class CustomTextField extends StatelessWidget {
     this.errorText,
   });
 
-  static const _textColor = AppColors.textFieldText;
-  static const _borderColor = AppColors.textFieldBorder;
-  static const _errorColor = AppColors.textFieldError;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -67,41 +64,17 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText,
           maxLines: maxLines,
           onFieldSubmitted: onSubmitted,
-          style: Theme.of(context).textTheme.bodySmall,
 
+          // style: Theme.of(context).textTheme.bodySmall,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: Theme.of(context).textTheme.bodySmall,
             errorText: errorText,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: _borderColor, width: 1),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: _borderColor, width: 1),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: _borderColor, width: 1),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: _errorColor, width: 1),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: _errorColor, width: 1),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 14,
-              vertical: 12,
-            ),
+
             prefixIcon: prefIcon == null
                 ? null
                 : Padding(
-              padding: const EdgeInsets.all(12.0),
-                  child: GestureDetector(
+                    padding: const EdgeInsets.all(12.0),
+                    child: GestureDetector(
                       onTap: onIconPressed,
                       child: SvgPicture.asset(
                         prefIcon!,
@@ -109,12 +82,12 @@ class CustomTextField extends StatelessWidget {
                         height: 20,
                         fit: BoxFit.contain,
                         colorFilter: ColorFilter.mode(
-                          AppColors.textFieldIcon,
+                          Theme.of(context).colorScheme.onSurfaceVariant,
                           BlendMode.srcIn,
                         ),
                       ),
                     ),
-                ),
+                  ),
             prefixIconConstraints: BoxConstraints(
               minWidth: 20, // уменьшить до нужного значения
               minHeight: 20,
@@ -125,18 +98,16 @@ class CustomTextField extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     child: GestureDetector(
                       onTap: onIconPressed,
-                      child: SvgPicture.asset(
-                        svgIcon!,
-                        width: 20,
-                        height: 20,
-                        fit: BoxFit.contain,
-                        color: AppColors.textFieldIcon,
+                      child: CustomIconWidget(
+                        iconPath: svgIcon!,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
 
-            errorStyle: const TextStyle(
-              color: _errorColor,
+            errorStyle: TextStyle(
+              color: Theme.of(context).colorScheme.error,
               fontWeight: FontWeight.w500,
             ),
           ),

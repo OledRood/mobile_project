@@ -1,19 +1,18 @@
+import 'dart:ui';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mobile_study/features/home/models/search_result_model.dart';
 
 part 'home_model.freezed.dart';
 
-enum ServerRequestState { loading, success, error }
+enum HomeViewState { initial, loading, searchResults }
 
 @freezed
-sealed class HomeModel with _$HomeModel {
-  const factory HomeModel({
-    String? priceCardPath,
-    @Default('Выбрать') String selectedStore,
-    List<String>? personalButtons,
-
+sealed class HomeState with _$HomeState {
+  const factory HomeState({
     @Default(false) bool isLoading,
+    List<SearchResultModel>? searchResults,
     String? errorMessage,
-    @Default(ServerRequestState.loading) ServerRequestState serverRequestState,
-    @Default(true) bool isDiscountCardOpen,
-  }) = _HomeModel;
+    @Default(HomeViewState.initial) HomeViewState viewState,
+  }) = _HomeState;
 }

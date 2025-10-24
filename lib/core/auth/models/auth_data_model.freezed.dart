@@ -123,10 +123,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _AuthDataModel():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -185,10 +182,7 @@ return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  String? lastName,  String? firstName,  String? middleName,  String? birthDate,  bool? isMale,  String? driverLicense,  String? dateOfIssue,  File? driverLicenseFile,  File? passportFile,  File? accountPhotoFile)  $default,) {final _that = this;
 switch (_that) {
 case _AuthDataModel():
-return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///

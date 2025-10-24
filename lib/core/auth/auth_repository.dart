@@ -218,6 +218,29 @@ class AuthRepository {
       return false;
     }
   }
+
+  // Сброс пароля (установка нового пароля)
+  Future<bool> resetPassword({
+    required String email,
+    required String newPassword,
+  }) async {
+    try {
+      // Пока используем заглушку с положительным результатом
+      await Future.delayed(const Duration(seconds: 2));
+
+      // TODO: Реальная логика отправки на сервер
+      // final response = await _apiService.post('/auth/reset-password', {
+      //   'email': email,
+      //   'newPassword': newPassword,
+      // });
+
+      debugPrint('Password reset successful for email: $email');
+      return true;
+    } catch (e) {
+      debugPrint('Error resetting password: $e');
+      return false;
+    }
+  }
 }
 
 // Provider для GoogleAuthService

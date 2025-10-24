@@ -125,22 +125,15 @@ class SignUpViewModelStep1 extends StateNotifier<SignUpStateStep1> {
     appNavigation.goBack();
   }
 
-  /// Обрабатывает нажатие кнопки "Назад" с подтверждением
-  /// 
-  /// Вызывается из UI после показа диалога подтверждения
   void confirmAndExit() {
-    // Очищаем все данные регистрации
     authDataNotifier.state = null;
 
-    // Очищаем поля ввода
     emailController.clear();
     passwordController.clear();
     confirmPasswordController.clear();
 
-    // Сбрасываем состояние
     state = SignUpStateStep1();
 
-    // Переходим на экран выбора типа регистрации
     appNavigation.registration();
   }
 
@@ -153,9 +146,5 @@ class SignUpViewModelStep1 extends StateNotifier<SignUpStateStep1> {
     confirmPasswordFocusNode.dispose();
 
     super.dispose();
-  }
-
-  void skip() {
-    appNavigation.signUpSecond();
   }
 }

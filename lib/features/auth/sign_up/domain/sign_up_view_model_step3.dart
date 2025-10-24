@@ -7,16 +7,20 @@ import 'package:mobile_study/core/utils/validators.dart';
 import 'package:mobile_study/features/auth/sign_up/models/sign_up_model.dart';
 import 'package:mobile_study/core/auth/models/auth_data_model.dart';
 import 'package:mobile_study/core/auth/auth_notifier.dart';
+import 'package:mobile_study/core/auth/models/auth_state.dart';
+import 'package:mobile_study/core/message/scaffold_messenger_manager.dart';
 
 class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
   final AppNavigation appNavigation;
   final StateController<AuthDataModel?> authDataNotifier;
   final AuthNotifier authNotifier;
+  final ScaffoldMessengerManager scaffoldMessengerManager;
 
   SignUpViewModelStep3({
     required this.appNavigation,
     required this.authDataNotifier,
     required this.authNotifier,
+    required this.scaffoldMessengerManager,
   }) : super(SignUpStateStep3());
 
   final TextEditingController driverLicenseController = TextEditingController();
@@ -47,6 +51,7 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
 
   void resetDriverLicense() {
     if (state.isLoading) return;
+    state = state.copyWith(driverLicenseError: null);
     if (driverLicenseController.text.length == 10) {
       onDriverLicenseSubmit();
       dateOfIssueFocusNode.requestFocus();
@@ -57,6 +62,7 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
 
   void addAccountPhoto(final File photoFile) {
     if (state.isLoading) return;
+    driverLicenseFocusNode.unfocus();
     dateOfIssueFocusNode.unfocus();
     state = state.copyWith(accountPhotoFile: photoFile);
   }
@@ -67,12 +73,12 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
     checkDateOfIssue();
   }
 
-  /// Парсит дату из формата DD.MM.YYYY в DateTime
   DateTime? _parseDateString(String? dateStr) {
+    print("Это дата строка: $dateStr");
     if (dateStr == null || dateStr.isEmpty) return null;
 
     try {
-      final parts = dateStr.split('.');
+      final parts = dateStr.split('/');
       if (parts.length != 3) return null;
 
       final day = int.parse(parts[0]);
@@ -88,8 +94,7 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
   void checkDateOfIssue() {
     final birthDateStr = authDataNotifier.state?.birthDate;
     final birthDate = _parseDateString(birthDateStr);
-
-    // Проверяем что дата рождения корректна
+    print('Это дата рождения, после парса: $birthDate');
     if (birthDate == null) {
       state = state.copyWith(
         dateOfIssueError: "Сначала заполните дату рождения корректно",
@@ -97,7 +102,6 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
       return;
     }
 
-    // Валидируем дату выдачи
     final error = Validators.validateIssuedDate(
       dateOfIssueController.text,
       birthDate,
@@ -117,10 +121,10 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
   checkDriverLicenseFile() {
     if (state.driverLicenseFile == null) {
       state = state.copyWith(
-        driverLicenseError: "Загрузите фото водительского удостоверения",
+        driverLicenseFileError: "Загрузите фото водительского удостоверения",
       );
     } else {
-      state = state.copyWith(driverLicenseError: null);
+      state = state.copyWith(driverLicenseFileError: null);
     }
   }
 
@@ -155,23 +159,41 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
       final data = authDataNotifier.state;
       if (data != null) {
         await authNotifier.register(data);
+
+        await Future.delayed(const Duration(milliseconds: 100));
+
+        authNotifier.state.maybeMap(
+          authenticated: (authenticatedState) {
+            state = state.copyWith(isLoading: false);
+            appNavigation.signUpFinal();
+          },
+          error: (errorState) {
+            scaffoldMessengerManager.showSnackBar(errorState.message);
+            state = state.copyWith(isLoading: false);
+          },
+          orElse: () {
+            // Другие состояния
+            state = state.copyWith(isLoading: false);
+          },
+        );
+      } else {
+        state = state.copyWith(isLoading: false);
+        debugPrint('❌ Нет данных для регистрации');
+        scaffoldMessengerManager.showSnackBar('Нет данных для регистрации');
       }
     } catch (e) {
-      debugPrint('❌ Ошибка регистрации: $e');
+      debugPrint('❌ Исключение при регистрации: $e');
+      scaffoldMessengerManager.showSnackBar('Ошибка регистрации: $e');
+      state = state.copyWith(isLoading: false);
     }
-
-    await Future.delayed(const Duration(seconds: 2));
-    state = state.copyWith(isLoading: false);
-    appNavigation.signUpFinal();
   }
 
   void addDriverLicensePhoto(File file) {
     dateOfIssueFocusNode.unfocus();
-
     if (state.isLoading) return;
     state = state.copyWith(
       driverLicenseFile: file,
-      driverLicenseFileeEror: null,
+      driverLicenseFileError: null,
     );
   }
 

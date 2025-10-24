@@ -1,27 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Диалог подтверждения выхода из процесса (например, регистрации)
-/// 
-/// Показывает предупреждение что данные будут потеряны
-/// и запрашивает подтверждение у пользователя
-/// 
-/// Пример использования:
-/// ```dart
-/// // В UI (например, в onTap кнопки назад):
-/// final confirmed = await ConfirmExitDialog.show(context);
-/// if (confirmed) {
-///   viewModel.confirmAndExit();
-/// }
-/// 
-/// // С кастомными текстами:
-/// final confirmed = await ConfirmExitDialog.show(
-///   context,
-///   title: 'Выйти?',
-///   message: 'Вы уверены?',
-///   confirmText: 'Да',
-///   cancelText: 'Нет',
-/// );
-/// ```
 class ConfirmExitDialog extends StatelessWidget {
   final String title;
   final String message;
@@ -31,13 +9,13 @@ class ConfirmExitDialog extends StatelessWidget {
   const ConfirmExitDialog({
     super.key,
     this.title = 'Отменить регистрацию?',
-    this.message = 'Все введенные данные будут потеряны. Продолжить?',
-    this.confirmText = 'Продолжить',
+    this.message = 'Все введенные данные будут потеряны.',
+    this.confirmText = 'Выйти',
     this.cancelText = 'Отмена',
   });
 
   /// Показывает диалог и возвращает результат
-  /// 
+  ///
   /// Возвращает:
   /// - `true` если пользователь подтвердил выход
   /// - `false` если пользователь отменил или закрыл диалог
@@ -64,6 +42,7 @@ class ConfirmExitDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       title: Text(title),
       content: Text(message),
       actions: [
