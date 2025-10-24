@@ -20,17 +20,62 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   shared_preferences: ^2.5.3
   riverpod_annotation: ^2.6.1
+  http: ^1.1.2
+  flutter_svg: ^2.2.1
+  json_serializable: ^6.11.1
+  flutter_native_splash: ^2.4.6
+  mask_text_input_formatter: ^2.9.0
+  image_picker: ^1.2.0
+  google_sign_in: ^6.2.1
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
-  
-  # Кодогенерация
+  json_serializable: ^6.11.1
   build_runner: ^2.4.8
-  json_serializable: ^6.7.1
 
 
 flutter:
-  uses-material-design: true
-  
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        # Thin - 100
+        - asset: fonts/Montserrat/static/Montserrat-Thin.ttf
+          weight: 100
+
+        # ExtraLight - 200
+        - asset: fonts/Montserrat/static/Montserrat-ExtraLight.ttf
+          weight: 200
+
+        # Light - 300
+        - asset: fonts/Montserrat/static/Montserrat-Light.ttf
+          weight: 300
+
+        # Regular - 400 (базовый)
+        - asset: fonts/Montserrat/static/Montserrat-Regular.ttf
+          weight: 400
+
+        # Medium - 500
+        - asset: fonts/Montserrat/static/Montserrat-Medium.ttf
+          weight: 500
+        # SemiBold - 600
+        - asset: fonts/Montserrat/static/Montserrat-SemiBold.ttf
+          weight: 600
+
+        # Bold - 700
+        - asset: fonts/Montserrat/static/Montserrat-Bold.ttf
+          weight: 700
+
+        # ExtraBold - 800
+        - asset: fonts/Montserrat/static/Montserrat-ExtraBold.ttf
+          weight: 800
+
+        # Black - 900
+        - asset: fonts/Montserrat/static/Montserrat-Black.ttf
+          weight: 900

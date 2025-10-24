@@ -1,22 +1,83 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile_study/core/auth/auth_notifier.dart';
+import 'package:mobile_study/core/auth/models/auth_state.dart';
+import 'package:mobile_study/core/auth/models/user.dart';
 import 'package:mobile_study/core/navigation/app_navigation.dart';
-import '../models/splash_model.dart';
+import 'package:mobile_study/core/auth/auth_service.dart';
 
-class SplashViewModel extends StateNotifier<SplashModel> {
+class SplashViewModel extends StateNotifier<void> {
   final AppNavigation appNavigation;
+  final Ref ref;
 
-  SplashViewModel({required this.appNavigation})
-    : super(const SplashModel(isLoading: true)) {
+  SplashViewModel({required this.appNavigation, required this.ref})
+      : super(null) {
     init();
   }
 
   Future<void> init() async {
-    await Future.delayed(const Duration(seconds: 2));
-    print('splash finished');
-    goToHome();
+    await Future.delayed(Duration(seconds: 1));
+    _checkAuthAndNavigate();
+  }
+
+  void _checkAuthAndNavigate() {
+    debugPrint("checkAuthAndNavigate");
+    var currentAuthState = ref.read(authProvider);
+    final notifierAuthState = ref.read(authProvider.notifier);
+    final authService = ref.read(authServiceProvider); // Используем authServiceProvider
+
+    // MARK: Удалить после внедрения аутентификации
+    currentAuthState = AuthState.unauthenticated();
+    debugPrint(currentAuthState.toString());
+
+    currentAuthState.when(
+      initial: () => _listenToAuthChanges(),
+      loading: () => _listenToAuthChanges(),
+      authenticated: (User user, String token) => goToHome(),
+      unauthenticated: () => goToOnboarding(authService),
+      error: (message) async {
+        print('Auth error: $message');
+        await Future.delayed(Duration(seconds: 2));
+        notifierAuthState.checkAuthStatus();
+      },
+    );
+  }
+
+  void _listenToAuthChanges() {
+    final notifierAuthState = ref.read(authProvider.notifier);
+    final authService = ref.read(authServiceProvider); // Используем authServiceProvider
+
+    // Подписываемся на изменения состояния аутентификации
+    ref.listen(authProvider, (previous, next) {
+      debugPrint(next.toString());
+      next.when(
+        initial: () => {},
+        loading: () => {},
+        authenticated: (user, token) {
+          print('User authenticated: ${user.name}');
+          goToHome();
+        },
+        unauthenticated: () => goToOnboarding(authService),
+        error: (message) async {
+          print('Auth error: $message');
+          await Future.delayed(Duration(seconds: 2));
+          notifierAuthState.checkAuthStatus();
+        },
+      );
+    });
   }
 
   void goToHome() {
-    appNavigation.goToHome();
+    appNavigation.home();
+  }
+
+  Future<void> goToOnboarding(AuthService authService) async { // async вместо await
+    final isOnboardingCompleted = await authService.isOnboardingCompleted();
+
+    if (isOnboardingCompleted) {
+      appNavigation.registration();
+    } else {
+      appNavigation.onboarding();
+    }
   }
 }

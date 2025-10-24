@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSCameraUsageDescription</key>
+    <string>App requires camera</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>App requires gallery</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>App requires microphone access for recording audio.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -45,5 +51,21 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<!-- Google Sign-In Configuration -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.14547360479-4i3hdl6ms2chrvome23h302s286qkef5</string>
+			</array>
+		</dict>
+	</array>
+	
+	<key>GIDClientID</key>
+	<string>14547360479-4i3hdl6ms2chrvome23h302s286qkef5.apps.googleusercontent.com</string>
 </dict>
 </plist>
