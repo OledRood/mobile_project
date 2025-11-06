@@ -256,7 +256,7 @@ class AppTheme {
             }
             return colorScheme.primary;
           }),
-          overlayColor: WidgetStatePropertyAll(colorScheme.primary),
+          overlayColor: WidgetStatePropertyAll(Colors.transparent),
         ),
       ),
 

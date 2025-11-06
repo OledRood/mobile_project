@@ -14,18 +14,12 @@ class SearchResultScreen extends ConsumerWidget {
     final vm = ref.read(HomeDi.homeViewModel.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Результаты поиска"),
-        leading: IconButton(
-          onPressed: () {},
-          icon: CustomIconWidget(iconPath: AppIcons.leftChevron),
-        ),
-      ),
+      appBar: AppBar(title: Text("Результаты поиска")),
       body: SearchResultListWidget(
         items: state.searchResults,
         isLoading: state.isLoading,
-        onBorrowPressed: vm.onBorrowButtonPressed,
-        onDetailsPressed: vm.onDetailButtonPressed,
+        onRentPressed: vm.onRentButtonPressed,
+        onDetailsPressed: vm.onDetailsButtonPressed,
       ),
     );
   }

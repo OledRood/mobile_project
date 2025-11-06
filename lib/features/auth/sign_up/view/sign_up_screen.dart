@@ -7,6 +7,7 @@ import 'package:mobile_study/features/auth/auth_di.dart';
 import 'package:mobile_study/features/auth/sign_up/view/sign_up_second_screen.dart';
 import 'package:mobile_study/features/auth/sign_up/view/sign_up_third_screen.dart';
 import 'package:mobile_study/ui/theme/models/app_icons.dart';
+import 'package:mobile_study/ui/widgets/custom_icon.dart';
 import 'package:mobile_study/ui/widgets/custom_text_field.dart';
 import 'package:mobile_study/ui/widgets/confirm_exit_dialog.dart';
 
@@ -44,11 +45,7 @@ class SignUpFirstScreen extends ConsumerWidget {
                 viewModel.confirmAndExit();
               }
             },
-            child: SvgPicture.asset(
-              AppIcons.leftChevron,
-              width: 24,
-              height: 24,
-            ),
+            child: CustomIconWidget(icon: Icons.chevron_left),
           ),
         ),
         title: Text(
@@ -91,9 +88,9 @@ class SignUpFirstScreen extends ConsumerWidget {
                         hint: 'Введите пароль',
                         controller: viewModel.passwordController,
                         onSubmitted: (_) => viewModel.onPasswordSubmit(),
-                        svgIcon: state.isPasswordVisible
-                            ? AppIcons.visible_off
-                            : AppIcons.visible_on,
+                        suffixIcon: state.isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                         onIconPressed: () =>
                             viewModel.changePasswordVisibility(),
                         obscureText: !state.isPasswordVisible,
@@ -108,9 +105,9 @@ class SignUpFirstScreen extends ConsumerWidget {
                         hint: 'Введите пароль',
                         controller: viewModel.confirmPasswordController,
                         onSubmitted: (_) => viewModel.onConfirmPasswordSubmit(),
-                        svgIcon: state.isConfirmPasswordVisible
-                            ? AppIcons.visible_off
-                            : AppIcons.visible_on,
+                        suffixIcon: state.isConfirmPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                         onIconPressed: () =>
                             viewModel.changeConfirmPasswordVisible(),
                         obscureText: !state.isConfirmPasswordVisible,

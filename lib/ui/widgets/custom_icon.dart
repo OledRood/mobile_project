@@ -3,25 +3,38 @@ import 'package:flutter_svg/svg.dart';
 
 class CustomIconWidget extends StatelessWidget {
   final Color? color;
-  final bool? isSvg;
-  final String iconPath;
+  final dynamic icon;
   final double size;
 
   const CustomIconWidget({
     super.key,
     this.color,
-    this.isSvg,
     this.size = 24,
-    required this.iconPath,
+    required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isSvgIcon = isSvg ?? _checkIsSvg(iconPath);
+    final decodeIcon = switch (icon) {
+      String s => s,
+      IconData d => d,
+      _ => icon.toString(),
+    };
+
+    if (decodeIcon is IconData) {
+      return Icon(
+        decodeIcon,
+        size: size,
+        color: color ?? Theme.of(context).colorScheme.onSurface,
+      );
+    }
+
+    final isSvgIcon = _checkIsSvg(decodeIcon as String);
+
     switch (isSvgIcon) {
       case true:
         return SvgPicture.asset(
-          iconPath,
+          decodeIcon,
           width: size,
           height: size,
           colorFilter: color != null
@@ -33,7 +46,7 @@ class CustomIconWidget extends StatelessWidget {
         );
       case false:
         return Image.asset(
-          iconPath,
+          decodeIcon,
           color: color ?? Theme.of(context).colorScheme.onSurface,
         );
     }

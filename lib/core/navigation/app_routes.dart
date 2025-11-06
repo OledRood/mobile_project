@@ -1,7 +1,14 @@
 import 'package:go_router/go_router.dart';
+import 'package:mobile_study/features/car_details/view/car_details_screen.dart';
+import 'package:mobile_study/features/car_rent/view/car_rent_view.dart';
+import 'package:mobile_study/features/settings/add_car/view/add_car_screen.dart';
 import 'package:mobile_study/features/home/view/leader_screen.dart';
 import 'package:mobile_study/features/home/view/search_result_screen.dart';
-import 'package:mobile_study/features/profile/view/profile_screen.dart';
+import 'package:mobile_study/features/settings/change_password/ui/change_password_view.dart';
+import 'package:mobile_study/features/settings/help/help_screen.dart';
+import 'package:mobile_study/features/settings/invite_friend/invite_friend_view.dart';
+import 'package:mobile_study/features/settings/notifications/notificatioin_screen.dart';
+import 'package:mobile_study/features/settings/profile/view/profile_screen.dart';
 import 'package:mobile_study/ui/widgets/bottom_navigation.dart';
 import 'package:mobile_study/core/navigation/navigation_params.dart';
 import 'package:mobile_study/features/auth/forgot_password.dart/ui/create_new_password_screen.dart';
@@ -11,13 +18,13 @@ import 'package:mobile_study/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:mobile_study/features/auth/sign_up/view/sign_up_second_screen.dart';
 import 'package:mobile_study/features/auth/sign_up/view/sign_up_third_screen.dart';
 import 'package:mobile_study/features/favorites/favorites_screen.dart';
-import 'package:mobile_study/features/history/view/history_screen.dart';
+import 'package:mobile_study/features/settings/history/view/history_screen.dart';
 import 'package:mobile_study/features/home/view/home_screen.dart';
 import 'package:mobile_study/features/no_connection/no_connection_screen.dart';
 import 'package:mobile_study/features/onboarding/view/onboarding_screen.dart';
 import 'package:mobile_study/features/auth/getting_start/registration_screen.dart';
 import 'package:mobile_study/features/auth/sign_in/ui/sign_in_screen.dart';
-import 'package:mobile_study/features/settings/view/settings_screen.dart';
+import 'package:mobile_study/features/settings/settings/view/settings_screen.dart';
 import 'package:mobile_study/features/splash/ui/splash_screen.dart';
 
 /// Маршруты приложения
@@ -45,10 +52,19 @@ enum AppRoutes {
   home('/home'),
   searchResults('/home/search-results'),
 
+  //car
+  carDetails("/car-details"),
+  carRent("/car-rent"),
+
   //settings
   settings('/settings'),
   profile('/settings/profile'),
-  history('/settings/history');
+  history('/settings/history'),
+  addCar('/settings/add-car'),
+  notification('/settings/notification'),
+  inviteFriend('/settings/invite-friend'),
+  changePassword('/settings/profile/change-password'),
+  help('/settings/help');
 
   const AppRoutes(this.path);
   final String path;
@@ -100,17 +116,65 @@ List<RouteBase> get appRoutes => [
                 path: 'profile', // Используем относительный путь здесь
                 name: AppRoutes.profile.name,
                 builder: (context, state) => const ProfileScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'change-password',
+                    name: AppRoutes.changePassword.name,
+                    builder: (context, state) => const ChangePasswordScreen(),
+                  ),
+                ],
               ),
               GoRoute(
                 path: 'history',
                 name: AppRoutes.history.name,
                 builder: (context, state) => const HistoryScreen(),
               ),
+
+              GoRoute(
+                path: 'notification',
+                name: AppRoutes.notification.name,
+                builder: (context, state) => const NotificatioinScreen(),
+              ),
+              GoRoute(
+                path: 'add-car',
+                name: AppRoutes.addCar.name,
+                builder: (context, state) => const AddCarScreen(),
+              ),
+              GoRoute(
+                path: 'help',
+                name: AppRoutes.help.name,
+                builder: (context, state) => const HelpScreen(),
+              ),
+              GoRoute(
+                path: 'invite-friend',
+                name: AppRoutes.inviteFriend.name,
+                builder: (context, state) => const InviteFriendScreen(),
+              ),
             ],
           ),
         ],
       ),
     ],
+  ),
+  GoRoute(
+    path: AppRoutes.carDetails.path,
+    name: AppRoutes.carDetails.name,
+    builder: (context, state) {
+      final params = state.extra as CarParams?;
+      final id = params?.carId ?? '';
+
+      return CarDetailsScreen(carId: id);
+    },
+  ),
+  GoRoute(
+    path: AppRoutes.carRent.path,
+    name: AppRoutes.carRent.name,
+    builder: (context, state) {
+      final params = state.extra as CarParams?;
+      final id = params?.carId ?? '';
+
+      return CarRentScreen(carId: id);
+    },
   ),
   GoRoute(
     path: AppRoutes.splash.path,

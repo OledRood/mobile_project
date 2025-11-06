@@ -2,13 +2,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/navigation/app_navigation.dart';
 import 'package:mobile_study/features/auth/sign_up/models/sign_up_model.dart';
-import 'package:mobile_study/core/auth/models/auth_data_model.dart';
+import 'package:mobile_study/core/auth/models/registration_data_model.dart';
 
 import '../../../../core/utils/validators.dart';
 
 class SignUpViewModelStep1 extends StateNotifier<SignUpStateStep1> {
   final AppNavigation appNavigation;
-  final StateController<AuthDataModel?> authDataNotifier;
+  final StateController<RegistrationDataModel?> authDataNotifier;
 
   SignUpViewModelStep1({
     required this.appNavigation,
@@ -111,7 +111,7 @@ class SignUpViewModelStep1 extends StateNotifier<SignUpStateStep1> {
             email: emailController.text,
             password: passwordController.text,
           ) ??
-          AuthDataModel(
+          RegistrationDataModel(
             email: emailController.text,
             password: passwordController.text,
           );

@@ -19,18 +19,10 @@ class CreateNewPasswordScreen extends ConsumerStatefulWidget {
 class _CreateNewPasswordScreenState
     extends ConsumerState<CreateNewPasswordScreen> {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(AuthDi.createNewPasswordViewModel.notifier).init(widget.email);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(AuthDi.createNewPasswordViewModel.notifier);
+    viewModel.init(widget.email);
     final state = ref.watch(AuthDi.createNewPasswordViewModel);
-
     return Scaffold(
       appBar: AppBar(
         leading: SizedBox.shrink(),
@@ -84,9 +76,9 @@ class _CreateNewPasswordScreenState
                         hint: 'Введите новый пароль',
                         controller: viewModel.passwordController,
                         onSubmitted: (_) => viewModel.onPasswordSubmit(),
-                        svgIcon: state.isPasswordVisible
-                            ? AppIcons.visible_off
-                            : AppIcons.visible_on,
+                        suffixIcon: state.isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                         onIconPressed: () =>
                             viewModel.changePasswordVisibility(),
                         obscureText: !state.isPasswordVisible,
@@ -101,9 +93,9 @@ class _CreateNewPasswordScreenState
                         hint: 'Введите пароль еще раз',
                         controller: viewModel.confirmPasswordController,
                         onSubmitted: (_) => viewModel.onConfirmPasswordSubmit(),
-                        svgIcon: state.isConfirmPasswordVisible
-                            ? AppIcons.visible_off
-                            : AppIcons.visible_on,
+                        suffixIcon: state.isConfirmPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                         onIconPressed: () =>
                             viewModel.changeConfirmPasswordVisible(),
                         obscureText: !state.isConfirmPasswordVisible,

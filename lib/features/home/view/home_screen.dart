@@ -29,8 +29,8 @@ class HomeScreen extends ConsumerWidget {
               child: SearchResultListWidget(
                 items: state.searchResults,
                 isLoading: state.isLoading,
-                onBorrowPressed: vm.onBorrowButtonPressed,
-                onDetailsPressed: vm.onDetailButtonPressed,
+                onRentPressed: vm.onRentButtonPressed,
+                onDetailsPressed: vm.onDetailsButtonPressed,
               ),
             ),
           ),
@@ -61,7 +61,7 @@ class _UpScreenPart extends ConsumerWidget {
             padding: WidgetStatePropertyAll(
               EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             ),
-            leading: CustomIconWidget(iconPath: AppIcons.search),
+            leading: CustomIconWidget(icon: Icons.search),
             hintText: "Введите марку автомобиля",
             onSubmitted: (_) => vm.onSearchTextSubmitted(),
           ),

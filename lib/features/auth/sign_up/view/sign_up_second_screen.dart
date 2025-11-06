@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:mobile_study/core/utils/validators.dart';
-import 'package:mobile_study/features/auth/auth_di.dart';
-import 'package:mobile_study/ui/theme/models/app_colors.dart';
-import 'package:mobile_study/ui/theme/models/app_icons.dart';
-import 'package:mobile_study/ui/widgets/custom_text_field.dart';
 
-import '../../../../ui/theme/models/app_images.dart';
+import 'package:mobile_study/features/auth/auth_di.dart';
+import 'package:mobile_study/ui/theme/models/app_icons.dart';
+import 'package:mobile_study/ui/widgets/custom_icon.dart';
+import 'package:mobile_study/ui/widgets/custom_text_field.dart';
 
 final _maskFormatter = MaskTextInputFormatter(mask: '##/##/####');
 
@@ -29,11 +26,7 @@ class SignUpSecondScreen extends ConsumerWidget {
             onTap: () {
               viewModel.goBack();
             },
-            child: SvgPicture.asset(
-              AppIcons.leftChevron,
-              width: 24,
-              height: 24,
-            ),
+            child: CustomIconWidget(icon: Icons.chevron_left),
           ),
         ),
         title: Text(

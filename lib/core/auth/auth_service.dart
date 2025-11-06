@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import '../services/api_service.dart';
 import 'models/user.dart';
 
@@ -42,19 +46,70 @@ class AuthService {
     return prefs.getString(_refreshTokenKey);
   }
 
-  // Сохранение данных пользователя
-  Future<void> saveUser(User user) async {
+  Future<User> saveUser(User user) async {
+    debugPrint("saving user: avatar=${user.avatar}");
     final prefs = await SharedPreferences.getInstance();
+    User toSave = user;
 
-    final userJson = jsonEncode(user.toJson());
-    await prefs.setString(_userKey, userJson);
+    if (user.avatar != null) {
+      final newAvatarPath = await saveAvatarImage(user.avatar!);
+      toSave = user.copyWith(avatar: newAvatarPath);
+    }
+
+    final userJson = jsonEncode(toSave.toJson());
+    final saved = await prefs.setString(_userKey, userJson);
+    debugPrint("saveUser: key=$_userKey saved=$saved");
+    debugPrint("prefs keys after save: ${prefs.getKeys()}");
+    return toSave;
+  }
+
+  Future<String> saveAvatarImage(String avatarPath) async {
+    debugPrint('saving avatar image');
+    // Копируем файл в постоянную директорию приложения и сохраняем путь в SharedPreferences.
+    // Возвращаем путь к скопированному файлу. В случае ошибок сохраняем исходный путь как фоллбэк.
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      final srcFile = File(avatarPath);
+      // Если исходного файла нет — просто сохраняем путь в prefs (фоллбэк)
+      if (!await srcFile.exists()) {
+        await prefs.setString('avatar_image', avatarPath);
+        return avatarPath;
+      }
+
+      final appDir = await getApplicationDocumentsDirectory();
+      final photosDir = Directory(p.join(appDir.path, 'profile_photos'));
+      if (!await photosDir.exists()) {
+        await photosDir.create(recursive: true);
+      }
+
+      final fileName = p.basename(avatarPath);
+      final targetPath = p.join(
+        photosDir.path,
+        '${DateTime.now().millisecondsSinceEpoch}_$fileName',
+      );
+      final copied = await srcFile.copy(targetPath);
+
+      await prefs.setString('avatar_image', copied.path);
+      return copied.path;
+    } catch (e) {
+      // фоллбэк — сохраняем исходный путь, чтобы не терять ссылку
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('avatar_image', avatarPath);
+      } catch (_) {}
+      return avatarPath;
+    }
   }
 
   // Получение данных пользователя
   Future<User?> getUser() async {
+    debugPrint("getting user");
     final prefs = await SharedPreferences.getInstance();
 
     final userData = prefs.getString(_userKey);
+    debugPrint("userData: ${userData}");
+
     if (userData != null) {
       try {
         final Map<String, dynamic> userMap = jsonDecode(userData);
@@ -96,27 +151,27 @@ class AuthService {
   }
 
   // Обновление токена
-  Future<String?> refreshToken() async {
-    final refreshToken = getRefreshToken();
-    if (refreshToken == null) return null;
+  //   Future<String?> refreshToken() async {
+  //     final refreshToken = getRefreshToken();
+  //     if (refreshToken == null) return null;
 
-    try {
-      final response = await _apiService.post('/auth/refresh', {
-        'refresh_token': refreshToken,
-      });
+  //     try {
+  //       final response = await _apiService.post('/auth/refresh', {
+  //         'refresh_token': refreshToken,
+  //       });
 
-      final newToken = response['access_token'];
-      final newRefreshToken = response['refresh_token'];
+  //       final newToken = response['access_token'];
+  //       final newRefreshToken = response['refresh_token'];
 
-      await saveToken(newToken);
-      await saveRefreshToken(newRefreshToken);
+  //       await saveToken(newToken);
+  //       await saveRefreshToken(newRefreshToken);
 
-      return newToken;
-    } catch (e) {
-      await clearAuthData();
-      return null;
-    }
-  }
+  //       return newToken;
+  //     } catch (e) {
+  //       await clearAuthData();
+  //       return null;
+  //     }
+  //   }
 }
 
 final authServiceProvider = Provider<AuthService>((ref) {

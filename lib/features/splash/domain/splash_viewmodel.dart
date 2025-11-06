@@ -24,7 +24,6 @@ class SplashViewModel extends StateNotifier<void> {
   }
 
   void _checkAuthAndNavigate() {
-    debugPrint("checkAuthAndNavigate");
     var currentAuthState = ref.read(authProvider);
     final notifierAuthState = ref.read(authProvider.notifier);
     final authService = ref.read(
@@ -38,7 +37,7 @@ class SplashViewModel extends StateNotifier<void> {
       User(name: "Test User", id: 'test id', email: 'test_email@example.com'),
       "test_token",
     );
-    debugPrint(currentAuthState.toString());
+    // currentAuthState = AuthState.unauthenticated();
 
     currentAuthState.when(
       initial: () => _listenToAuthChanges(),
@@ -46,7 +45,6 @@ class SplashViewModel extends StateNotifier<void> {
       authenticated: (User user, String token) => goToHome(),
       unauthenticated: () => goToOnboarding(authService),
       error: (message) async {
-        print('Auth error: $message');
         await Future.delayed(Duration(seconds: 2));
         notifierAuthState.checkAuthStatus();
       },
@@ -61,17 +59,14 @@ class SplashViewModel extends StateNotifier<void> {
 
     // Подписываемся на изменения состояния аутентификации
     ref.listen(authProvider, (previous, next) {
-      debugPrint(next.toString());
       next.when(
         initial: () => {},
         loading: () => {},
         authenticated: (user, token) {
-          print('User authenticated: ${user.name}');
           goToHome();
         },
         unauthenticated: () => goToOnboarding(authService),
         error: (message) async {
-          print('Auth error: $message');
           await Future.delayed(Duration(seconds: 2));
           notifierAuthState.checkAuthStatus();
         },

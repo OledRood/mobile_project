@@ -1,12 +1,11 @@
 import 'dart:core';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/auth/auth_service.dart';
 import 'package:mobile_study/core/auth/models/user.dart';
 import 'package:mobile_study/core/services/api_service.dart';
-import 'package:mobile_study/core/auth/models/auth_data_model.dart';
+import 'package:mobile_study/core/auth/models/registration_data_model.dart';
 import 'package:mobile_study/core/auth/google_auth_service.dart';
 
 class AuthRepository {
@@ -39,7 +38,7 @@ class AuthRepository {
     }
   }
 
-  Future<AuthResponse> registerWithFullData(AuthDataModel data) async {
+  Future<AuthResponse> registerWithFullData(RegistrationDataModel data) async {
     try {
       final fields = {
         'email': data.email,

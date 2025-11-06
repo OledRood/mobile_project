@@ -10,7 +10,6 @@ sealed class CreateNewPasswordState with _$CreateNewPasswordState {
     String? emailError,
     String? passwordError,
     String? confirmPasswordError,
-
     @Default(false) bool isPasswordVisible,
     @Default(false) bool isConfirmPasswordVisible,
 

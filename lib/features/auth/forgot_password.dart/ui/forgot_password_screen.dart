@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mobile_study/features/auth/auth_di.dart';
 import 'package:mobile_study/ui/theme/models/app_icons.dart';
+import 'package:mobile_study/ui/widgets/custom_icon.dart';
 import 'package:mobile_study/ui/widgets/custom_text_field.dart';
 
 class ForgotPasswordScreen extends ConsumerWidget {
@@ -20,11 +21,7 @@ class ForgotPasswordScreen extends ConsumerWidget {
           padding: EdgeInsets.all(14),
           child: GestureDetector(
             onTap: () => viewModel.goBack(),
-            child: SvgPicture.asset(
-              AppIcons.leftChevron,
-              width: 24,
-              height: 24,
-            ),
+            child: CustomIconWidget(icon: Icons.chevron_left),
           ),
         ),
         title: Text(

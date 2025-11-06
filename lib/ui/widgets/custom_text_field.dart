@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mobile_study/ui/theme/models/app_colors.dart';
 import 'package:mobile_study/ui/widgets/custom_icon.dart';
-
-import '../theme/models/app_images.dart';
 
 class CustomTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
@@ -19,11 +15,12 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final FocusNode? focusNode;
   final void Function(String)? onChanged;
-  final String? prefIcon;
+  final dynamic prefIcon;
   final void Function(String)? onSubmitted;
   final bool isLoading;
-  final String? svgIcon;
+
   final String? errorText;
+  final dynamic suffixIcon;
 
   const CustomTextField({
     super.key,
@@ -42,8 +39,8 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     required this.isLoading,
-    this.svgIcon,
     this.errorText,
+    this.suffixIcon,
   });
 
   @override
@@ -70,42 +67,15 @@ class CustomTextField extends StatelessWidget {
             hintText: hint,
             errorText: errorText,
 
-            prefixIcon: prefIcon == null
-                ? null
-                : Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: GestureDetector(
-                      onTap: onIconPressed,
-                      child: SvgPicture.asset(
-                        prefIcon!,
-                        width: 20,
-                        height: 20,
-                        fit: BoxFit.contain,
-                        colorFilter: ColorFilter.mode(
-                          Theme.of(context).colorScheme.onSurfaceVariant,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                    ),
-                  ),
-            prefixIconConstraints: BoxConstraints(
-              minWidth: 20, // уменьшить до нужного значения
-              minHeight: 20,
+            prefixIcon: _TextFieldIconWidget(
+              icon: prefIcon,
+              onIconPressed: onIconPressed,
             ),
-            suffixIcon: svgIcon == null
-                ? null
-                : Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: GestureDetector(
-                      onTap: onIconPressed,
-                      child: CustomIconWidget(
-                        iconPath: svgIcon!,
-                        size: 20,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ),
-
+            prefixIconConstraints: BoxConstraints(minWidth: 20, minHeight: 20),
+            suffixIcon: _TextFieldIconWidget(
+              icon: suffixIcon,
+              onIconPressed: onIconPressed,
+            ),
             errorStyle: TextStyle(
               color: Theme.of(context).colorScheme.error,
               fontWeight: FontWeight.w500,
@@ -114,5 +84,26 @@ class CustomTextField extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _TextFieldIconWidget extends StatelessWidget {
+  final dynamic icon;
+  final VoidCallback? onIconPressed;
+  const _TextFieldIconWidget({
+    super.key,
+    required this.onIconPressed,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (icon != null) {
+      return GestureDetector(
+        onTap: onIconPressed,
+        child: CustomIconWidget(icon: icon, size: 20),
+      );
+    }
+    return SizedBox.shrink();
   }
 }

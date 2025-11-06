@@ -5,14 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/navigation/app_navigation.dart';
 import 'package:mobile_study/core/utils/validators.dart';
 import 'package:mobile_study/features/auth/sign_up/models/sign_up_model.dart';
-import 'package:mobile_study/core/auth/models/auth_data_model.dart';
+import 'package:mobile_study/core/auth/models/registration_data_model.dart';
 import 'package:mobile_study/core/auth/auth_notifier.dart';
 import 'package:mobile_study/core/auth/models/auth_state.dart';
 import 'package:mobile_study/core/message/scaffold_messenger_manager.dart';
 
 class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
   final AppNavigation appNavigation;
-  final StateController<AuthDataModel?> authDataNotifier;
+  final StateController<RegistrationDataModel?> authDataNotifier;
   final AuthNotifier authNotifier;
   final ScaffoldMessengerManager scaffoldMessengerManager;
 
@@ -206,7 +206,10 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
   @override
   void dispose() {
     dateOfIssueFocusNode.dispose();
-
+    driverLicenseController.dispose();
+    driverLicenseFocusNode.dispose();
+    dateOfIssueController.dispose();
+    dateOfIssueFocusNode.dispose();
     super.dispose();
   }
 

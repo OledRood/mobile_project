@@ -25,16 +25,6 @@ class CreateNewPasswordViewModel extends StateNotifier<CreateNewPasswordState> {
   final FocusNode passwordFocusNode = FocusNode();
   final FocusNode confirmPasswordFocusNode = FocusNode();
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    passwordFocusNode.dispose();
-    confirmPasswordFocusNode.dispose();
-    super.dispose();
-  }
-
   void init(String email) {
     emailController.text = email;
   }
@@ -139,5 +129,15 @@ class CreateNewPasswordViewModel extends StateNotifier<CreateNewPasswordState> {
     } finally {
       state = state.copyWith(isLoading: false);
     }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    passwordFocusNode.dispose();
+    confirmPasswordFocusNode.dispose();
+    super.dispose();
   }
 }

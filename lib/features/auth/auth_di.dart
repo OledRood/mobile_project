@@ -14,12 +14,12 @@ import 'package:mobile_study/features/auth/sign_up/models/sign_up_model.dart';
 import 'package:mobile_study/features/auth/getting_start/registration_viewmodel.dart';
 import 'package:mobile_study/features/auth/sign_in/models/sign_in_model.dart';
 import 'package:mobile_study/features/auth/sign_in/domain/sign_in_viewmodel.dart';
-import 'package:mobile_study/core/auth/models/auth_data_model.dart'
+import 'package:mobile_study/core/auth/models/registration_data_model.dart'
     as auth_data;
 import 'package:mobile_study/core/auth/auth_notifier.dart';
 
 class AuthDi {
-  static final authDataProvider = auth_data.authDataProvider;
+  static final authDataProvider = auth_data.registrationDataProvider;
   static final signInViewModel =
       StateNotifierProvider<SignInViewModel, SignInState>((ref) {
         return SignInViewModel(

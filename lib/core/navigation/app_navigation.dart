@@ -83,6 +83,34 @@ class AppNavigation {
     _router.push(AppRoutes.history.path);
   }
 
+  void notification() {
+    _router.push(AppRoutes.notification.path);
+  }
+
+  void addCar() {
+    _router.push(AppRoutes.addCar.path);
+  }
+
+  void help() {
+    _router.push(AppRoutes.help.path);
+  }
+
+  void inviteFriend() {
+    _router.push(AppRoutes.inviteFriend.path);
+  }
+
+  void changePassword() {
+    _router.push(AppRoutes.changePassword.path);
+  }
+
+  void carDetails(CarParams params) {
+    _router.push(AppRoutes.carDetails.path, extra: params);
+  }
+
+  void carRent(CarParams params) {
+    _router.push(AppRoutes.carRent.path, extra: params);
+  }
+
   void goBack() {
     if (_router.canPop()) {
       _router.pop();

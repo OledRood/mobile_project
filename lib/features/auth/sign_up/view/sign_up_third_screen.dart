@@ -9,6 +9,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mobile_study/features/auth/auth_di.dart';
 import 'package:mobile_study/ui/theme/models/app_colors.dart';
 import 'package:mobile_study/ui/theme/models/app_icons.dart';
+import 'package:mobile_study/ui/widgets/custom_icon.dart';
 import 'package:mobile_study/ui/widgets/custom_text_field.dart';
 
 final _maskFormatter = MaskTextInputFormatter(mask: '##/##/####');
@@ -29,11 +30,7 @@ class SignUpThirdScreen extends ConsumerWidget {
             onTap: () {
               viewModel.goBack();
             },
-            child: SvgPicture.asset(
-              AppIcons.leftChevron,
-              width: 24,
-              height: 24,
-            ),
+            child: CustomIconWidget(icon: Icons.chevron_left),
           ),
         ),
         title: Text(
@@ -242,12 +239,8 @@ class _AddPhotoWidgetState extends ConsumerState<_AddPhotoWidget> {
           child: Wrap(
             children: <Widget>[
               ListTile(
-                leading: SvgPicture.asset(
-                  AppIcons.gallery,
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).primaryColor,
-                ),
+                leading: Icon(Icons.photo_library),
+
                 title: Text('Галерея'),
                 onTap: () {
                   _pickImage(ImageSource.gallery, context);
@@ -255,12 +248,7 @@ class _AddPhotoWidgetState extends ConsumerState<_AddPhotoWidget> {
                 },
               ),
               ListTile(
-                leading: SvgPicture.asset(
-                  AppIcons.camera,
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).primaryColor,
-                ),
+                leading: Icon(Icons.camera_alt),
                 title: Text('Камера'),
                 onTap: () {
                   _pickImage(ImageSource.camera, context);

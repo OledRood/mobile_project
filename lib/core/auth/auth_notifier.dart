@@ -4,7 +4,7 @@ import 'package:mobile_study/core/auth/auth_repository.dart';
 import 'package:mobile_study/core/auth/auth_service.dart';
 import 'package:mobile_study/core/auth/models/auth_state.dart';
 import 'package:mobile_study/core/auth/models/user.dart';
-import 'package:mobile_study/core/auth/models/auth_data_model.dart';
+import 'package:mobile_study/core/auth/models/registration_data_model.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository _authRepository;
@@ -32,12 +32,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
       if (!isValid) {
         // Пытаемся обновить токен
         debugPrint('Пытаемся обновить токен');
-        final newToken = await _authService.refreshToken();
-        if (newToken == null) {
-          debugPrint('Не удалось обновить токен, выходим');
-          state = const AuthState.unauthenticated();
-          return;
-        }
+        //TODO раскомментировать
+        // final newToken = await _authService.refreshToken();
+        // if (newToken == null) {
+        debugPrint('Не удалось обновить токен, выходим');
+        state = const AuthState.unauthenticated();
+        return;
+        // }
       }
       debugPrint('получаем данные пользователя');
 
@@ -66,7 +67,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   // Регистрация
-  Future<void> register(AuthDataModel data) async {
+  Future<void> register(RegistrationDataModel data) async {
     state = const AuthState.loading();
 
     try {

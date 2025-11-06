@@ -5,14 +5,14 @@ import 'package:mobile_study/ui/widgets/car_card.dart';
 class SearchResultListWidget extends StatelessWidget {
   final List<SearchResultModel>? items;
   final bool isLoading;
-  final void Function(String id)? onBorrowPressed;
+  final void Function(String id)? onRentPressed;
   final void Function(String id)? onDetailsPressed;
 
   const SearchResultListWidget({
     super.key,
     required this.items,
     this.isLoading = false,
-    this.onBorrowPressed,
+    this.onRentPressed,
     this.onDetailsPressed,
   });
 
@@ -37,11 +37,11 @@ class SearchResultListWidget extends StatelessWidget {
           pricePeriod: item.pricePeriod,
           transmission: item.transmission,
           fuel: item.fuel,
-          onBorrowPressed: () => onBorrowPressed?.call(item.id),
+          onBorrowPressed: () => onRentPressed?.call(item.id),
           onDetailsPressed: () => onDetailsPressed?.call(item.id),
         );
       },
-      separatorBuilder: (context, index) => SizedBox(height: 12),
+      separatorBuilder: (context, index) => const SizedBox(height: 12),
     );
   }
 }

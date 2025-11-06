@@ -65,9 +65,9 @@ class SignInScreen extends ConsumerWidget {
                 ],
                 controller: viewModel.passwordController,
                 onSubmitted: (_) => viewModel.onPasswordSubmit(),
-                svgIcon: state.isPasswordVisible
-                    ? AppIcons.visible_off
-                    : AppIcons.visible_on,
+                suffixIcon: state.isPasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
                 onIconPressed: () => viewModel.changePasswordVisibility(),
                 obscureText: !state.isPasswordVisible,
                 isLoading: state.isLoading,
@@ -92,7 +92,11 @@ class SignInScreen extends ConsumerWidget {
                     viewModel.tryGoHome();
                   },
                   child: state.isLoading
-                      ? SizedBox(height: 20, width: 20, child: const CircularProgressIndicator())
+                      ? SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: const CircularProgressIndicator(),
+                        )
                       : const Text("Войти"),
                 ),
               ),
