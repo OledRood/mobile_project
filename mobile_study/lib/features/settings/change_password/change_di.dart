@@ -16,7 +16,7 @@ class ChangeDi {
       ) {
         return ChangePasswordViewModel(
           appNavigation: ref.read(NavigatorDi.appNavigationProvider),
-          authNotifier: ref.read(authProvider.notifier),
+          authNotifier: ref.read(authNotifierProvider.notifier),
           scaffoldMessengerManager: ref.read(
             MessageDi.scaffoldMessengerManager,
           ),

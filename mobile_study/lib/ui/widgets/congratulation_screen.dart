@@ -47,7 +47,7 @@ class CongratulationScreen extends ConsumerWidget {
               Text(
                 subtitle,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.displaySmall,
               ),
               Spacer(flex: 2),
               Padding(

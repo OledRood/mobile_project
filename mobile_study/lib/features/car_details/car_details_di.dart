@@ -6,14 +6,10 @@ import 'package:mobile_study/features/car_details/domain/car_details_view_model.
 import 'package:mobile_study/features/car_details/models/car_details_model.dart';
 
 class CarDetailsDi {
-  static final carDetailsViewModelProvider =
-      StateNotifierProvider.family<
-        CarDetailsViewModel,
-        CarDetailsState,
-        String
-      >((ref, carId) {
+  static final carDetailsViewModelProvider = StateNotifierProvider.autoDispose
+      .family<CarDetailsViewModel, CarDetailsState, String>((ref, carId) {
         return CarDetailsViewModel(
-          carService: CarService(),
+          carService: ref.read(CarServiceDi().carServiceProvider),
           carId: carId,
           messageManager: ref.read(MessageDi.scaffoldMessengerManager),
           navigator: ref.read(NavigatorDi.appNavigationProvider),

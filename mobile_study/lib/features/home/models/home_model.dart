@@ -12,6 +12,8 @@ sealed class HomeState with _$HomeState {
   const factory HomeState({
     @Default(false) bool isLoading,
     List<CarCardModel>? searchResults,
+    List<CarCardModel>? recommendations,
+    @Default(false) bool isShowSearchButton,
     String? errorMessage,
     @Default(HomeViewState.initial) HomeViewState viewState,
   }) = _HomeState;

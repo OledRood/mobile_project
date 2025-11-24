@@ -24,7 +24,10 @@ class AuthDi {
       StateNotifierProvider<SignInViewModel, SignInState>((ref) {
         return SignInViewModel(
           appNavigation: ref.read(NavigatorDi.appNavigationProvider),
-          authRepository: ref.read(authRepositoryProvider),
+          authNotifier: ref.read(authNotifierProvider.notifier),
+          scaffoldMessengerManager: ref.read(
+            MessageDi.scaffoldMessengerManager,
+          ),
         );
       });
   static final registrationViewModel =
@@ -52,7 +55,7 @@ class AuthDi {
         return SignUpViewModelStep3(
           appNavigation: ref.read(NavigatorDi.appNavigationProvider),
           authDataNotifier: ref.read(authDataProvider.notifier),
-          authNotifier: ref.read(authProvider.notifier),
+          authNotifier: ref.read(authNotifierProvider.notifier),
           scaffoldMessengerManager: ref.read(
             MessageDi.scaffoldMessengerManager,
           ),
@@ -72,7 +75,7 @@ class AuthDi {
       >((ref) {
         return ForgotPasswordViewModel(
           appNavigation: ref.read(NavigatorDi.appNavigationProvider),
-          authNotifier: ref.read(authProvider.notifier),
+          authNotifier: ref.read(authNotifierProvider.notifier),
           scaffoldMessengerManager: ref.read(
             MessageDi.scaffoldMessengerManager,
           ),
@@ -86,7 +89,7 @@ class AuthDi {
       >((ref) {
         return CreateNewPasswordViewModel(
           appNavigation: ref.read(NavigatorDi.appNavigationProvider),
-          authNotifier: ref.read(authProvider.notifier),
+          authNotifier: ref.read(authNotifierProvider.notifier),
           scaffoldMessengerManager: ref.read(
             MessageDi.scaffoldMessengerManager,
           ),

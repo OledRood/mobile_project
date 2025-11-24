@@ -17,6 +17,7 @@ class FavoritesScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Избранное")),
       body: SearchResultListWidget(
+        onRefresh: vm.refresh,
         items: state.favoritesList,
         isLoading: state.isLoading,
         onRentPressed: vm.onRentButtonPressed,

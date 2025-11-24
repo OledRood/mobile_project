@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:mobile_study/ui/theme/models/app_icons.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mobile_study/ui/theme/models/app_images.dart';
 
 class CarCardForRentWidget extends StatelessWidget {
@@ -9,7 +8,7 @@ class CarCardForRentWidget extends StatelessWidget {
   final String price;
   final String pricePeriod;
 
-  final String image;
+  final String? image;
 
   const CarCardForRentWidget({
     super.key,
@@ -23,6 +22,7 @@ class CarCardForRentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("Image in CarCardForRentWidget: $image");
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 342,
@@ -46,7 +46,7 @@ class CarCardForRentWidget extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: Image.asset(image, width: 176, height: 136),
+                child: _ImageWidget(image: image),
               ),
               Align(
                 alignment: Alignment.topLeft,
@@ -69,7 +69,7 @@ class CarCardForRentWidget extends StatelessWidget {
                       text: TextSpan(
                         style: Theme.of(
                           context,
-                        ).textTheme.bodyLarge, // Default style
+                        ).textTheme.displaySmall, // Default style
                         children: <TextSpan>[
                           TextSpan(
                             text: '$price₽',
@@ -93,6 +93,37 @@ class CarCardForRentWidget extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ImageWidget extends StatelessWidget {
+  const _ImageWidget({required this.image});
+
+  final String? image;
+
+  @override
+  Widget build(BuildContext context) {
+    if (image == null) {
+      return Image.asset(AppImages.loader, width: 176, height: 136);
+    }
+
+    return CachedNetworkImage(
+      imageUrl: image!,
+      width: 176,
+      height: 136,
+      fit: BoxFit.fitWidth,
+      placeholder: (context, url) => SizedBox(
+        width: 176,
+        height: 136,
+        child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+      ),
+      errorWidget: (context, url, error) => Container(
+        width: 176,
+        height: 136,
+        color: Colors.grey[300],
+        child: Icon(Icons.error_outline, color: Colors.grey[600]),
       ),
     );
   }

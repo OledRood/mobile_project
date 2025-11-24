@@ -183,7 +183,7 @@ class CustomCheckboxWidget extends StatelessWidget {
           color: Colors.transparent,
           border: Border.all(
             color: isActive
-                ? Theme.of(context).primaryColor
+                ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.outline,
             width: 1,
           ),
@@ -192,7 +192,7 @@ class CustomCheckboxWidget extends StatelessWidget {
             ? Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               )
             : null,

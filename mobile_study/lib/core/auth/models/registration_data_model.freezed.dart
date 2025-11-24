@@ -11,30 +11,33 @@ part of 'registration_data_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$RegistrationDataModel {
 
- String get email; String get password; String? get lastName; String? get firstName; String? get middleName; String? get birthDate; bool? get isMale; String? get driverLicense; String? get dateOfIssue; File? get driverLicenseFile; File? get passportFile; File? get accountPhotoFile;
+ String get email; String get password; String? get firstName; String? get lastName; String? get middleName; String? get birthDate; bool? get isMale; String? get driverLicense; String? get dateOfIssue;@JsonKey(includeFromJson: false, includeToJson: false) File? get driverLicenseFile;@JsonKey(includeFromJson: false, includeToJson: false) File? get passportFile;@JsonKey(includeFromJson: false, includeToJson: false) File? get accountPhotoFile;
 /// Create a copy of RegistrationDataModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $RegistrationDataModelCopyWith<RegistrationDataModel> get copyWith => _$RegistrationDataModelCopyWithImpl<RegistrationDataModel>(this as RegistrationDataModel, _$identity);
 
+  /// Serializes this RegistrationDataModel to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegistrationDataModel&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.middleName, middleName) || other.middleName == middleName)&&(identical(other.birthDate, birthDate) || other.birthDate == birthDate)&&(identical(other.isMale, isMale) || other.isMale == isMale)&&(identical(other.driverLicense, driverLicense) || other.driverLicense == driverLicense)&&(identical(other.dateOfIssue, dateOfIssue) || other.dateOfIssue == dateOfIssue)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegistrationDataModel&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.middleName, middleName) || other.middleName == middleName)&&(identical(other.birthDate, birthDate) || other.birthDate == birthDate)&&(identical(other.isMale, isMale) || other.isMale == isMale)&&(identical(other.driverLicense, driverLicense) || other.driverLicense == driverLicense)&&(identical(other.dateOfIssue, dateOfIssue) || other.dateOfIssue == dateOfIssue)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,password,lastName,firstName,middleName,birthDate,isMale,driverLicense,dateOfIssue,driverLicenseFile,passportFile,accountPhotoFile);
+int get hashCode => Object.hash(runtimeType,email,password,firstName,lastName,middleName,birthDate,isMale,driverLicense,dateOfIssue,driverLicenseFile,passportFile,accountPhotoFile);
 
 @override
 String toString() {
-  return 'RegistrationDataModel(email: $email, password: $password, lastName: $lastName, firstName: $firstName, middleName: $middleName, birthDate: $birthDate, isMale: $isMale, driverLicense: $driverLicense, dateOfIssue: $dateOfIssue, driverLicenseFile: $driverLicenseFile, passportFile: $passportFile, accountPhotoFile: $accountPhotoFile)';
+  return 'RegistrationDataModel(email: $email, password: $password, firstName: $firstName, lastName: $lastName, middleName: $middleName, birthDate: $birthDate, isMale: $isMale, driverLicense: $driverLicense, dateOfIssue: $dateOfIssue, driverLicenseFile: $driverLicenseFile, passportFile: $passportFile, accountPhotoFile: $accountPhotoFile)';
 }
 
 
@@ -45,7 +48,7 @@ abstract mixin class $RegistrationDataModelCopyWith<$Res>  {
   factory $RegistrationDataModelCopyWith(RegistrationDataModel value, $Res Function(RegistrationDataModel) _then) = _$RegistrationDataModelCopyWithImpl;
 @useResult
 $Res call({
- String email, String password, String? lastName, String? firstName, String? middleName, String? birthDate, bool? isMale, String? driverLicense, String? dateOfIssue, File? driverLicenseFile, File? passportFile, File? accountPhotoFile
+ String email, String password, String? firstName, String? lastName, String? middleName, String? birthDate, bool? isMale, String? driverLicense, String? dateOfIssue,@JsonKey(includeFromJson: false, includeToJson: false) File? driverLicenseFile,@JsonKey(includeFromJson: false, includeToJson: false) File? passportFile,@JsonKey(includeFromJson: false, includeToJson: false) File? accountPhotoFile
 });
 
 
@@ -62,12 +65,12 @@ class _$RegistrationDataModelCopyWithImpl<$Res>
 
 /// Create a copy of RegistrationDataModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,Object? lastName = freezed,Object? firstName = freezed,Object? middleName = freezed,Object? birthDate = freezed,Object? isMale = freezed,Object? driverLicense = freezed,Object? dateOfIssue = freezed,Object? driverLicenseFile = freezed,Object? passportFile = freezed,Object? accountPhotoFile = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,Object? firstName = freezed,Object? lastName = freezed,Object? middleName = freezed,Object? birthDate = freezed,Object? isMale = freezed,Object? driverLicense = freezed,Object? dateOfIssue = freezed,Object? driverLicenseFile = freezed,Object? passportFile = freezed,Object? accountPhotoFile = freezed,}) {
   return _then(_self.copyWith(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
-as String?,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String?,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String?,middleName: freezed == middleName ? _self.middleName : middleName // ignore: cast_nullable_to_non_nullable
 as String?,birthDate: freezed == birthDate ? _self.birthDate : birthDate // ignore: cast_nullable_to_non_nullable
 as String?,isMale: freezed == isMale ? _self.isMale : isMale // ignore: cast_nullable_to_non_nullable
@@ -158,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  String? lastName,  String? firstName,  String? middleName,  String? birthDate,  bool? isMale,  String? driverLicense,  String? dateOfIssue,  File? driverLicenseFile,  File? passportFile,  File? accountPhotoFile)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  String? firstName,  String? lastName,  String? middleName,  String? birthDate,  bool? isMale,  String? driverLicense,  String? dateOfIssue, @JsonKey(includeFromJson: false, includeToJson: false)  File? driverLicenseFile, @JsonKey(includeFromJson: false, includeToJson: false)  File? passportFile, @JsonKey(includeFromJson: false, includeToJson: false)  File? accountPhotoFile)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RegistrationDataModel() when $default != null:
-return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);case _:
+return $default(_that.email,_that.password,_that.firstName,_that.lastName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);case _:
   return orElse();
 
 }
@@ -179,10 +182,10 @@ return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  String? lastName,  String? firstName,  String? middleName,  String? birthDate,  bool? isMale,  String? driverLicense,  String? dateOfIssue,  File? driverLicenseFile,  File? passportFile,  File? accountPhotoFile)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  String? firstName,  String? lastName,  String? middleName,  String? birthDate,  bool? isMale,  String? driverLicense,  String? dateOfIssue, @JsonKey(includeFromJson: false, includeToJson: false)  File? driverLicenseFile, @JsonKey(includeFromJson: false, includeToJson: false)  File? passportFile, @JsonKey(includeFromJson: false, includeToJson: false)  File? accountPhotoFile)  $default,) {final _that = this;
 switch (_that) {
 case _RegistrationDataModel():
-return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);}
+return $default(_that.email,_that.password,_that.firstName,_that.lastName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -196,10 +199,10 @@ return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  String? lastName,  String? firstName,  String? middleName,  String? birthDate,  bool? isMale,  String? driverLicense,  String? dateOfIssue,  File? driverLicenseFile,  File? passportFile,  File? accountPhotoFile)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  String? firstName,  String? lastName,  String? middleName,  String? birthDate,  bool? isMale,  String? driverLicense,  String? dateOfIssue, @JsonKey(includeFromJson: false, includeToJson: false)  File? driverLicenseFile, @JsonKey(includeFromJson: false, includeToJson: false)  File? passportFile, @JsonKey(includeFromJson: false, includeToJson: false)  File? accountPhotoFile)?  $default,) {final _that = this;
 switch (_that) {
 case _RegistrationDataModel() when $default != null:
-return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);case _:
+return $default(_that.email,_that.password,_that.firstName,_that.lastName,_that.middleName,_that.birthDate,_that.isMale,_that.driverLicense,_that.dateOfIssue,_that.driverLicenseFile,_that.passportFile,_that.accountPhotoFile);case _:
   return null;
 
 }
@@ -208,24 +211,24 @@ return $default(_that.email,_that.password,_that.lastName,_that.firstName,_that.
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _RegistrationDataModel implements RegistrationDataModel {
-  const _RegistrationDataModel({required this.email, required this.password, this.lastName, this.firstName, this.middleName, this.birthDate, this.isMale, this.driverLicense, this.dateOfIssue, this.driverLicenseFile, this.passportFile, this.accountPhotoFile});
-  
+  const _RegistrationDataModel({required this.email, required this.password, this.firstName, this.lastName, this.middleName, this.birthDate, this.isMale, this.driverLicense, this.dateOfIssue, @JsonKey(includeFromJson: false, includeToJson: false) this.driverLicenseFile, @JsonKey(includeFromJson: false, includeToJson: false) this.passportFile, @JsonKey(includeFromJson: false, includeToJson: false) this.accountPhotoFile});
+  factory _RegistrationDataModel.fromJson(Map<String, dynamic> json) => _$RegistrationDataModelFromJson(json);
 
 @override final  String email;
 @override final  String password;
-@override final  String? lastName;
 @override final  String? firstName;
+@override final  String? lastName;
 @override final  String? middleName;
 @override final  String? birthDate;
 @override final  bool? isMale;
 @override final  String? driverLicense;
 @override final  String? dateOfIssue;
-@override final  File? driverLicenseFile;
-@override final  File? passportFile;
-@override final  File? accountPhotoFile;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  File? driverLicenseFile;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  File? passportFile;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  File? accountPhotoFile;
 
 /// Create a copy of RegistrationDataModel
 /// with the given fields replaced by the non-null parameter values.
@@ -233,20 +236,23 @@ class _RegistrationDataModel implements RegistrationDataModel {
 @pragma('vm:prefer-inline')
 _$RegistrationDataModelCopyWith<_RegistrationDataModel> get copyWith => __$RegistrationDataModelCopyWithImpl<_RegistrationDataModel>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$RegistrationDataModelToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegistrationDataModel&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.middleName, middleName) || other.middleName == middleName)&&(identical(other.birthDate, birthDate) || other.birthDate == birthDate)&&(identical(other.isMale, isMale) || other.isMale == isMale)&&(identical(other.driverLicense, driverLicense) || other.driverLicense == driverLicense)&&(identical(other.dateOfIssue, dateOfIssue) || other.dateOfIssue == dateOfIssue)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegistrationDataModel&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.middleName, middleName) || other.middleName == middleName)&&(identical(other.birthDate, birthDate) || other.birthDate == birthDate)&&(identical(other.isMale, isMale) || other.isMale == isMale)&&(identical(other.driverLicense, driverLicense) || other.driverLicense == driverLicense)&&(identical(other.dateOfIssue, dateOfIssue) || other.dateOfIssue == dateOfIssue)&&(identical(other.driverLicenseFile, driverLicenseFile) || other.driverLicenseFile == driverLicenseFile)&&(identical(other.passportFile, passportFile) || other.passportFile == passportFile)&&(identical(other.accountPhotoFile, accountPhotoFile) || other.accountPhotoFile == accountPhotoFile));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,password,lastName,firstName,middleName,birthDate,isMale,driverLicense,dateOfIssue,driverLicenseFile,passportFile,accountPhotoFile);
+int get hashCode => Object.hash(runtimeType,email,password,firstName,lastName,middleName,birthDate,isMale,driverLicense,dateOfIssue,driverLicenseFile,passportFile,accountPhotoFile);
 
 @override
 String toString() {
-  return 'RegistrationDataModel(email: $email, password: $password, lastName: $lastName, firstName: $firstName, middleName: $middleName, birthDate: $birthDate, isMale: $isMale, driverLicense: $driverLicense, dateOfIssue: $dateOfIssue, driverLicenseFile: $driverLicenseFile, passportFile: $passportFile, accountPhotoFile: $accountPhotoFile)';
+  return 'RegistrationDataModel(email: $email, password: $password, firstName: $firstName, lastName: $lastName, middleName: $middleName, birthDate: $birthDate, isMale: $isMale, driverLicense: $driverLicense, dateOfIssue: $dateOfIssue, driverLicenseFile: $driverLicenseFile, passportFile: $passportFile, accountPhotoFile: $accountPhotoFile)';
 }
 
 
@@ -257,7 +263,7 @@ abstract mixin class _$RegistrationDataModelCopyWith<$Res> implements $Registrat
   factory _$RegistrationDataModelCopyWith(_RegistrationDataModel value, $Res Function(_RegistrationDataModel) _then) = __$RegistrationDataModelCopyWithImpl;
 @override @useResult
 $Res call({
- String email, String password, String? lastName, String? firstName, String? middleName, String? birthDate, bool? isMale, String? driverLicense, String? dateOfIssue, File? driverLicenseFile, File? passportFile, File? accountPhotoFile
+ String email, String password, String? firstName, String? lastName, String? middleName, String? birthDate, bool? isMale, String? driverLicense, String? dateOfIssue,@JsonKey(includeFromJson: false, includeToJson: false) File? driverLicenseFile,@JsonKey(includeFromJson: false, includeToJson: false) File? passportFile,@JsonKey(includeFromJson: false, includeToJson: false) File? accountPhotoFile
 });
 
 
@@ -274,12 +280,12 @@ class __$RegistrationDataModelCopyWithImpl<$Res>
 
 /// Create a copy of RegistrationDataModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? lastName = freezed,Object? firstName = freezed,Object? middleName = freezed,Object? birthDate = freezed,Object? isMale = freezed,Object? driverLicense = freezed,Object? dateOfIssue = freezed,Object? driverLicenseFile = freezed,Object? passportFile = freezed,Object? accountPhotoFile = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,Object? firstName = freezed,Object? lastName = freezed,Object? middleName = freezed,Object? birthDate = freezed,Object? isMale = freezed,Object? driverLicense = freezed,Object? dateOfIssue = freezed,Object? driverLicenseFile = freezed,Object? passportFile = freezed,Object? accountPhotoFile = freezed,}) {
   return _then(_RegistrationDataModel(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
-as String?,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String?,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String?,middleName: freezed == middleName ? _self.middleName : middleName // ignore: cast_nullable_to_non_nullable
 as String?,birthDate: freezed == birthDate ? _self.birthDate : birthDate // ignore: cast_nullable_to_non_nullable
 as String?,isMale: freezed == isMale ? _self.isMale : isMale // ignore: cast_nullable_to_non_nullable

@@ -3,7 +3,8 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/auth/auth_service.dart';
-import 'package:mobile_study/core/auth/models/user.dart';
+import 'package:mobile_study/core/user/models/user.dart';
+import 'package:mobile_study/core/constants/app_endpoints.dart';
 import 'package:mobile_study/core/services/api_service.dart';
 import 'package:mobile_study/core/auth/models/registration_data_model.dart';
 import 'package:mobile_study/core/auth/google_auth_service.dart';
@@ -15,102 +16,83 @@ class AuthRepository {
 
   AuthRepository(this._apiService, this._authService, this._googleAuthService);
 
-  // Вход в систему
   Future<AuthResponse> login(String email, String password) async {
-    try {
-      final response = await _apiService.post('/auth/login', {
-        'email': email,
-        'password': password,
-      });
+    final response = await _apiService.post(AppEndpoints.authLogin, {
+      'email': email,
+      'password': password,
+    }, withAuth: false);
 
-      final user = User.fromJson(response['user']);
-      final token = response['access_token'];
-      final refreshToken = response['refresh_token'];
+    final token = response['access_token'];
+    final refreshToken = response['refresh_token'];
 
-      // Сохраняем данные
-      await _authService.saveToken(token);
-      await _authService.saveRefreshToken(refreshToken);
-      await _authService.saveUser(user);
-
-      return AuthResponse(user: user, token: token);
-    } catch (e) {
-      throw Exception('Login failed: $e');
+    if (token == null || refreshToken == null) {
+      throw ApiException('Login failed: missing tokens');
     }
+
+    // Сохраняем данные
+    await _authService.saveToken(token);
+    await _authService.saveRefreshToken(refreshToken);
+    // await _authService.saveUser(user);
+
+    return AuthResponse(user: null, token: token);
   }
 
   Future<AuthResponse> registerWithFullData(RegistrationDataModel data) async {
     try {
-      final fields = {
-        'email': data.email,
-        'password': data.password,
-        if (data.lastName != null) 'lastName': data.lastName!,
-        if (data.firstName != null) 'firstName': data.firstName!,
-        'middleName': data.middleName ?? '',
-        if (data.birthDate != null) 'birthDate': data.birthDate!,
-        if (data.isMale != null) 'isMale': data.isMale.toString(),
-        if (data.driverLicense != null) 'driverLicense': data.driverLicense!,
-        if (data.dateOfIssue != null) 'dateOfIssue': data.dateOfIssue!,
-      };
-
       final files = {
-        'driverLicenseFile': data.driverLicenseFile,
-        'passportFile': data.passportFile,
-        'accountPhotoFile': data.accountPhotoFile,
+        'driverLicensePhoto': data.driverLicenseFile,
+        'passportPhoto': data.passportFile,
+        'avatar': data.accountPhotoFile,
       };
 
-      // TODO: Раскомментировать когда сервер будет готов
-      // final response = await _apiService.postMultipart(
-      //   '/auth/register',
-      //   fields,
-      //   files,
-      // );
+      final response = await _apiService.postMultipart(
+        '/auth/register',
+        data.toJson(),
+        files,
+      );
 
-      // ЗАГЛУШКА для тестирования
-      debugPrint('✅ Регистрация успешна! Данные готовы к отправке на сервер.');
-      await Future.delayed(const Duration(seconds: 1));
+      //// ЗАГЛУШКА для тестирования
+      // await Future.delayed(const Duration(seconds: 1));
+      //
+      //// Временные данные для заглушки
+      // final Map<String, dynamic> response = {
+      //   'user': {
+      //     'id': '123',
+      //     'email': data.email,
+      //     'name': '${data.firstName} ${data.lastName}',
+      //   },
+      //   'access_token': 'fake_token_123',
+      //   'refresh_token': 'fake_refresh_token_123',
+      // };
 
-      // Временные данные для заглушки
-      final Map<String, dynamic> response = {
-        'user': {
-          'id': '123',
-          'email': data.email,
-          'name': '${data.firstName} ${data.lastName}',
-        },
-        'access_token': 'fake_token_123',
-        'refresh_token': 'fake_refresh_token_123',
-      };
+      debugPrint('Registration response: $response');
 
-      final user = User.fromJson(response['user'] as Map<String, dynamic>);
+      if (response['access_token'] == null) {
+        throw ApiException('Registration failed: access token is missing');
+      }
+      if (response['refresh_token'] == null) {
+        throw ApiException('Registration failed: refresh token is missing');
+      }
+
       final token = response['access_token'] as String;
       final refreshToken = response['refresh_token'] as String;
 
-      // Сохраняем данные
       await _authService.saveToken(token);
       await _authService.saveRefreshToken(refreshToken);
-      await _authService.saveUser(user);
 
-      return AuthResponse(user: user, token: token);
+      return AuthResponse(
+        user: User.fromAuthRegistrationModel(data),
+        token: token,
+      );
     } catch (e) {
-      throw Exception('Registration failed: $e');
+      debugPrint('Registration error: $e');
+      throw ApiException('Registration failed: $e');
     }
   }
 
   // Выход из системы
   Future<void> logout() async {
-    try {
-      final token = _authService.getToken();
-      if (token != null) {
-        await _apiService.post('/auth/logout', {});
-      }
-    } catch (e) {
-      // Логируем ошибку, но не прерываем процесс выхода
-    } finally {
-      await _authService.clearAuthData();
-      // Также выходим из Google аккаунта, если пользователь был залогинен через Google
-      if (_googleAuthService.isSignedIn) {
-        await _googleAuthService.signOut();
-      }
-    }
+    await _authService.clearAuthData();
   }
 
   /// Вход через Google OAuth
@@ -191,15 +173,23 @@ class AuthRepository {
   // Получение текущего пользователя
   Future<User?> getCurrentUser() async {
     try {
-      final token = _authService.getToken();
-      if (token == null) return null;
+      final token = await _authService.getAccessToken();
+      debugPrint('getCurrentUser: token = ${token?.substring(0, 20)}...');
+      if (token == null) {
+        debugPrint('getCurrentUser: token is null');
+        return null;
+      }
 
-      final response = await _apiService.get('/auth/me');
+      debugPrint('getCurrentUser: calling API ${AppEndpoints.usersMe}');
+      final response = await _apiService.get(AppEndpoints.usersMe);
+      debugPrint('getCurrentUser: response received: $response');
       final user = User.fromJson(response);
 
       await _authService.saveUser(user);
+      debugPrint('getCurrentUser: user saved successfully');
       return user;
     } catch (e) {
+      debugPrint('getCurrentUser ERROR: $e');
       return null;
     }
   }
@@ -208,9 +198,9 @@ class AuthRepository {
   Future<bool> validateToken() async {
     debugPrint('Проверка на vlidateToken');
     try {
-      final token = _authService.getToken();
+      final token = await _authService.getAccessToken();
       if (token == null) return false;
-      await _apiService.get('/auth/validate');
+      await _apiService.get(AppEndpoints.authValidate);
       return true;
     } catch (e) {
       debugPrint('validate token ответил false');
@@ -249,15 +239,19 @@ final googleAuthServiceProvider = Provider<GoogleAuthService>((ref) {
 
 // Provider для AuthRepository
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  final apiService = ref.read(apiServiceProvider);
+  final apiService = ref.read(ApiServiceDi.apiServiceProvider);
   final authService = ref.read(authServiceProvider);
   final googleAuthService = ref.read(googleAuthServiceProvider);
   return AuthRepository(apiService, authService, googleAuthService);
 });
 
 class AuthResponse {
-  final User user;
+  final User? user;
   final String token;
 
   AuthResponse({required this.user, required this.token});
+
+  AuthResponse copyWith({User? user, String? token}) {
+    return AuthResponse(user: user ?? this.user, token: token ?? this.token);
+  }
 }

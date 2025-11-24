@@ -174,7 +174,7 @@ class _AddPhotoRow extends StatelessWidget {
                 border: Border.all(
                   color: isError
                       ? Theme.of(context).colorScheme.error
-                      : Theme.of(context).primaryColor,
+                      : Theme.of(context).colorScheme.primary,
                 ),
               ),
               child: isPicked
@@ -182,13 +182,13 @@ class _AddPhotoRow extends StatelessWidget {
                       AppIcons.doneAll,
                       width: 18,
                       height: 18,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     )
                   : SvgPicture.asset(
                       AppIcons.upload,
                       width: 18,
                       height: 18,
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
             ),
           ),
@@ -305,7 +305,7 @@ class _AddAccountPhotoIcons extends ConsumerWidget {
             width: 20,
             height: 20,
             colorFilter: ColorFilter.mode(
-              Theme.of(context).primaryColor,
+              Theme.of(context).colorScheme.primary,
               BlendMode.srcIn,
             ),
           ),

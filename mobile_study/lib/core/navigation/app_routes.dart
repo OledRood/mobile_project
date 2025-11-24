@@ -1,11 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_study/features/car_details/view/car_details_screen.dart';
 import 'package:mobile_study/features/car_rent/view/car_rent_view.dart';
 import 'package:mobile_study/features/car_rent/view/car_successful_view.dart';
 import 'package:mobile_study/features/favorites/view/favorites_view.dart';
-import 'package:mobile_study/features/settings/add_car/view/add_car_screen.dart';
+import 'package:mobile_study/features/settings/add_car/view/add_car_photo.dart';
+import 'package:mobile_study/features/settings/add_car/view/add_car_step1_screen.dart';
+import 'package:mobile_study/features/settings/add_car/view/add_car_step2_screen.dart';
 import 'package:mobile_study/features/home/view/leader_screen.dart';
 import 'package:mobile_study/features/home/view/search_result_screen.dart';
+import 'package:mobile_study/features/settings/add_car/view/add_car_successful_screen.dart';
+import 'package:mobile_study/features/settings/add_car/view/become_host_screen.dart';
+import 'package:mobile_study/features/settings/car_book/view/car_book_view.dart';
 import 'package:mobile_study/features/settings/change_password/ui/change_password_view.dart';
 import 'package:mobile_study/features/settings/help/help_screen.dart';
 import 'package:mobile_study/features/settings/invite_friend/invite_friend_view.dart';
@@ -57,16 +63,21 @@ enum AppRoutes {
   // car
   carRent("/car-rent"),
   carSuccessful("/car-successful"),
-
+  carBook("/car-book"),
   //settings
   settings('/settings'),
   profile('/settings/profile'),
   history('/settings/history'),
-  addCar('/settings/add-car'),
   notification('/settings/notification'),
   inviteFriend('/settings/invite-friend'),
   changePassword('/settings/profile/change-password'),
-  help('/settings/help');
+  help('/settings/help'),
+  addCar('/settings/add-car/'),
+  addCarBecomeHost('/settings/add-car/become-host'),
+  addCarStep1('/settings/add-car/step-1'),
+  addCarStep2('/settings/add-car/step-2'),
+  addCarPhoto('/settings/add-car/photo'),
+  addCarSuccessful('/settings/add-car/successful');
 
   const AppRoutes(this.path);
   final String path;
@@ -96,8 +107,7 @@ List<RouteBase> get appRoutes => [
                 name: AppRoutes.carDetails.name,
                 builder: (context, state) {
                   final params = state.extra as CarParams?;
-                  final id = params?.carId ?? '';
-
+                  final id = params?.carId ?? state.uri.queryParameters['id'] ?? '';
                   return CarDetailsScreen(carId: id);
                 },
               ),
@@ -146,11 +156,7 @@ List<RouteBase> get appRoutes => [
                 name: AppRoutes.notification.name,
                 builder: (context, state) => const NotificatioinScreen(),
               ),
-              GoRoute(
-                path: 'add-car',
-                name: AppRoutes.addCar.name,
-                builder: (context, state) => const AddCarScreen(),
-              ),
+
               GoRoute(
                 path: 'help',
                 name: AppRoutes.help.name,
@@ -166,6 +172,15 @@ List<RouteBase> get appRoutes => [
         ],
       ),
     ],
+  ),
+  GoRoute(
+    path: AppRoutes.carBook.path,
+    name: AppRoutes.carBook.name,
+    builder: (context, state) {
+      final params = state.extra as BookParams?;
+      final id = params?.bookId ?? state.uri.queryParameters['id'] ?? '';
+      return CarBookView(bookId: id);
+    },
   ),
   GoRoute(
     path: AppRoutes.splash.path,
@@ -184,6 +199,41 @@ List<RouteBase> get appRoutes => [
     name: AppRoutes.noConnection.name,
     builder: (context, state) {
       return NoConnectionScreen();
+    },
+  ),
+  GoRoute(
+    path: AppRoutes.addCarBecomeHost.path,
+    name: AppRoutes.addCarBecomeHost.name,
+    builder: (context, state) {
+      return BecomeHostScreen();
+    },
+  ),
+  GoRoute(
+    path: AppRoutes.addCarStep1.path,
+    name: AppRoutes.addCarStep1.name,
+    builder: (context, state) {
+      return AddCarStep1Screen();
+    },
+  ),
+  GoRoute(
+    path: AppRoutes.addCarStep2.path,
+    name: AppRoutes.addCarStep2.name,
+    builder: (context, state) {
+      return AddCarStep2Screen();
+    },
+  ),
+  GoRoute(
+    path: AppRoutes.addCarPhoto.path,
+    name: AppRoutes.addCarPhoto.name,
+    builder: (context, state) {
+      return AddCarPhotoScreen();
+    },
+  ),
+  GoRoute(
+    path: AppRoutes.addCarSuccessful.path,
+    name: AppRoutes.addCarSuccessful.name,
+    builder: (context, state) {
+      return AddCarSuccessfulScreen();
     },
   ),
   GoRoute(
@@ -231,7 +281,7 @@ List<RouteBase> get appRoutes => [
     name: AppRoutes.createNewPassword.name,
     builder: (context, state) {
       final params = state.extra as CreateNewPasswordParams?;
-      final email = params?.email ?? '';
+      final email = params?.email ?? state.uri.queryParameters['email'] ?? '';
       return CreateNewPasswordScreen(email: email);
     },
   ),
@@ -247,7 +297,7 @@ List<RouteBase> get appRoutes => [
     name: AppRoutes.carRent.name,
     builder: (context, state) {
       final params = state.extra as CarParams?;
-      final id = params?.carId ?? '';
+      final id = params?.carId ?? state.uri.queryParameters['id'] ?? '';
 
       return CarRentScreen(carId: id);
     },

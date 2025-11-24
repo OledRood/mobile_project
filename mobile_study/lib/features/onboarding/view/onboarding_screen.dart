@@ -106,7 +106,10 @@ class TextsWidgets extends ConsumerWidget {
             ).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          Text(state.description, style: Theme.of(context).textTheme.bodyLarge),
+          Text(
+            state.description,
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
         ],
       ),
     );

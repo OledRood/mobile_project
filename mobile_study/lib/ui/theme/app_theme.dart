@@ -116,7 +116,8 @@ class AppTheme {
         bodyLarge: TextStyle(
           color: colorScheme.onSurface,
           fontWeight: FontWeight.w400,
-          fontSize: 14,
+          fontSize: 12,
+          height: 1.17,
         ),
         // Над textfield
         bodyMedium: TextStyle(

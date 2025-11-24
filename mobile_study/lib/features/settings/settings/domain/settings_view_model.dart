@@ -1,22 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/auth/auth_service.dart';
-import 'package:mobile_study/core/auth/models/user.dart';
+import 'package:mobile_study/core/auth/auth_notifier.dart';
+import 'package:mobile_study/core/auth/models/auth_state.dart';
 import 'package:mobile_study/core/navigation/app_navigation.dart';
+import 'package:mobile_study/core/services/settings_service.dart';
+import 'package:mobile_study/core/user/models/user.dart';
+import 'package:mobile_study/core/user/user_notifier.dart';
 import 'package:mobile_study/features/settings/settings/models/settings_model.dart';
 import 'package:mobile_study/ui/theme/models/app_icons.dart';
 import 'package:mobile_study/ui/theme/theme_provider.dart';
 
 class SettingsViewModel extends StateNotifier<SettingsState> {
+  final Ref ref;
   final AppNavigation appNavigation;
-  final AuthService authService;
   final ThemeNotifier themeNotifier;
+  final SettingsService settingsService;
+  final UserNotifier userNotifier;
 
   SettingsViewModel({
+    required this.ref,
     required this.themeNotifier,
     required this.appNavigation,
-    required this.authService,
+    required this.settingsService,
+    required this.userNotifier,
   }) : super(SettingsState()) {
+    _init();
+  }
+
+  void _init() {
+    final currentUser = ref.read(UserDi.userNotifierProvider);
+    state = state.copyWith(user: currentUser);
+
+    ref.listen<User?>(UserDi.userNotifierProvider, (previous, next) {
+      state = state.copyWith(user: next);
+    });
+    if (currentUser == null) {
+      userNotifier.loadUser(forceRefresh: false);
+    }
     setListOfSettingsItems();
   }
 
@@ -40,7 +61,7 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
   }
 
   void onAddCarTap() {
-    appNavigation.addCar();
+    appNavigation.addCarBecomeHost();
   }
 
   void onHelpTap() {
@@ -55,25 +76,7 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
     appNavigation.profile();
   }
 
-  Future<void> _getUserData() async {
-    final user = await authService.getUser();
-    state = state.copyWith(user: user);
-    if (user == null) {
-      state = state.copyWith(
-        user: User(
-          id: '1435',
-          email: 'sadf@mail.com',
-          name: 'Евегений Викторович',
-        ),
-      );
-      authService.saveUser(state.user!);
-    }
-  }
-
   Future<void> setListOfSettingsItems() async {
-    if (state.user == null) {
-      await _getUserData();
-    }
     final themeMode = themeNotifier.state;
     final items = _buildProfileItems(themeMode);
     state = state.copyWith(settingsItems: items);
@@ -128,10 +131,5 @@ class SettingsViewModel extends StateNotifier<SettingsState> {
       ),
     ];
     return items;
-  }
-
-  Future<void> updatePhoto() async {
-    await _getUserData();
-    _buildProfileItems(themeNotifier.state);
   }
 }

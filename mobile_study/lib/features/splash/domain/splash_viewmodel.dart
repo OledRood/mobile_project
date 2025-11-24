@@ -3,7 +3,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/auth/auth_notifier.dart';
 import 'package:mobile_study/core/auth/models/auth_state.dart';
-import 'package:mobile_study/core/auth/models/user.dart';
+import 'package:mobile_study/core/services/api_service.dart';
+import 'package:mobile_study/core/user/models/user.dart';
 import 'package:mobile_study/core/navigation/app_navigation.dart';
 import 'package:mobile_study/core/auth/auth_service.dart';
 
@@ -17,72 +18,59 @@ class SplashViewModel extends StateNotifier<void> {
   }
 
   Future<void> init() async {
-    // Скрываем нативный splash screen, когда Flutter UI готов
     FlutterNativeSplash.remove();
-    await Future.delayed(Duration(seconds: 2));
-    _checkAuthAndNavigate();
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    var authState = ref.read(authNotifierProvider);
+
+    if (authState is AuthLoading || authState is AuthInitial) {
+      debugPrint("Splash: Auth is still loading, waiting for result...");
+      try {
+        authState = await ref
+            .read(authNotifierProvider.notifier)
+            .stream
+            .firstWhere(
+              (state) => state is! AuthLoading && state is! AuthInitial,
+            );
+      } catch (e) {
+        authState = AuthState.error(ApiException("Stream error"));
+      }
+    }
+
+    _handleNavigation(authState);
   }
 
-  void _checkAuthAndNavigate() {
-    var currentAuthState = ref.read(authProvider);
-    final notifierAuthState = ref.read(authProvider.notifier);
-    final authService = ref.read(
-      authServiceProvider,
-    ); // Используем authServiceProvider
+  Future<void> _handleNavigation(AuthState state) async {
+    final authService = ref.read(authServiceProvider);
 
-    // currentAuthState = AuthState.unauthenticated();
+    state.when(
+      //сюда не попадем
+      initial: () {},
+      loading: () {},
 
-    // MARK: Удалить после внедрения аутентификации
-    currentAuthState = AuthState.authenticated(
-      User(name: "Test User", id: 'test id', email: 'test_email@example.com'),
-      "test_token",
-    );
-    // currentAuthState = AuthState.unauthenticated();
+      authenticated: (_) {
+        appNavigation.home();
+      },
 
-    currentAuthState.when(
-      initial: () => _listenToAuthChanges(),
-      loading: () => _listenToAuthChanges(),
-      authenticated: (User user, String token) => goToHome(),
-      unauthenticated: () => goToOnboarding(authService),
-      error: (message) async {
-        await Future.delayed(Duration(seconds: 2));
-        notifierAuthState.checkAuthStatus();
+      unauthenticated: () async {
+        await _goToOnboardingOrLogin(authService);
+      },
+
+      error: (exception) {
+        debugPrint("Splash: Error -> $exception");
+        if (exception.statusCode == 401) {
+          _goToOnboardingOrLogin(authService);
+        } else {
+          appNavigation.noConnection();
+        }
       },
     );
   }
 
-  void _listenToAuthChanges() {
-    final notifierAuthState = ref.read(authProvider.notifier);
-    final authService = ref.read(
-      authServiceProvider,
-    ); // Используем authServiceProvider
-
-    // Подписываемся на изменения состояния аутентификации
-    ref.listen(authProvider, (previous, next) {
-      next.when(
-        initial: () => {},
-        loading: () => {},
-        authenticated: (user, token) {
-          goToHome();
-        },
-        unauthenticated: () => goToOnboarding(authService),
-        error: (message) async {
-          await Future.delayed(Duration(seconds: 2));
-          notifierAuthState.checkAuthStatus();
-        },
-      );
-    });
-  }
-
-  void goToHome() {
-    appNavigation.home();
-  }
-
-  Future<void> goToOnboarding(AuthService authService) async {
-    // async вместо await
-    final isOnboardingCompleted = await authService.isOnboardingCompleted();
-
-    if (isOnboardingCompleted) {
+  Future<void> _goToOnboardingOrLogin(AuthService authService) async {
+    final isCompleted = await authService.isOnboardingCompleted();
+    if (isCompleted) {
       appNavigation.registration();
     } else {
       appNavigation.onboarding();

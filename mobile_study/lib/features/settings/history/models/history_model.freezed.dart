@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HistoryState {
 
- bool get isLoading; List<CarRentData>? get historyList; String? get errorMessage;
+ bool get isLoading; List<CarHistoryModel>? get historyList; String? get errorMessage;
 /// Create a copy of HistoryState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $HistoryStateCopyWith<$Res>  {
   factory $HistoryStateCopyWith(HistoryState value, $Res Function(HistoryState) _then) = _$HistoryStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, List<CarRentData>? historyList, String? errorMessage
+ bool isLoading, List<CarHistoryModel>? historyList, String? errorMessage
 });
 
 
@@ -66,7 +66,7 @@ class _$HistoryStateCopyWithImpl<$Res>
   return _then(_self.copyWith(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,historyList: freezed == historyList ? _self.historyList : historyList // ignore: cast_nullable_to_non_nullable
-as List<CarRentData>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as List<CarHistoryModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -149,7 +149,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  List<CarRentData>? historyList,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  List<CarHistoryModel>? historyList,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HistoryState() when $default != null:
 return $default(_that.isLoading,_that.historyList,_that.errorMessage);case _:
@@ -170,7 +170,7 @@ return $default(_that.isLoading,_that.historyList,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  List<CarRentData>? historyList,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  List<CarHistoryModel>? historyList,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _HistoryState():
 return $default(_that.isLoading,_that.historyList,_that.errorMessage);}
@@ -187,7 +187,7 @@ return $default(_that.isLoading,_that.historyList,_that.errorMessage);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  List<CarRentData>? historyList,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  List<CarHistoryModel>? historyList,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _HistoryState() when $default != null:
 return $default(_that.isLoading,_that.historyList,_that.errorMessage);case _:
@@ -202,12 +202,12 @@ return $default(_that.isLoading,_that.historyList,_that.errorMessage);case _:
 
 
 class _HistoryState implements HistoryState {
-  const _HistoryState({this.isLoading = false, final  List<CarRentData>? historyList, this.errorMessage}): _historyList = historyList;
+  const _HistoryState({this.isLoading = false, final  List<CarHistoryModel>? historyList, this.errorMessage}): _historyList = historyList;
   
 
 @override@JsonKey() final  bool isLoading;
- final  List<CarRentData>? _historyList;
-@override List<CarRentData>? get historyList {
+ final  List<CarHistoryModel>? _historyList;
+@override List<CarHistoryModel>? get historyList {
   final value = _historyList;
   if (value == null) return null;
   if (_historyList is EqualUnmodifiableListView) return _historyList;
@@ -247,7 +247,7 @@ abstract mixin class _$HistoryStateCopyWith<$Res> implements $HistoryStateCopyWi
   factory _$HistoryStateCopyWith(_HistoryState value, $Res Function(_HistoryState) _then) = __$HistoryStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, List<CarRentData>? historyList, String? errorMessage
+ bool isLoading, List<CarHistoryModel>? historyList, String? errorMessage
 });
 
 
@@ -268,7 +268,7 @@ class __$HistoryStateCopyWithImpl<$Res>
   return _then(_HistoryState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,historyList: freezed == historyList ? _self._historyList : historyList // ignore: cast_nullable_to_non_nullable
-as List<CarRentData>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as List<CarHistoryModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

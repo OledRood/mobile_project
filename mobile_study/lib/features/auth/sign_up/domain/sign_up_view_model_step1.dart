@@ -33,7 +33,6 @@ class SignUpViewModelStep1 extends StateNotifier<SignUpStateStep1> {
 
   void checkEmail() {
     final errorMassage = Validators.validateEmail(emailController.text);
-    debugPrint("Email error: $errorMassage");
     state = state.copyWith(emailError: errorMassage);
   }
 

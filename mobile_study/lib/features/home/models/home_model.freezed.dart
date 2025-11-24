@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeState {
 
- bool get isLoading; List<CarCardModel>? get searchResults; String? get errorMessage; HomeViewState get viewState;
+ bool get isLoading; List<CarCardModel>? get searchResults; List<CarCardModel>? get recommendations; bool get isShowSearchButton; String? get errorMessage; HomeViewState get viewState;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other.searchResults, searchResults)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.viewState, viewState) || other.viewState == viewState));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other.searchResults, searchResults)&&const DeepCollectionEquality().equals(other.recommendations, recommendations)&&(identical(other.isShowSearchButton, isShowSearchButton) || other.isShowSearchButton == isShowSearchButton)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.viewState, viewState) || other.viewState == viewState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(searchResults),errorMessage,viewState);
+int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(searchResults),const DeepCollectionEquality().hash(recommendations),isShowSearchButton,errorMessage,viewState);
 
 @override
 String toString() {
-  return 'HomeState(isLoading: $isLoading, searchResults: $searchResults, errorMessage: $errorMessage, viewState: $viewState)';
+  return 'HomeState(isLoading: $isLoading, searchResults: $searchResults, recommendations: $recommendations, isShowSearchButton: $isShowSearchButton, errorMessage: $errorMessage, viewState: $viewState)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, List<CarCardModel>? searchResults, String? errorMessage, HomeViewState viewState
+ bool isLoading, List<CarCardModel>? searchResults, List<CarCardModel>? recommendations, bool isShowSearchButton, String? errorMessage, HomeViewState viewState
 });
 
 
@@ -62,11 +62,13 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? searchResults = freezed,Object? errorMessage = freezed,Object? viewState = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? searchResults = freezed,Object? recommendations = freezed,Object? isShowSearchButton = null,Object? errorMessage = freezed,Object? viewState = null,}) {
   return _then(_self.copyWith(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,searchResults: freezed == searchResults ? _self.searchResults : searchResults // ignore: cast_nullable_to_non_nullable
-as List<CarCardModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as List<CarCardModel>?,recommendations: freezed == recommendations ? _self.recommendations : recommendations // ignore: cast_nullable_to_non_nullable
+as List<CarCardModel>?,isShowSearchButton: null == isShowSearchButton ? _self.isShowSearchButton : isShowSearchButton // ignore: cast_nullable_to_non_nullable
+as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,viewState: null == viewState ? _self.viewState : viewState // ignore: cast_nullable_to_non_nullable
 as HomeViewState,
   ));
@@ -150,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  List<CarCardModel>? searchResults,  String? errorMessage,  HomeViewState viewState)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  List<CarCardModel>? searchResults,  List<CarCardModel>? recommendations,  bool isShowSearchButton,  String? errorMessage,  HomeViewState viewState)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.viewState);case _:
+return $default(_that.isLoading,_that.searchResults,_that.recommendations,_that.isShowSearchButton,_that.errorMessage,_that.viewState);case _:
   return orElse();
 
 }
@@ -171,10 +173,10 @@ return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.vie
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  List<CarCardModel>? searchResults,  String? errorMessage,  HomeViewState viewState)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  List<CarCardModel>? searchResults,  List<CarCardModel>? recommendations,  bool isShowSearchButton,  String? errorMessage,  HomeViewState viewState)  $default,) {final _that = this;
 switch (_that) {
 case _HomeState():
-return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.viewState);}
+return $default(_that.isLoading,_that.searchResults,_that.recommendations,_that.isShowSearchButton,_that.errorMessage,_that.viewState);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -188,10 +190,10 @@ return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.vie
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  List<CarCardModel>? searchResults,  String? errorMessage,  HomeViewState viewState)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  List<CarCardModel>? searchResults,  List<CarCardModel>? recommendations,  bool isShowSearchButton,  String? errorMessage,  HomeViewState viewState)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.viewState);case _:
+return $default(_that.isLoading,_that.searchResults,_that.recommendations,_that.isShowSearchButton,_that.errorMessage,_that.viewState);case _:
   return null;
 
 }
@@ -203,7 +205,7 @@ return $default(_that.isLoading,_that.searchResults,_that.errorMessage,_that.vie
 
 
 class _HomeState implements HomeState {
-  const _HomeState({this.isLoading = false, final  List<CarCardModel>? searchResults, this.errorMessage, this.viewState = HomeViewState.initial}): _searchResults = searchResults;
+  const _HomeState({this.isLoading = false, final  List<CarCardModel>? searchResults, final  List<CarCardModel>? recommendations, this.isShowSearchButton = false, this.errorMessage, this.viewState = HomeViewState.initial}): _searchResults = searchResults,_recommendations = recommendations;
   
 
 @override@JsonKey() final  bool isLoading;
@@ -216,6 +218,16 @@ class _HomeState implements HomeState {
   return EqualUnmodifiableListView(value);
 }
 
+ final  List<CarCardModel>? _recommendations;
+@override List<CarCardModel>? get recommendations {
+  final value = _recommendations;
+  if (value == null) return null;
+  if (_recommendations is EqualUnmodifiableListView) return _recommendations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override@JsonKey() final  bool isShowSearchButton;
 @override final  String? errorMessage;
 @override@JsonKey() final  HomeViewState viewState;
 
@@ -229,16 +241,16 @@ _$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other._searchResults, _searchResults)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.viewState, viewState) || other.viewState == viewState));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other._searchResults, _searchResults)&&const DeepCollectionEquality().equals(other._recommendations, _recommendations)&&(identical(other.isShowSearchButton, isShowSearchButton) || other.isShowSearchButton == isShowSearchButton)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.viewState, viewState) || other.viewState == viewState));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(_searchResults),errorMessage,viewState);
+int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(_searchResults),const DeepCollectionEquality().hash(_recommendations),isShowSearchButton,errorMessage,viewState);
 
 @override
 String toString() {
-  return 'HomeState(isLoading: $isLoading, searchResults: $searchResults, errorMessage: $errorMessage, viewState: $viewState)';
+  return 'HomeState(isLoading: $isLoading, searchResults: $searchResults, recommendations: $recommendations, isShowSearchButton: $isShowSearchButton, errorMessage: $errorMessage, viewState: $viewState)';
 }
 
 
@@ -249,7 +261,7 @@ abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Re
   factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, List<CarCardModel>? searchResults, String? errorMessage, HomeViewState viewState
+ bool isLoading, List<CarCardModel>? searchResults, List<CarCardModel>? recommendations, bool isShowSearchButton, String? errorMessage, HomeViewState viewState
 });
 
 
@@ -266,11 +278,13 @@ class __$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? searchResults = freezed,Object? errorMessage = freezed,Object? viewState = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? searchResults = freezed,Object? recommendations = freezed,Object? isShowSearchButton = null,Object? errorMessage = freezed,Object? viewState = null,}) {
   return _then(_HomeState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,searchResults: freezed == searchResults ? _self._searchResults : searchResults // ignore: cast_nullable_to_non_nullable
-as List<CarCardModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as List<CarCardModel>?,recommendations: freezed == recommendations ? _self._recommendations : recommendations // ignore: cast_nullable_to_non_nullable
+as List<CarCardModel>?,isShowSearchButton: null == isShowSearchButton ? _self.isShowSearchButton : isShowSearchButton // ignore: cast_nullable_to_non_nullable
+as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,viewState: null == viewState ? _self.viewState : viewState // ignore: cast_nullable_to_non_nullable
 as HomeViewState,
   ));

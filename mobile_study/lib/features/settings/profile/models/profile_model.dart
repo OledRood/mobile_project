@@ -2,7 +2,7 @@ import 'dart:ui';
 
 // ignore: depend_on_referenced_packages
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mobile_study/core/auth/models/user.dart';
+import 'package:mobile_study/core/user/models/user.dart';
 
 part 'profile_model.freezed.dart';
 

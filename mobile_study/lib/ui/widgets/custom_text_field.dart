@@ -99,9 +99,12 @@ class _TextFieldIconWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (icon != null) {
-      return GestureDetector(
-        onTap: onIconPressed,
-        child: CustomIconWidget(icon: icon, size: 20),
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 9.0),
+        child: GestureDetector(
+          onTap: onIconPressed,
+          child: CustomIconWidget(icon: icon, size: 20),
+        ),
       );
     }
     return SizedBox.shrink();

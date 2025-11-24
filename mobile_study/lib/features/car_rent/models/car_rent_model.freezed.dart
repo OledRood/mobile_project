@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CarRentState {
 
- bool get isLoading; String? get error; CarRentData? get carRentData;
+ bool get isLoading; String? get error; CarRentData? get carRentData; int get rentDays; AsyncValue<String> get depositInfo;
 /// Create a copy of CarRentState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CarRentStateCopyWith<CarRentState> get copyWith => _$CarRentStateCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CarRentState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.carRentData, carRentData) || other.carRentData == carRentData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CarRentState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.carRentData, carRentData) || other.carRentData == carRentData)&&(identical(other.rentDays, rentDays) || other.rentDays == rentDays)&&(identical(other.depositInfo, depositInfo) || other.depositInfo == depositInfo));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,error,carRentData);
+int get hashCode => Object.hash(runtimeType,isLoading,error,carRentData,rentDays,depositInfo);
 
 @override
 String toString() {
-  return 'CarRentState(isLoading: $isLoading, error: $error, carRentData: $carRentData)';
+  return 'CarRentState(isLoading: $isLoading, error: $error, carRentData: $carRentData, rentDays: $rentDays, depositInfo: $depositInfo)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CarRentStateCopyWith<$Res>  {
   factory $CarRentStateCopyWith(CarRentState value, $Res Function(CarRentState) _then) = _$CarRentStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, String? error, CarRentData? carRentData
+ bool isLoading, String? error, CarRentData? carRentData, int rentDays, AsyncValue<String> depositInfo
 });
 
 
@@ -62,12 +62,14 @@ class _$CarRentStateCopyWithImpl<$Res>
 
 /// Create a copy of CarRentState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? error = freezed,Object? carRentData = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? error = freezed,Object? carRentData = freezed,Object? rentDays = null,Object? depositInfo = null,}) {
   return _then(_self.copyWith(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,carRentData: freezed == carRentData ? _self.carRentData : carRentData // ignore: cast_nullable_to_non_nullable
-as CarRentData?,
+as CarRentData?,rentDays: null == rentDays ? _self.rentDays : rentDays // ignore: cast_nullable_to_non_nullable
+as int,depositInfo: null == depositInfo ? _self.depositInfo : depositInfo // ignore: cast_nullable_to_non_nullable
+as AsyncValue<String>,
   ));
 }
 /// Create a copy of CarRentState
@@ -161,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  CarRentData? carRentData)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  CarRentData? carRentData,  int rentDays,  AsyncValue<String> depositInfo)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CarRentState() when $default != null:
-return $default(_that.isLoading,_that.error,_that.carRentData);case _:
+return $default(_that.isLoading,_that.error,_that.carRentData,_that.rentDays,_that.depositInfo);case _:
   return orElse();
 
 }
@@ -182,10 +184,10 @@ return $default(_that.isLoading,_that.error,_that.carRentData);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  CarRentData? carRentData)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  String? error,  CarRentData? carRentData,  int rentDays,  AsyncValue<String> depositInfo)  $default,) {final _that = this;
 switch (_that) {
 case _CarRentState():
-return $default(_that.isLoading,_that.error,_that.carRentData);}
+return $default(_that.isLoading,_that.error,_that.carRentData,_that.rentDays,_that.depositInfo);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -199,10 +201,10 @@ return $default(_that.isLoading,_that.error,_that.carRentData);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  String? error,  CarRentData? carRentData)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  String? error,  CarRentData? carRentData,  int rentDays,  AsyncValue<String> depositInfo)?  $default,) {final _that = this;
 switch (_that) {
 case _CarRentState() when $default != null:
-return $default(_that.isLoading,_that.error,_that.carRentData);case _:
+return $default(_that.isLoading,_that.error,_that.carRentData,_that.rentDays,_that.depositInfo);case _:
   return null;
 
 }
@@ -214,12 +216,14 @@ return $default(_that.isLoading,_that.error,_that.carRentData);case _:
 
 
 class _CarRentState implements CarRentState {
-  const _CarRentState({this.isLoading = false, this.error, this.carRentData});
+  const _CarRentState({this.isLoading = false, this.error, this.carRentData, this.rentDays = 1, this.depositInfo = const AsyncValue.data('')});
   
 
 @override@JsonKey() final  bool isLoading;
 @override final  String? error;
 @override final  CarRentData? carRentData;
+@override@JsonKey() final  int rentDays;
+@override@JsonKey() final  AsyncValue<String> depositInfo;
 
 /// Create a copy of CarRentState
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +235,16 @@ _$CarRentStateCopyWith<_CarRentState> get copyWith => __$CarRentStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CarRentState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.carRentData, carRentData) || other.carRentData == carRentData));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CarRentState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.carRentData, carRentData) || other.carRentData == carRentData)&&(identical(other.rentDays, rentDays) || other.rentDays == rentDays)&&(identical(other.depositInfo, depositInfo) || other.depositInfo == depositInfo));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,error,carRentData);
+int get hashCode => Object.hash(runtimeType,isLoading,error,carRentData,rentDays,depositInfo);
 
 @override
 String toString() {
-  return 'CarRentState(isLoading: $isLoading, error: $error, carRentData: $carRentData)';
+  return 'CarRentState(isLoading: $isLoading, error: $error, carRentData: $carRentData, rentDays: $rentDays, depositInfo: $depositInfo)';
 }
 
 
@@ -251,7 +255,7 @@ abstract mixin class _$CarRentStateCopyWith<$Res> implements $CarRentStateCopyWi
   factory _$CarRentStateCopyWith(_CarRentState value, $Res Function(_CarRentState) _then) = __$CarRentStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, String? error, CarRentData? carRentData
+ bool isLoading, String? error, CarRentData? carRentData, int rentDays, AsyncValue<String> depositInfo
 });
 
 
@@ -268,12 +272,14 @@ class __$CarRentStateCopyWithImpl<$Res>
 
 /// Create a copy of CarRentState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? error = freezed,Object? carRentData = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? error = freezed,Object? carRentData = freezed,Object? rentDays = null,Object? depositInfo = null,}) {
   return _then(_CarRentState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,carRentData: freezed == carRentData ? _self.carRentData : carRentData // ignore: cast_nullable_to_non_nullable
-as CarRentData?,
+as CarRentData?,rentDays: null == rentDays ? _self.rentDays : rentDays // ignore: cast_nullable_to_non_nullable
+as int,depositInfo: null == depositInfo ? _self.depositInfo : depositInfo // ignore: cast_nullable_to_non_nullable
+as AsyncValue<String>,
   ));
 }
 

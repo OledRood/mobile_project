@@ -4,27 +4,40 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/core/auth/auth_notifier.dart';
 import 'package:mobile_study/core/auth/auth_service.dart';
-import 'package:mobile_study/core/auth/models/user.dart';
+import 'package:mobile_study/core/user/models/user.dart';
 import 'package:mobile_study/core/message/scaffold_messenger_manager.dart';
 import 'package:mobile_study/core/navigation/app_navigation.dart';
 import 'package:mobile_study/core/navigation/navigation_params.dart';
+import 'package:mobile_study/core/user/user_notifier.dart';
 import 'package:mobile_study/features/settings/profile/models/profile_model.dart';
 import 'package:mobile_study/features/settings/settings/domain/settings_view_model.dart';
 
 class ProfileViewModel extends StateNotifier<ProfileState> {
+  final Ref ref;
   final AppNavigation appNavigation;
-  final AuthService authService;
   final AuthNotifier authNotifier;
   final ScaffoldMessengerManager scaffoldMessenger;
-  final SettingsViewModel settingsViewModel;
+  final UserNotifier userNotifier;
 
   ProfileViewModel({
+    required this.ref,
     required this.appNavigation,
-    required this.authService,
+    required this.userNotifier,
     required this.scaffoldMessenger,
-    required this.settingsViewModel,
     required this.authNotifier,
   }) : super(const ProfileState()) {
+    _init();
+  }
+
+  void _init() {
+    final currentUser = ref.read(UserDi.userNotifierProvider);
+    state = state.copyWith(user: currentUser);
+    ref.listen<User?>(UserDi.userNotifierProvider, (previous, next) {
+      state = state.copyWith(user: next);
+    });
+    if (currentUser == null) {
+      userNotifier.loadUser(forceRefresh: false);
+    }
     setListOfProfileItems();
   }
 
@@ -40,59 +53,30 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
     state = state.copyWith(isLoading: true);
     final user = state.user?.copyWith(avatar: file.path);
     if (user == null) return;
-    await authService.saveUser(user);
-    state = state.copyWith(user: user, isLoading: false);
-    settingsViewModel.updatePhoto();
-    scaffoldMessenger.showSnackBar("Фото успешно обновлено");
+    try {
+      await userNotifier.updateUserProfile(user, avatar: file);
+      scaffoldMessenger.showSnackBar("Фото успешно обновлено");
+    } catch (e) {
+      debugPrint('Error updating user profile: ${e.toString()}');
+      scaffoldMessenger.showSnackBar("Ошибка при обновлении фото");
+      state = state.copyWith(isLoading: false);
+      return;
+    }
   }
 
   String _genderFieldToString() {
-    if (state.user?.isMan == null) {
+    if (state.user?.isMale == null) {
       return "";
-    } else if (state.user!.isMan == true) {
+    } else if (state.user!.isMale == true) {
       return "Мужской";
     } else {
       return "Женский";
     }
   }
 
-  Future<void> _getUserData() async {
-    final user = await authService.getUser();
-    state = state.copyWith(user: user);
-    _buildProfileItems(state.user, state.googleEmail);
-
-    //Запрос в сеть для получения данных пользователя для обновления данных
-    _getUserDataFromNetwork();
-  }
-
-  Future<void> _getUserDataFromNetwork() async {
-    //Заглушка для получения данных пользователя из сети;
-    late User user;
-    if (state.user == null) {
-      user = User(
-        email: "ivanov@mtuci.ru",
-        id: "1",
-        name: "Иван Иванов",
-        avatar: null,
-        isMan: true,
-        createdAt: "Присоединился в июле 2024",
-        googleEmail: "ivanov@gmail.com",
-      );
-    } else {
-      user = state.user!;
-    }
-
-    state = state.copyWith(user: user);
-    _buildProfileItems(state.user, state.googleEmail);
-  }
-
   Future<void> setListOfProfileItems() async {
-    if (state.user == null) {
-      await _getUserData();
-    }
-
     final items = _buildProfileItems(
-      state.user ?? User(id: '', email: '', name: ''),
+      state.user ?? User(id: '', email: '', firstName: '', lastName: ''),
       state.googleEmail,
     );
     state = state.copyWith(profileItems: items);
@@ -124,18 +108,19 @@ class ProfileViewModel extends StateNotifier<ProfileState> {
       ),
       null,
       ProfileListItem(title: 'Пол', onTap: () {}, subtitle: gender),
-      null,
-      ProfileListItem(
-        title: 'Google',
-        onTap: () {},
-        subtitle: googleEmail ?? "Добавить аккаунт",
-      ),
+      // null,
+      // ProfileListItem(
+      //   title: 'Google',
+      //   onTap: () {},
+      //   subtitle: googleEmail ?? "Добавить аккаунт",
+      // ),
       null,
     ];
   }
 
   Future<void> signOut() async {
     await authNotifier.logout();
+    await userNotifier.clearUser();
     appNavigation.registration();
   }
 }

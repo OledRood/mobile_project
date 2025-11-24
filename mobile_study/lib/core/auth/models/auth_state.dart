@@ -1,14 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'user.dart';
+import 'package:mobile_study/core/auth/auth_repository.dart';
+import 'package:mobile_study/core/services/api_service.dart';
 
 part 'auth_state.freezed.dart';
 
 @freezed
 class AuthState with _$AuthState {
-  const factory AuthState.initial() = _Initial;
-  const factory AuthState.loading() = _Loading;
-  const factory AuthState.authenticated(User user, String token) =
-      _Authenticated;
-  const factory AuthState.unauthenticated() = _Unauthenticated;
-  const factory AuthState.error(String message) = _Error;
+  const factory AuthState.initial() = AuthInitial;
+  const factory AuthState.loading() = AuthLoading;
+  const factory AuthState.authenticated(AuthResponse authResponse) =
+      Authenticated;
+  const factory AuthState.unauthenticated() = AuthUnauthenticated;
+  const factory AuthState.error(ApiException exception) = AuthError;
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobile_study/core/models/car/car_rent_data.dart';
+import 'package:mobile_study/core/models/car/car_history_model.dart';
 import 'package:mobile_study/features/settings/history/history_di.dart';
-import 'package:mobile_study/ui/widgets/search_listview.dart';
 
 class HistoryScreen extends ConsumerWidget {
   const HistoryScreen({super.key});
@@ -24,14 +23,17 @@ class HistoryScreen extends ConsumerWidget {
     }
     final historyList = state.historyList ?? [];
     return Scaffold(
-      appBar: AppBar(title: const Text('Мои бронирования')),
+      appBar: AppBar(
+        title: const Text('Мои бронирования'),
+        backgroundColor: Theme.of(context).colorScheme.surface.withAlpha(10),
+      ),
       body: Center(child: HistoryListWidget(items: historyList)),
     );
   }
 }
 
 class HistoryListWidget extends ConsumerWidget {
-  final List<CarRentData> items;
+  final List<CarHistoryModel> items;
   const HistoryListWidget({super.key, required this.items});
 
   @override
@@ -40,17 +42,22 @@ class HistoryListWidget extends ConsumerWidget {
     if (items.isEmpty) {
       return const Center(child: Text('У вас нет бронирований.'));
     }
-    return ListView.separated(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
-        return ListTile(
-          title: Text(item.autoName),
-          subtitle: Text("начало аренды: ${item.startRentDate}"),
-          onTap: () => viewModel.operDetails(items[index].id),
-        );
+    return RefreshIndicator(
+      onRefresh: () async {
+        await viewModel.getHistoryList();
       },
-      separatorBuilder: (context, index) => Divider(thickness: 0.5),
+      child: ListView.separated(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return ListTile(
+            title: Text(item.name),
+            subtitle: Text(viewModel.getDateString(index)),
+            onTap: () => viewModel.operDetails(items[index].rentId),
+          );
+        },
+        separatorBuilder: (context, index) => Divider(thickness: 0.5),
+      ),
     );
   }
 }

@@ -4,10 +4,11 @@
 
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mobile_study/features/settings/settings_di.dart';
+import 'package:mobile_study/features/settings/settings/settings_di.dart';
 import 'package:mobile_study/ui/theme/theme_provider.dart';
 import 'package:mobile_study/ui/theme/models/app_icons.dart';
 import 'package:mobile_study/ui/widgets/custom_icon.dart';
@@ -85,13 +86,14 @@ class _ProfileListTileLeading extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(SettingsDi.settingsViewModel);
-    final image = state.user?.avatar;
+    final image = state.user?.fullAvatarUrl;
+
     if (image != null && image.isNotEmpty) {
       return Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-            image: FileImage(File(image)),
+            image: CachedNetworkImageProvider(image),
             fit: BoxFit.cover,
           ),
         ),

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: mobile_car_proj_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mobile_car_proj
+    ports:
+      - "5432:5432"
+    volumes:
+      # Используем локальную директорию для синхронизации данных БД
+      # Это позволяет использовать одну и ту же БД локально и в докере
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Go API Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mobile_car_proj_api
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: mobile_car_proj
+      DB_SSLMODE: disable
+      SERVER_PORT: 8080
+      JWT_SECRET: your-secret-key-here
+    ports:
+      - "8080:8080"
+    volumes:
+      # Монтируем локальную директорию для изображений
+      # Это позволяет использовать одни и те же изображения локально и в докере
+      - ./data/images:/app/data/images
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+# Volumes больше не нужны, так как используем локальные директории
+# volumes:
+#   postgres_data:
+#   uploaded_files:

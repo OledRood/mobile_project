@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mobile_study/core/navigation/app_routes.dart';
 import 'package:mobile_study/core/navigation/navigation_params.dart';
 import 'package:mobile_study/core/navigation/navigator_di.dart';
+import 'package:mobile_study/features/settings/add_car/view/add_car_step1_screen.dart';
 
 /// Основной класс для управления навигацией в приложении
 class AppNavigation {
@@ -15,7 +16,7 @@ class AppNavigation {
   GoRouter get _router => _ref.read(NavigatorDi.routerProvider);
 
   /// Навигация на главную страницу
-  void home() {
+  void home() async {
     _router.go(AppRoutes.home.path);
   }
 
@@ -33,6 +34,26 @@ class AppNavigation {
 
   void signUp() {
     _router.go(AppRoutes.signUp.path);
+  }
+
+  void addCarBecomeHost() {
+    _router.push(AppRoutes.addCarBecomeHost.path);
+  }
+
+  void addCarStep1() {
+    _router.push(AppRoutes.addCarStep1.path);
+  }
+
+  void addCarStep2() {
+    _router.push(AppRoutes.addCarStep2.path);
+  }
+
+  void addCarSuccessful() {
+    _router.go(AppRoutes.addCarSuccessful.path);
+  }
+
+  void addCarPhoto() {
+    _router.push(AppRoutes.addCarPhoto.path);
   }
 
   void signUpSecond() {
@@ -84,15 +105,11 @@ class AppNavigation {
   }
 
   void carSuccessful() {
-    _router.push(AppRoutes.carSuccessful.path);
+    _router.go(AppRoutes.carSuccessful.path);
   }
 
   void notification() {
     _router.push(AppRoutes.notification.path);
-  }
-
-  void addCar() {
-    _router.push(AppRoutes.addCar.path);
   }
 
   void help() {
@@ -113,6 +130,10 @@ class AppNavigation {
 
   void carRent(CarParams params) {
     _router.push(AppRoutes.carRent.path, extra: params);
+  }
+
+  void carBook(BookParams params) {
+    _router.push(AppRoutes.carBook.path, extra: params);
   }
 
   void goBack() {

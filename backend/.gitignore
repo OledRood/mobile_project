@@ -1,0 +1,57 @@
+# Ignore build artifacts and temporary files in back/
+
+# Go build outputs and binaries
+/api
+/tmp
+*.exe
+*.out
+
+# Logs and local config
+*.log
+.env
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+tmp/
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# Environment variables
+.env
+
+# Database data and uploaded files (keep structure)
+# Игнорируем содержимое, но сохраняем структуру директорий
+data/postgres/
+data/images/avatars/*
+!data/images/avatars/.gitkeep
+data/images/passports/*
+!data/images/passports/.gitkeep
+data/images/driver_licenses/*
+!data/images/driver_licenses/.gitkeep
+data/images/cars/*
+!data/images/cars/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store

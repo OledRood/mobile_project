@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mobile_study/ui/theme/models/app_icons.dart';
 import 'package:mobile_study/ui/theme/models/app_images.dart';
 
 class CarCardWidget extends StatelessWidget {
   final String autoName;
   final String autoMark;
-  final String price;
-  final String pricePeriod;
+  final String pricePerDay;
   final String transmission;
   final String fuel;
-  final String image;
+  final String? image;
   final VoidCallback onBorrowPressed;
   final VoidCallback onDetailsPressed;
   final bool isForRent;
@@ -19,8 +19,7 @@ class CarCardWidget extends StatelessWidget {
     super.key,
     required this.autoName,
     required this.autoMark,
-    required this.price,
-    required this.pricePeriod,
+    required this.pricePerDay,
     required this.transmission,
     required this.fuel,
     required this.onBorrowPressed,
@@ -55,7 +54,7 @@ class CarCardWidget extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.topRight,
-                  child: Image.asset(image, width: 176, height: 136),
+                  child: _ImageWidget(image: image),
                 ),
                 Align(
                   alignment: Alignment.topLeft,
@@ -78,14 +77,14 @@ class CarCardWidget extends StatelessWidget {
                         text: TextSpan(
                           style: Theme.of(
                             context,
-                          ).textTheme.bodyLarge, // Default style
+                          ).textTheme.displaySmall, // Default style
                           children: <TextSpan>[
                             TextSpan(
-                              text: '$price₽',
+                              text: '$pricePerDay₽',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             TextSpan(
-                              text: ' $pricePeriod',
+                              text: ' в день',
                               style: Theme.of(context).textTheme.labelLarge
                                   ?.copyWith(
                                     color: Theme.of(
@@ -136,11 +135,45 @@ class CarCardWidget extends StatelessWidget {
   }
 }
 
+class _ImageWidget extends StatelessWidget {
+  const _ImageWidget({required this.image});
+
+  final String? image;
+
+  @override
+  Widget build(BuildContext context) {
+    if (image == null) {
+      return Image.asset(AppImages.loader, width: 176, height: 136);
+    }
+    return CachedNetworkImage(
+      imageUrl: image!,
+      cacheKey: image,
+      width: 176,
+      height: 136,
+      fit: BoxFit.fitWidth,
+      fadeInDuration: Duration(milliseconds: 300),
+      fadeOutDuration: Duration(milliseconds: 300),
+      placeholder: (context, url) => SizedBox(
+        width: 176,
+        height: 136,
+        child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+      ),
+      errorWidget: (context, url, error) {
+        return Container(
+          width: 176,
+          height: 136,
+          color: Colors.grey[300],
+          child: Icon(Icons.error_outline, color: Colors.grey[600]),
+        );
+      },
+    );
+  }
+}
+
 class _BottomButtons extends StatelessWidget {
   final Function() onBorrowPressed;
   final Function() onDetailsPressed;
   const _BottomButtons({
-    super.key,
     required this.onBorrowPressed,
     required this.onDetailsPressed,
   });

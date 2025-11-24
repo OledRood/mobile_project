@@ -9,3 +9,9 @@ class CarParams {
 
   const CarParams({required this.carId});
 }
+
+class BookParams {
+  final String bookId;
+
+  const BookParams({required this.bookId});
+}

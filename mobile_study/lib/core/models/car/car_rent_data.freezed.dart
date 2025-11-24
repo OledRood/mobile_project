@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CarRentData {
 
- String get id; String get autoName; String get autoMark; String get pricePerDay; String get startRentDate; String get endRentDate; String get adress; String get priceOfInsurance; String get totalPrice; String get priceOfDeposit; String get transmission; String get fuel; String get image; String? get driverName; String? get driverLicenseNumber; String? get status;
+ String get id; String get autoName; String get autoMark; CarCardModel get carCardModel; String get pricePerDay; String? get startRentDate; String? get endRentDate; String get adress; String get priceOfInsurance; String get totalPrice; String get priceOfDeposit; String? get driverName; String? get driverLicenseNumber; String get status;
 /// Create a copy of CarRentData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CarRentDataCopyWith<CarRentData> get copyWith => _$CarRentDataCopyWithImpl<CarR
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CarRentData&&(identical(other.id, id) || other.id == id)&&(identical(other.autoName, autoName) || other.autoName == autoName)&&(identical(other.autoMark, autoMark) || other.autoMark == autoMark)&&(identical(other.pricePerDay, pricePerDay) || other.pricePerDay == pricePerDay)&&(identical(other.startRentDate, startRentDate) || other.startRentDate == startRentDate)&&(identical(other.endRentDate, endRentDate) || other.endRentDate == endRentDate)&&(identical(other.adress, adress) || other.adress == adress)&&(identical(other.priceOfInsurance, priceOfInsurance) || other.priceOfInsurance == priceOfInsurance)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.priceOfDeposit, priceOfDeposit) || other.priceOfDeposit == priceOfDeposit)&&(identical(other.transmission, transmission) || other.transmission == transmission)&&(identical(other.fuel, fuel) || other.fuel == fuel)&&(identical(other.image, image) || other.image == image)&&(identical(other.driverName, driverName) || other.driverName == driverName)&&(identical(other.driverLicenseNumber, driverLicenseNumber) || other.driverLicenseNumber == driverLicenseNumber)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CarRentData&&(identical(other.id, id) || other.id == id)&&(identical(other.autoName, autoName) || other.autoName == autoName)&&(identical(other.autoMark, autoMark) || other.autoMark == autoMark)&&(identical(other.carCardModel, carCardModel) || other.carCardModel == carCardModel)&&(identical(other.pricePerDay, pricePerDay) || other.pricePerDay == pricePerDay)&&(identical(other.startRentDate, startRentDate) || other.startRentDate == startRentDate)&&(identical(other.endRentDate, endRentDate) || other.endRentDate == endRentDate)&&(identical(other.adress, adress) || other.adress == adress)&&(identical(other.priceOfInsurance, priceOfInsurance) || other.priceOfInsurance == priceOfInsurance)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.priceOfDeposit, priceOfDeposit) || other.priceOfDeposit == priceOfDeposit)&&(identical(other.driverName, driverName) || other.driverName == driverName)&&(identical(other.driverLicenseNumber, driverLicenseNumber) || other.driverLicenseNumber == driverLicenseNumber)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,autoName,autoMark,pricePerDay,startRentDate,endRentDate,adress,priceOfInsurance,totalPrice,priceOfDeposit,transmission,fuel,image,driverName,driverLicenseNumber,status);
+int get hashCode => Object.hash(runtimeType,id,autoName,autoMark,carCardModel,pricePerDay,startRentDate,endRentDate,adress,priceOfInsurance,totalPrice,priceOfDeposit,driverName,driverLicenseNumber,status);
 
 @override
 String toString() {
-  return 'CarRentData(id: $id, autoName: $autoName, autoMark: $autoMark, pricePerDay: $pricePerDay, startRentDate: $startRentDate, endRentDate: $endRentDate, adress: $adress, priceOfInsurance: $priceOfInsurance, totalPrice: $totalPrice, priceOfDeposit: $priceOfDeposit, transmission: $transmission, fuel: $fuel, image: $image, driverName: $driverName, driverLicenseNumber: $driverLicenseNumber, status: $status)';
+  return 'CarRentData(id: $id, autoName: $autoName, autoMark: $autoMark, carCardModel: $carCardModel, pricePerDay: $pricePerDay, startRentDate: $startRentDate, endRentDate: $endRentDate, adress: $adress, priceOfInsurance: $priceOfInsurance, totalPrice: $totalPrice, priceOfDeposit: $priceOfDeposit, driverName: $driverName, driverLicenseNumber: $driverLicenseNumber, status: $status)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $CarRentDataCopyWith<$Res>  {
   factory $CarRentDataCopyWith(CarRentData value, $Res Function(CarRentData) _then) = _$CarRentDataCopyWithImpl;
 @useResult
 $Res call({
- String id, String autoName, String autoMark, String pricePerDay, String startRentDate, String endRentDate, String adress, String priceOfInsurance, String totalPrice, String priceOfDeposit, String transmission, String fuel, String image, String? driverName, String? driverLicenseNumber, String? status
+ String id, String autoName, String autoMark, CarCardModel carCardModel, String pricePerDay, String? startRentDate, String? endRentDate, String adress, String priceOfInsurance, String totalPrice, String priceOfDeposit, String? driverName, String? driverLicenseNumber, String status
 });
 
 
-
+$CarCardModelCopyWith<$Res> get carCardModel;
 
 }
 /// @nodoc
@@ -65,28 +65,35 @@ class _$CarRentDataCopyWithImpl<$Res>
 
 /// Create a copy of CarRentData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? autoName = null,Object? autoMark = null,Object? pricePerDay = null,Object? startRentDate = null,Object? endRentDate = null,Object? adress = null,Object? priceOfInsurance = null,Object? totalPrice = null,Object? priceOfDeposit = null,Object? transmission = null,Object? fuel = null,Object? image = null,Object? driverName = freezed,Object? driverLicenseNumber = freezed,Object? status = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? autoName = null,Object? autoMark = null,Object? carCardModel = null,Object? pricePerDay = null,Object? startRentDate = freezed,Object? endRentDate = freezed,Object? adress = null,Object? priceOfInsurance = null,Object? totalPrice = null,Object? priceOfDeposit = null,Object? driverName = freezed,Object? driverLicenseNumber = freezed,Object? status = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,autoName: null == autoName ? _self.autoName : autoName // ignore: cast_nullable_to_non_nullable
 as String,autoMark: null == autoMark ? _self.autoMark : autoMark // ignore: cast_nullable_to_non_nullable
-as String,pricePerDay: null == pricePerDay ? _self.pricePerDay : pricePerDay // ignore: cast_nullable_to_non_nullable
-as String,startRentDate: null == startRentDate ? _self.startRentDate : startRentDate // ignore: cast_nullable_to_non_nullable
-as String,endRentDate: null == endRentDate ? _self.endRentDate : endRentDate // ignore: cast_nullable_to_non_nullable
-as String,adress: null == adress ? _self.adress : adress // ignore: cast_nullable_to_non_nullable
+as String,carCardModel: null == carCardModel ? _self.carCardModel : carCardModel // ignore: cast_nullable_to_non_nullable
+as CarCardModel,pricePerDay: null == pricePerDay ? _self.pricePerDay : pricePerDay // ignore: cast_nullable_to_non_nullable
+as String,startRentDate: freezed == startRentDate ? _self.startRentDate : startRentDate // ignore: cast_nullable_to_non_nullable
+as String?,endRentDate: freezed == endRentDate ? _self.endRentDate : endRentDate // ignore: cast_nullable_to_non_nullable
+as String?,adress: null == adress ? _self.adress : adress // ignore: cast_nullable_to_non_nullable
 as String,priceOfInsurance: null == priceOfInsurance ? _self.priceOfInsurance : priceOfInsurance // ignore: cast_nullable_to_non_nullable
 as String,totalPrice: null == totalPrice ? _self.totalPrice : totalPrice // ignore: cast_nullable_to_non_nullable
 as String,priceOfDeposit: null == priceOfDeposit ? _self.priceOfDeposit : priceOfDeposit // ignore: cast_nullable_to_non_nullable
-as String,transmission: null == transmission ? _self.transmission : transmission // ignore: cast_nullable_to_non_nullable
-as String,fuel: null == fuel ? _self.fuel : fuel // ignore: cast_nullable_to_non_nullable
-as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,driverName: freezed == driverName ? _self.driverName : driverName // ignore: cast_nullable_to_non_nullable
 as String?,driverLicenseNumber: freezed == driverLicenseNumber ? _self.driverLicenseNumber : driverLicenseNumber // ignore: cast_nullable_to_non_nullable
-as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
-
+/// Create a copy of CarRentData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CarCardModelCopyWith<$Res> get carCardModel {
+  
+  return $CarCardModelCopyWith<$Res>(_self.carCardModel, (value) {
+    return _then(_self.copyWith(carCardModel: value));
+  });
+}
 }
 
 
@@ -130,10 +137,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _CarRentData():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -168,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String autoName,  String autoMark,  String pricePerDay,  String startRentDate,  String endRentDate,  String adress,  String priceOfInsurance,  String totalPrice,  String priceOfDeposit,  String transmission,  String fuel,  String image,  String? driverName,  String? driverLicenseNumber,  String? status)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String autoName,  String autoMark,  CarCardModel carCardModel,  String pricePerDay,  String? startRentDate,  String? endRentDate,  String adress,  String priceOfInsurance,  String totalPrice,  String priceOfDeposit,  String? driverName,  String? driverLicenseNumber,  String status)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CarRentData() when $default != null:
-return $default(_that.id,_that.autoName,_that.autoMark,_that.pricePerDay,_that.startRentDate,_that.endRentDate,_that.adress,_that.priceOfInsurance,_that.totalPrice,_that.priceOfDeposit,_that.transmission,_that.fuel,_that.image,_that.driverName,_that.driverLicenseNumber,_that.status);case _:
+return $default(_that.id,_that.autoName,_that.autoMark,_that.carCardModel,_that.pricePerDay,_that.startRentDate,_that.endRentDate,_that.adress,_that.priceOfInsurance,_that.totalPrice,_that.priceOfDeposit,_that.driverName,_that.driverLicenseNumber,_that.status);case _:
   return orElse();
 
 }
@@ -189,13 +193,10 @@ return $default(_that.id,_that.autoName,_that.autoMark,_that.pricePerDay,_that.s
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String autoName,  String autoMark,  String pricePerDay,  String startRentDate,  String endRentDate,  String adress,  String priceOfInsurance,  String totalPrice,  String priceOfDeposit,  String transmission,  String fuel,  String image,  String? driverName,  String? driverLicenseNumber,  String? status)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String autoName,  String autoMark,  CarCardModel carCardModel,  String pricePerDay,  String? startRentDate,  String? endRentDate,  String adress,  String priceOfInsurance,  String totalPrice,  String priceOfDeposit,  String? driverName,  String? driverLicenseNumber,  String status)  $default,) {final _that = this;
 switch (_that) {
 case _CarRentData():
-return $default(_that.id,_that.autoName,_that.autoMark,_that.pricePerDay,_that.startRentDate,_that.endRentDate,_that.adress,_that.priceOfInsurance,_that.totalPrice,_that.priceOfDeposit,_that.transmission,_that.fuel,_that.image,_that.driverName,_that.driverLicenseNumber,_that.status);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.id,_that.autoName,_that.autoMark,_that.carCardModel,_that.pricePerDay,_that.startRentDate,_that.endRentDate,_that.adress,_that.priceOfInsurance,_that.totalPrice,_that.priceOfDeposit,_that.driverName,_that.driverLicenseNumber,_that.status);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -209,10 +210,10 @@ return $default(_that.id,_that.autoName,_that.autoMark,_that.pricePerDay,_that.s
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String autoName,  String autoMark,  String pricePerDay,  String startRentDate,  String endRentDate,  String adress,  String priceOfInsurance,  String totalPrice,  String priceOfDeposit,  String transmission,  String fuel,  String image,  String? driverName,  String? driverLicenseNumber,  String? status)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String autoName,  String autoMark,  CarCardModel carCardModel,  String pricePerDay,  String? startRentDate,  String? endRentDate,  String adress,  String priceOfInsurance,  String totalPrice,  String priceOfDeposit,  String? driverName,  String? driverLicenseNumber,  String status)?  $default,) {final _that = this;
 switch (_that) {
 case _CarRentData() when $default != null:
-return $default(_that.id,_that.autoName,_that.autoMark,_that.pricePerDay,_that.startRentDate,_that.endRentDate,_that.adress,_that.priceOfInsurance,_that.totalPrice,_that.priceOfDeposit,_that.transmission,_that.fuel,_that.image,_that.driverName,_that.driverLicenseNumber,_that.status);case _:
+return $default(_that.id,_that.autoName,_that.autoMark,_that.carCardModel,_that.pricePerDay,_that.startRentDate,_that.endRentDate,_that.adress,_that.priceOfInsurance,_that.totalPrice,_that.priceOfDeposit,_that.driverName,_that.driverLicenseNumber,_that.status);case _:
   return null;
 
 }
@@ -223,26 +224,24 @@ return $default(_that.id,_that.autoName,_that.autoMark,_that.pricePerDay,_that.s
 /// @nodoc
 @JsonSerializable()
 
-class _CarRentData implements CarRentData {
-  const _CarRentData({required this.id, required this.autoName, required this.autoMark, required this.pricePerDay, required this.startRentDate, required this.endRentDate, required this.adress, required this.priceOfInsurance, required this.totalPrice, required this.priceOfDeposit, required this.transmission, required this.fuel, required this.image, this.driverName, this.driverLicenseNumber, this.status});
+class _CarRentData extends CarRentData {
+  const _CarRentData({required this.id, required this.autoName, required this.autoMark, required this.carCardModel, required this.pricePerDay, required this.startRentDate, required this.endRentDate, required this.adress, required this.priceOfInsurance, required this.totalPrice, required this.priceOfDeposit, this.driverName, this.driverLicenseNumber, required this.status}): super._();
   factory _CarRentData.fromJson(Map<String, dynamic> json) => _$CarRentDataFromJson(json);
 
 @override final  String id;
 @override final  String autoName;
 @override final  String autoMark;
+@override final  CarCardModel carCardModel;
 @override final  String pricePerDay;
-@override final  String startRentDate;
-@override final  String endRentDate;
+@override final  String? startRentDate;
+@override final  String? endRentDate;
 @override final  String adress;
 @override final  String priceOfInsurance;
 @override final  String totalPrice;
 @override final  String priceOfDeposit;
-@override final  String transmission;
-@override final  String fuel;
-@override final  String image;
 @override final  String? driverName;
 @override final  String? driverLicenseNumber;
-@override final  String? status;
+@override final  String status;
 
 /// Create a copy of CarRentData
 /// with the given fields replaced by the non-null parameter values.
@@ -257,16 +256,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CarRentData&&(identical(other.id, id) || other.id == id)&&(identical(other.autoName, autoName) || other.autoName == autoName)&&(identical(other.autoMark, autoMark) || other.autoMark == autoMark)&&(identical(other.pricePerDay, pricePerDay) || other.pricePerDay == pricePerDay)&&(identical(other.startRentDate, startRentDate) || other.startRentDate == startRentDate)&&(identical(other.endRentDate, endRentDate) || other.endRentDate == endRentDate)&&(identical(other.adress, adress) || other.adress == adress)&&(identical(other.priceOfInsurance, priceOfInsurance) || other.priceOfInsurance == priceOfInsurance)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.priceOfDeposit, priceOfDeposit) || other.priceOfDeposit == priceOfDeposit)&&(identical(other.transmission, transmission) || other.transmission == transmission)&&(identical(other.fuel, fuel) || other.fuel == fuel)&&(identical(other.image, image) || other.image == image)&&(identical(other.driverName, driverName) || other.driverName == driverName)&&(identical(other.driverLicenseNumber, driverLicenseNumber) || other.driverLicenseNumber == driverLicenseNumber)&&(identical(other.status, status) || other.status == status));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CarRentData&&(identical(other.id, id) || other.id == id)&&(identical(other.autoName, autoName) || other.autoName == autoName)&&(identical(other.autoMark, autoMark) || other.autoMark == autoMark)&&(identical(other.carCardModel, carCardModel) || other.carCardModel == carCardModel)&&(identical(other.pricePerDay, pricePerDay) || other.pricePerDay == pricePerDay)&&(identical(other.startRentDate, startRentDate) || other.startRentDate == startRentDate)&&(identical(other.endRentDate, endRentDate) || other.endRentDate == endRentDate)&&(identical(other.adress, adress) || other.adress == adress)&&(identical(other.priceOfInsurance, priceOfInsurance) || other.priceOfInsurance == priceOfInsurance)&&(identical(other.totalPrice, totalPrice) || other.totalPrice == totalPrice)&&(identical(other.priceOfDeposit, priceOfDeposit) || other.priceOfDeposit == priceOfDeposit)&&(identical(other.driverName, driverName) || other.driverName == driverName)&&(identical(other.driverLicenseNumber, driverLicenseNumber) || other.driverLicenseNumber == driverLicenseNumber)&&(identical(other.status, status) || other.status == status));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,autoName,autoMark,pricePerDay,startRentDate,endRentDate,adress,priceOfInsurance,totalPrice,priceOfDeposit,transmission,fuel,image,driverName,driverLicenseNumber,status);
+int get hashCode => Object.hash(runtimeType,id,autoName,autoMark,carCardModel,pricePerDay,startRentDate,endRentDate,adress,priceOfInsurance,totalPrice,priceOfDeposit,driverName,driverLicenseNumber,status);
 
 @override
 String toString() {
-  return 'CarRentData(id: $id, autoName: $autoName, autoMark: $autoMark, pricePerDay: $pricePerDay, startRentDate: $startRentDate, endRentDate: $endRentDate, adress: $adress, priceOfInsurance: $priceOfInsurance, totalPrice: $totalPrice, priceOfDeposit: $priceOfDeposit, transmission: $transmission, fuel: $fuel, image: $image, driverName: $driverName, driverLicenseNumber: $driverLicenseNumber, status: $status)';
+  return 'CarRentData(id: $id, autoName: $autoName, autoMark: $autoMark, carCardModel: $carCardModel, pricePerDay: $pricePerDay, startRentDate: $startRentDate, endRentDate: $endRentDate, adress: $adress, priceOfInsurance: $priceOfInsurance, totalPrice: $totalPrice, priceOfDeposit: $priceOfDeposit, driverName: $driverName, driverLicenseNumber: $driverLicenseNumber, status: $status)';
 }
 
 
@@ -277,11 +276,11 @@ abstract mixin class _$CarRentDataCopyWith<$Res> implements $CarRentDataCopyWith
   factory _$CarRentDataCopyWith(_CarRentData value, $Res Function(_CarRentData) _then) = __$CarRentDataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String autoName, String autoMark, String pricePerDay, String startRentDate, String endRentDate, String adress, String priceOfInsurance, String totalPrice, String priceOfDeposit, String transmission, String fuel, String image, String? driverName, String? driverLicenseNumber, String? status
+ String id, String autoName, String autoMark, CarCardModel carCardModel, String pricePerDay, String? startRentDate, String? endRentDate, String adress, String priceOfInsurance, String totalPrice, String priceOfDeposit, String? driverName, String? driverLicenseNumber, String status
 });
 
 
-
+@override $CarCardModelCopyWith<$Res> get carCardModel;
 
 }
 /// @nodoc
@@ -294,29 +293,36 @@ class __$CarRentDataCopyWithImpl<$Res>
 
 /// Create a copy of CarRentData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? autoName = null,Object? autoMark = null,Object? pricePerDay = null,Object? startRentDate = null,Object? endRentDate = null,Object? adress = null,Object? priceOfInsurance = null,Object? totalPrice = null,Object? priceOfDeposit = null,Object? transmission = null,Object? fuel = null,Object? image = null,Object? driverName = freezed,Object? driverLicenseNumber = freezed,Object? status = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? autoName = null,Object? autoMark = null,Object? carCardModel = null,Object? pricePerDay = null,Object? startRentDate = freezed,Object? endRentDate = freezed,Object? adress = null,Object? priceOfInsurance = null,Object? totalPrice = null,Object? priceOfDeposit = null,Object? driverName = freezed,Object? driverLicenseNumber = freezed,Object? status = null,}) {
   return _then(_CarRentData(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,autoName: null == autoName ? _self.autoName : autoName // ignore: cast_nullable_to_non_nullable
 as String,autoMark: null == autoMark ? _self.autoMark : autoMark // ignore: cast_nullable_to_non_nullable
-as String,pricePerDay: null == pricePerDay ? _self.pricePerDay : pricePerDay // ignore: cast_nullable_to_non_nullable
-as String,startRentDate: null == startRentDate ? _self.startRentDate : startRentDate // ignore: cast_nullable_to_non_nullable
-as String,endRentDate: null == endRentDate ? _self.endRentDate : endRentDate // ignore: cast_nullable_to_non_nullable
-as String,adress: null == adress ? _self.adress : adress // ignore: cast_nullable_to_non_nullable
+as String,carCardModel: null == carCardModel ? _self.carCardModel : carCardModel // ignore: cast_nullable_to_non_nullable
+as CarCardModel,pricePerDay: null == pricePerDay ? _self.pricePerDay : pricePerDay // ignore: cast_nullable_to_non_nullable
+as String,startRentDate: freezed == startRentDate ? _self.startRentDate : startRentDate // ignore: cast_nullable_to_non_nullable
+as String?,endRentDate: freezed == endRentDate ? _self.endRentDate : endRentDate // ignore: cast_nullable_to_non_nullable
+as String?,adress: null == adress ? _self.adress : adress // ignore: cast_nullable_to_non_nullable
 as String,priceOfInsurance: null == priceOfInsurance ? _self.priceOfInsurance : priceOfInsurance // ignore: cast_nullable_to_non_nullable
 as String,totalPrice: null == totalPrice ? _self.totalPrice : totalPrice // ignore: cast_nullable_to_non_nullable
 as String,priceOfDeposit: null == priceOfDeposit ? _self.priceOfDeposit : priceOfDeposit // ignore: cast_nullable_to_non_nullable
-as String,transmission: null == transmission ? _self.transmission : transmission // ignore: cast_nullable_to_non_nullable
-as String,fuel: null == fuel ? _self.fuel : fuel // ignore: cast_nullable_to_non_nullable
-as String,image: null == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String,driverName: freezed == driverName ? _self.driverName : driverName // ignore: cast_nullable_to_non_nullable
 as String?,driverLicenseNumber: freezed == driverLicenseNumber ? _self.driverLicenseNumber : driverLicenseNumber // ignore: cast_nullable_to_non_nullable
-as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
-
+/// Create a copy of CarRentData
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$CarCardModelCopyWith<$Res> get carCardModel {
+  
+  return $CarCardModelCopyWith<$Res>(_self.carCardModel, (value) {
+    return _then(_self.copyWith(carCardModel: value));
+  });
+}
 }
 
 // dart format on

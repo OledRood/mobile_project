@@ -4,6 +4,7 @@
 
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,6 +27,7 @@ class ProfileScreen extends ConsumerWidget {
     if (profileItems == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
+    debugPrint('Avatar URL: ${state.user?.fullAvatarUrl}');
 
     return Scaffold(
       appBar: AppBar(
@@ -96,8 +98,12 @@ class _AccountPhotoIcons extends ConsumerWidget {
                       child: SizedBox(
                         height: 96,
                         width: 96,
-                        child: Image.file(
-                          File(state.user!.avatar!),
+                        child: CachedNetworkImage(
+                          imageUrl: state.user!.fullAvatarUrl,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                           fit: BoxFit.cover,
                         ),
                       ),

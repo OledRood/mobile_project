@@ -168,7 +168,7 @@ class SignUpViewModelStep3 extends StateNotifier<SignUpStateStep3> {
             appNavigation.signUpFinal();
           },
           error: (errorState) {
-            scaffoldMessengerManager.showSnackBar(errorState.message);
+            scaffoldMessengerManager.showSnackBar(errorState.exception.message);
             state = state.copyWith(isLoading: false);
           },
           orElse: () {

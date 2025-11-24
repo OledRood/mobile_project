@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_study/features/car_details/car_details_di.dart';
@@ -15,6 +16,13 @@ class CarDetailsScreen extends ConsumerWidget {
     final state = ref.watch(CarDetailsDi.carDetailsViewModelProvider(carId));
     final textTheme = Theme.of(context).textTheme;
     final isFavorite = state.carDetails?.isFavorite ?? false;
+
+    if (state.error != null) {
+      return Scaffold(
+        appBar: AppBar(title: Text('Детали')),
+        body: Center(child: Text(state.error!)),
+      );
+    }
 
     if (state.isLoading) {
       return Scaffold(
@@ -48,14 +56,7 @@ class CarDetailsScreen extends ConsumerWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 260,
-                width: double.infinity,
-                child: Image.asset(
-                  state.carDetails?.imageUrl ?? AppImages.loader,
-                  fit: BoxFit.fitWidth,
-                ),
-              ),
+              _ImageWidget(image: state.carDetails?.imageUrlDetail),
               const SizedBox(height: 8),
               _LeftPaddingWidget(
                 child: Text(
@@ -113,6 +114,43 @@ class CarDetailsScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _ImageWidget extends StatelessWidget {
+  const _ImageWidget({required this.image});
+
+  final String? image;
+
+  @override
+  Widget build(BuildContext context) {
+    debugPrint("Image URL: $image");
+    if (image == null) {
+      return Image.asset(AppImages.loader, width: double.infinity, height: 260);
+    }
+    return CachedNetworkImage(
+      imageUrl: image!,
+      cacheKey: image,
+      height: 260,
+      width: double.infinity,
+      fadeInDuration: Duration(milliseconds: 300),
+      fadeOutDuration: Duration(milliseconds: 300),
+      fit: BoxFit.fitWidth,
+
+      placeholder: (context, url) => SizedBox(
+        height: 260,
+        width: double.infinity,
+        child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+      ),
+      errorWidget: (context, url, error) {
+        return Container(
+          width: double.infinity,
+          height: 260,
+          color: Colors.grey[300],
+          child: Icon(Icons.error_outline, color: Colors.grey[600]),
+        );
+      },
     );
   }
 }

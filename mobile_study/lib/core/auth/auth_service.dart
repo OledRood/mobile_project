@@ -1,17 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_study/core/constants/app_endpoints.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import '../services/api_service.dart';
-import 'models/user.dart';
+import '../user/models/user.dart';
 
 class AuthService {
-  static const String _tokenKey = 'auth_token';
-  static const String _userKey = 'user_data';
+  static const String _accessTokenKey = 'access_token';
   static const String _refreshTokenKey = 'refresh_token';
+  static const String _userKey = 'user_data';
   static const String _onboardingCompletedKey = 'onboarding_completed';
 
   final ApiService _apiService;
@@ -19,17 +21,23 @@ class AuthService {
   AuthService(this._apiService);
 
   // Сохранение токена
-  Future<void> saveToken(String token) async {
+  Future<void> saveToken(String accessToken) async {
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString(_tokenKey, token);
+    await prefs.setString(_accessTokenKey, accessToken);
   }
 
   // Получение токена
-  Future<String?> getToken() async {
+  Future<String?> getRefreshToken() async {
     final prefs = await SharedPreferences.getInstance();
 
-    return prefs.getString(_tokenKey);
+    return prefs.getString(_refreshTokenKey);
+  }
+
+  Future<String?> getAccessToken() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString(_accessTokenKey);
   }
 
   // Сохранение refresh токена
@@ -37,13 +45,6 @@ class AuthService {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString(_refreshTokenKey, refreshToken);
-  }
-
-  // Получение refresh токена
-  Future<String?> getRefreshToken() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString(_refreshTokenKey);
   }
 
   Future<User> saveUser(User user) async {
@@ -108,7 +109,7 @@ class AuthService {
     final prefs = await SharedPreferences.getInstance();
 
     final userData = prefs.getString(_userKey);
-    debugPrint("userData: ${userData}");
+    debugPrint("userData: $userData");
 
     if (userData != null) {
       try {
@@ -138,43 +139,68 @@ class AuthService {
     await prefs.remove(_onboardingCompletedKey);
   }
 
-  // Проверка авторизации
-  bool get isAuthenticated => getToken() != null;
+  // // Проверка авторизации
+  // Future<bool> get isAuthenticated async => await getAccessToken() != null;
 
   // Очистка всех данных при выходе
   Future<void> clearAuthData() async {
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.remove(_tokenKey);
+    await prefs.remove(_accessTokenKey);
     await prefs.remove(_userKey);
     await prefs.remove(_refreshTokenKey);
   }
+  // В auth_service.dart
 
-  // Обновление токена
-  //   Future<String?> refreshToken() async {
-  //     final refreshToken = getRefreshToken();
-  //     if (refreshToken == null) return null;
+  Future<String?> refreshToken() async {
+    final refreshToken = await getRefreshToken();
+    // Если токена нет физически - это не ошибка, это просто null
+    if (refreshToken == null) return null;
 
-  //     try {
-  //       final response = await _apiService.post('/auth/refresh', {
-  //         'refresh_token': refreshToken,
-  //       });
+    try {
+      final response = await _apiService.post(
+        AppEndpoints.authRefresh,
+        {'refresh_token': refreshToken},
+        withAuth: false,
+        isTokenRequest: true,
+      );
 
-  //       final newToken = response['access_token'];
-  //       final newRefreshToken = response['refresh_token'];
+      final newToken = response['access_token'];
+      final newRefreshToken = response['refresh_token'];
 
-  //       await saveToken(newToken);
-  //       await saveRefreshToken(newRefreshToken);
+      await saveToken(newToken);
+      await saveRefreshToken(newRefreshToken);
 
-  //       return newToken;
-  //     } catch (e) {
-  //       await clearAuthData();
-  //       return null;
-  //     }
-  //   }
+      return newToken;
+    } on DioException catch (e) {
+      // 1. СЕТЬ: БРОСАЕМ ОШИБКУ ДАЛЬШЕ
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout ||
+          e.error is SocketException) {
+        // Важно: НЕ возвращаем null. Бросаем, чтобы checkAuthStatus поймал это в catch
+        throw ApiException(
+          "No internet connection",
+          -1,
+        ); // -1 или любой код для сети
+      }
+
+      // 2. 401 (REFRESH TOKEN УМЕР): ЧИСТИМ И БРОСАЕМ 401
+      if (e.response?.statusCode == 401) {
+        await clearAuthData();
+        // Бросаем 401, чтобы Notifier перевел в Unauthenticated
+        throw ApiException("Session expired", 401);
+      }
+
+      // 3. ПРОЧИЕ ОШИБКИ
+      throw ApiException("Failed to refresh token", e.response?.statusCode);
+    } catch (e) {
+      debugPrint("Unknown error during refresh: $e");
+      throw ApiException("Unknown error: $e");
+    }
+  }
 }
 
 final authServiceProvider = Provider<AuthService>((ref) {
-  final apiService = ref.read(apiServiceProvider);
+  final apiService = ref.read(ApiServiceDi.apiServiceProvider);
   return AuthService(apiService);
 });
