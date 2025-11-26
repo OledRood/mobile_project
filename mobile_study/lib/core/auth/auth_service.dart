@@ -154,7 +154,6 @@ class AuthService {
 
   Future<String?> refreshToken() async {
     final refreshToken = await getRefreshToken();
-    // Если токена нет физически - это не ошибка, это просто null
     if (refreshToken == null) return null;
 
     try {
@@ -172,6 +171,11 @@ class AuthService {
       await saveRefreshToken(newRefreshToken);
 
       return newToken;
+    } on ApiException catch (e) {
+      if ((e.statusCode == 401)) {
+        await clearAuthData();
+        throw ApiException("Session expired", 401);
+      }
     } on DioException catch (e) {
       // 1. СЕТЬ: БРОСАЕМ ОШИБКУ ДАЛЬШЕ
       if (e.type == DioExceptionType.connectionError ||

@@ -95,16 +95,27 @@ class _AccountPhotoIcons extends ConsumerWidget {
               state.user?.avatar != null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: SizedBox(
-                        height: 96,
-                        width: 96,
-                        child: CachedNetworkImage(
-                          imageUrl: state.user!.fullAvatarUrl,
-                          placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                          fit: BoxFit.cover,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        child: SizedBox(
+                          height: 96,
+                          width: 96,
+                          child: CachedNetworkImage(
+                            imageUrl: state.user!.fullAvatarUrl,
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.person_outline,
+                              size: 32,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     )

@@ -88,29 +88,34 @@ class _ProfileListTileLeading extends ConsumerWidget {
     final state = ref.watch(SettingsDi.settingsViewModel);
     final image = state.user?.fullAvatarUrl;
 
-    if (image != null && image.isNotEmpty) {
-      return Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(image),
-            fit: BoxFit.cover,
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Theme.of(context).colorScheme.surfaceContainer,
+      ),
+      width: 69,
+      height: 69,
+
+      child: CachedNetworkImage(
+        imageUrl: state.user!.fullAvatarUrl,
+        // Что показывать, пока грузится
+        placeholder: (context, url) => const CircularProgressIndicator(),
+        // Что показывать, если ссылка битая или нет инета
+        errorWidget: (context, url, error) => Icon(
+          Icons.person_outline,
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+
+        // Если нужно вписать в круг (например, для аватарки):
+        imageBuilder: (context, imageProvider) => Container(
+          width: 69.0,
+          height: 69.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
           ),
         ),
-        width: 67,
-        height: 67,
-      );
-    } else {
-      return Container(
-        height: 67,
-        width: 67,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(20),
-        ),
-        child: CustomIconWidget(icon: Icons.person_outline),
-      );
-    }
+      ),
+    );
   }
 }
